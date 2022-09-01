@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.Rdata
+.httr-oauth
+.DS_Store
+
+# Ignore data, for now
+# All data can be downloaded/generated from scripts, aside from manual/
+data/
