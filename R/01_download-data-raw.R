@@ -60,6 +60,17 @@ download_file(
   "2021-07_registries.csv"
 )
 
+# Registry 2022-04
+# Note: No preprocessing by ND so do here
+download_file(
+  "https://github.com/ebmdatalab/direcct-phase2-python/raw/phase_3_testing/data/registry_data/registry_data_apr22.xlsx",
+  "2022-04_registries.xlsx"
+)
+
+readxl::read_xlsx(here::here("data", "raw", "2022-04_registries.xlsx"))|>
+  dplyr::mutate(rcd = dplyr::if_else(!is.na(pcd), pcd, scd), .before = pcd) |>
+  readr::write_csv(here::here("data", "raw", "2022-04_registries.csv"))
+
 # Metacovid
 download_file(
   "https://raw.githubusercontent.com/maia-sh/metacovid/main/data/metacovid-trials.csv",
