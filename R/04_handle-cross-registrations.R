@@ -18,7 +18,7 @@ reg_input <-
   readr::read_csv(here::here("data", "manual", "cleaned-registrations-3.csv")) |>
 
   # Use source 3 as source (differs from source 2 rarely)
-  select(id, trn, registry, source_input = source_3)
+  select(id, trn, registry, source = source_3)
 
 reg_source <-
 
@@ -35,8 +35,6 @@ janitor::get_dupes(reg_source, id, trn, registry)
 reg_input_numbat <-
   reg_source |>
   distinct(id, trn, registry)
-
-# readr::write_csv(registrations, here::here(dir_cleaned, paste0(latest_export_date, "_registrations.csv")))
 
 
 # Add cross-registrations found in 2022 -----------------------------------
@@ -65,12 +63,6 @@ reg_2022 <-
   left_join(select(reg_input_numbat, id, trn), by = c("crossreg" = "trn")) |>
   rename(id_crossreg = id)
 
-# Create df of hidden euctr
-euctr_hidden_df <-
-  reg_2022 |>
-  filter(!is.na(euctr_hidden)) |>
-  select(crossreg, euctr_hidden)
-
 # Get all trn/id combinations, excluding empty and duplicates
 reg_2022_trns_ids <-
   bind_rows(
@@ -98,3 +90,148 @@ reg_input_numbat_2022 <-
 # Deduplicate database ----------------------------------------------------
 # We found additional cross-registrations during extraction as well as post-extraction checks in 2022, and now have multiple db_ids associated with one trn. We need to deduplicate so that each trn is associated with only a single db_id. A db_id can be associated with multiple trns (i.e., cross-registrations).
 
+trials_numbat <-
+  readr::read_csv(latest("trials.csv", here::here("data", "cleaned")))
+
+# Prepare database duplicates (trns associated with >1 db_id) for manual deduplication
+prepare_db_dupes <- function(tbl_in) {
+
+  tbl_out <-
+    tbl_in |>
+
+    # Add flag for whether db_id coded
+    mutate(db_id_coded = if_else(id %in% trials_numbat$id, TRUE, FALSE)) |>
+
+    # Add number of ids per trn
+    group_by(trn) |>
+    mutate(n_db_ids_per_trn = n()) |>
+    ungroup()  |>
+
+    # Add number of trns per id
+    group_by(id) |>
+    mutate(n_trns_per_db_id = n()) |>
+    ungroup() |>
+
+    # Limit to trns associated with >1 db_id
+    group_by(id) |>
+    filter(any(n_db_ids_per_trn > 1)) |>
+    mutate(trns = paste(trn, collapse = "; ")) |>
+    ungroup() |>
+    mutate(id_coded = glue::glue("{id} ({db_id_coded})")) |>
+    group_by(trn) |>
+    mutate(ids = paste(id_coded, collapse = "; ")) |>
+    ungroup() |>
+    distinct(ids, trns)
+
+  message("There are ", nrow(tbl_out), " database ids to manually deduplicate!")
+
+  return(tbl_out)
+}
+
+# Get all trns associated with >1 db_id, for manual deduplication
+dedupe_to_code <- prepare_db_dupes(reg_input_numbat_2022)
+
+readr::write_csv(dedupe_to_code, here::here("data", "manual", "crossreg-dedupe.csv"))
+
+
+# Manually uploaded to google sheets and deduplicated manually
+dedupe_googlesheet <- "https://docs.google.com/spreadsheets/d/1HXG_4rQDG4Yt08XvnUwfzJIY5k2SXRu-Tfxa7goZoOE/edit#gid=1539112480"
+
+dedupe_coded <- googlesheets4::read_sheet(dedupe_googlesheet)
+
+# Create lookup table of dedupe trns/ids
+dedupe_lookup <-
+
+  dedupe_coded |>
+
+  # row_keep should be TRUE/FALSE
+  pointblank::col_is_logical("row_keep") |>
+  pointblank::col_vals_not_null("row_keep") |>
+
+  # id_final should appear if and only if row_keep
+  pointblank::col_vals_null("id_final", ~ . %>% filter(!row_keep)) |>
+  pointblank::col_vals_not_null("id_final", ~ . %>% filter(row_keep)) |>
+
+  filter(row_keep) |>
+  select(trns, id_final) |>
+
+  # Check that all ids unique
+  assertr::assert(assertr::is_uniq, id_final) |>
+  tidyr::separate_rows(trns, sep = "; ") |>
+  rename(trn = trns) |>
+
+  # Check that all trns unique
+  assertr::assert(assertr::is_uniq, trn)
+
+# Join into registrations, fill in missing with id old, check for dupes
+reg_deduped <-
+  reg_input_numbat_2022 |>
+
+  # Match final ids to trns
+  left_join(dedupe_lookup, by = "trn") |>
+
+  # If no new final id, use old id
+  mutate(id_final = if_else(is.na(id_final), id, id_final)) |>
+
+  # Collapse all old ids for each trn
+  group_by(trn) |>
+  mutate(ids_old = paste(id, collapse = "; ")) |>
+  ungroup() |>
+
+  distinct(id = id_final, trn, registry, ids_old)
+
+# Deduplicated registrations should have only one row per trn
+# If not (i.e., >1 row per trn), get dupes and append to google sheets, and repeat from reading in `dedupe_googlesheet`
+if (!(identical(n_distinct(reg_input_numbat_2022$trn), n_distinct(reg_deduped$trn)) & identical(n_distinct(reg_deduped$trn), nrow(reg_deduped)))) {
+  message("There is >1 row per TRN! Additional deduplication needed.")
+  prepare_db_dupes(reg_deduped) |>
+    googlesheets4::sheet_append(dedupe_googlesheet, .)
+} else message("Trials successfully deduplicated!")
+
+
+# Add info about unavailable registrations --------------------------------
+# Some registrations are unavailable, e.g., hidden on EUCTR or otherwise unresolved.
+
+# Registrations which didn't resolve at time of search (phase 1 or 2/3)
+unresolved_registrations <-
+  bind_rows(reg_input, reg_numbat) |>
+  filter(source == "unresolved") |>
+  distinct(trn) |>
+  arrange(trn) |>
+  pull(trn)
+
+# Euctr registrations hidden at time of manual cross-registrations checks (2022)
+hidden_euctr <-
+  reg_2022 |>
+  filter(!is.na(euctr_hidden)) |>
+  arrange(crossreg) |>
+  pull(crossreg)
+
+
+# Check unresolved trns in googlesheet
+unresolved_googlesheet <-
+  "https://docs.google.com/spreadsheets/d/1LwEtItdmSAK9X9FzXtQDasMsgaoYsR1fUhfzC_d3Lwk/edit#gid=0"
+
+unresolved_checks <- googlesheets4::read_sheet(unresolved_googlesheet)
+
+# Add any additional unresolved trns to googlesheet for manual checks
+tibble(trn = unique(c(hidden_euctr, unresolved_registrations))) |>
+  anti_join(unresolved_checks) %>%
+  googlesheets4::sheet_append(unresolved_googlesheet, .)
+
+# Get date(s) of unresolved checks
+unresolved_checks_date <- unique(pull(unresolved_checks, date))
+
+# Limit to trns verified unresolved
+reg_unresolved <-
+  unresolved_checks |>
+  filter(!resolved) |>
+  distinct(trn, resolved)
+
+# Add resolved info to registrations
+reg_deduped_unresolved <-
+  reg_deduped |>
+  left_join(reg_unresolved, by = "trn")
+
+dir_deduplicated <- fs::dir_create(here::here("data", "deduplicated"))
+readr::write_csv(reg_deduped_unresolved, fs::path(dir_deduplicated, "registrations.csv"))
