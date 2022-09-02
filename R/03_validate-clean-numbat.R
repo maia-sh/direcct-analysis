@@ -596,7 +596,7 @@ registrations <-
           reconciliation_registrations_3,
           extraction_registrations_3) |>
 
-  select(id = db_id, trn, registry, username, source_coded = source)
+  select(id = db_id, trn, registry, username, source)
 
 readr::write_csv(registrations, here::here(dir_cleaned, paste0(latest_export_date, "_registrations.csv")))
 
