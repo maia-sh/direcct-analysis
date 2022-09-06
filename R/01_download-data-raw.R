@@ -61,6 +61,8 @@ download_file(
 )
 
 # Registry 2022-04
+# Registry data for all registrations of all trials we thought would be included in 2022-04
+# Does not include trials we excluded or trials we later included
 # Note: No preprocessing by ND so do here
 download_file(
   "https://github.com/ebmdatalab/direcct-phase2-python/raw/phase_3_testing/data/registry_data/registry_data_apr22.xlsx",
