@@ -40,6 +40,21 @@ reg_input_numbat <-
 # Add cross-registrations found in 2022 -----------------------------------
 # After numbat extractions were complete, we checked (webscrape, manual) all registrations for any additional cross-registrations
 
+# Use google identity (i.e., gmail) to access for google sheets
+# Get google identity if locally stored as "google", if available
+# Else ask user and store
+google_id <-
+  ifelse(
+    nrow(keyring::key_list("google")) == 1,
+    keyring::key_get("google"),
+    keyring::key_set("google")
+  )
+
+message("Accessing googlesheets via: ", google_id)
+
+# If new google identity, prompt user in web browser to authenticate
+googlesheets4::gs4_auth(google_id)
+
 reg_2022_raw <-
   googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/16J5HBZm93CTp8Ydk-wetFtFxI5FfzqFU3tkg1JKavVw/edit#gid=1116415005", sheet = "cleaned")
 
