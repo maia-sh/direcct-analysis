@@ -63,28 +63,28 @@ export_numbat <- function(url, dir){
 numbat_urls <- c(
 
   # Phase 2 Extractions
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093049-form_5-refset_26-extractions.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093104-sub_registrations-refset_26-sub-extraction.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093115-table_keyword_search-refset_26-table-extraction.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093122-sub_result-refset_26-sub-extraction.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061659-form_5-refset_26-extractions.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061709-sub_registrations-refset_26-sub-extraction.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061716-table_keyword_search-refset_26-table-extraction.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061725-sub_result-refset_26-sub-extraction.tsv",
 
   # Phase 2 Reconciliations
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093133-form_5-refset_26-final.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093142-sub_registrations-refset_26-sub-final.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093150-table_keyword_search-refset_26-table-final.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093158-sub_result-refset_26-sub-final.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061737-form_5-refset_26-final.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061747-sub_registrations-refset_26-sub-final.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061755-table_keyword_search-refset_26-table-final.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061804-sub_result-refset_26-sub-final.tsv",
 
   # Phase 3 Extractions
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093209-form_5-refset_31-extractions.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093217-sub_registrations-refset_31-sub-extraction.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093226-table_keyword_search-refset_31-table-extraction.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093235-sub_result-refset_31-sub-extraction.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061816-form_5-refset_31-extractions.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061823-sub_registrations-refset_31-sub-extraction.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061832-table_keyword_search-refset_31-table-extraction.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061840-sub_result-refset_31-sub-extraction.tsv",
 
   # Phase 3 Reconciliations
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093244-form_5-refset_31-final.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093254-sub_registrations-refset_31-sub-final.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093301-table_keyword_search-refset_31-table-final.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2022-08-31_093311-sub_result-refset_31-sub-final.tsv"
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061849-form_5-refset_31-final.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061858-sub_registrations-refset_31-sub-final.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061906-table_keyword_search-refset_31-table-final.tsv",
+  "https://numbat.bgcarlisle.com/direcct/export/2022-09-15_061913-sub_result-refset_31-sub-final.tsv"
 )
 
 purrr::walk(numbat_urls, export_numbat, dir = dir)
