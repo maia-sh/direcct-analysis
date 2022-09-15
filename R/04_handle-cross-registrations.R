@@ -204,6 +204,24 @@ if (!(identical(n_distinct(reg_input_numbat_2022$trn), n_distinct(reg_deduped$tr
 } else message("Trials successfully deduplicated!")
 
 
+# Deduplicated registrations should have
+# - Each unique trn should map to single db id
+# - Each unique old id should map to single db id
+reg_deduped |>
+
+  # As expected, all trns are unique (only 1 db id per trn)
+  assertr::assert(assertr::is_uniq, trn) |>
+
+  # Get one row per old id/new id combination
+  tidyr::separate_rows(ids_old, sep = "; ") |>
+
+  # Limit to unique old id/new id combination
+  distinct(id, ids_old) |>
+  count(ids_old) |>
+
+  # Verify only single old id/new id combination
+  assertr::verify(n == 1)
+
 # Add info about unavailable registrations --------------------------------
 # Some registrations are unavailable, e.g., hidden on EUCTR or otherwise unresolved.
 
@@ -248,5 +266,104 @@ reg_deduped_unresolved <-
   reg_deduped |>
   left_join(reg_unresolved, by = "trn")
 
+
 dir_deduplicated <- fs::dir_create(here::here("data", "deduplicated"))
 readr::write_csv(reg_deduped_unresolved, fs::path(dir_deduplicated, "registrations.csv"))
+
+
+# Deduplicate trials/results extractions ----------------------------------
+
+# Using deduplicated cross-registrations, deduplicate numbat extractions (trials/results)
+
+results_numbat <-
+  readr::read_csv(latest("results.csv", here::here("data", "cleaned")))
+
+# Create lookup table of new/old ids
+db_id_lookup <-
+  reg_deduped_unresolved|>
+
+  # Since some db ids not in ids_old, combine all ids
+  # filter(stringr::str_detect(ids_all, id, negate = TRUE))
+  mutate(ids_all = paste(id, ids_old, sep = "; ")) |>
+
+  tidyr::separate_rows(ids_all, sep = "; ") |>
+  distinct(id, id_old = ids_all)
+
+# Add deduplicated id to numbat trials
+trials_new_id <-
+  trials_numbat |>
+
+  # Verify one row per id
+  assertr::assert(assertr::is_uniq, id) |>
+  rename(id_numbat = id) |>
+  left_join(db_id_lookup, by = c("id_numbat" = "id_old")) |>
+  relocate(id, .before = id_numbat) |>
+
+  # Verify new id matched to each old id
+  assertr::assert(assertr::not_na, id)
+
+# Get duplicate trial/result extractions (i.e., new id appears >1)
+trials_dupe <-
+  trials_new_id |>
+  janitor::get_dupes(id) |>
+  arrange(id, desc(trialid))
+
+results_dupe <-
+  results_numbat |>
+  rename(id_numbat = id) |>
+  semi_join(trials_dupe, by = "id_numbat") |>
+  left_join(select(trials_dupe, id, id_numbat), by = "id_numbat") |>
+  relocate(id, .before = id_numbat) |>
+  arrange(id, desc(trialid))
+
+# Keep rows where new/old id match (i.e., remove duplicates)
+trials_deduped <-
+  trials_new_id |>
+  filter(id == id_numbat) |>
+  select(-id_numbat)
+
+trials_removed <-
+  trials_numbat |>
+  anti_join(trials_deduped, by = "id")
+
+n_numbat_ids_removed <- n_distinct(trials_dupe$id_numbat) - n_distinct(trials_dupe$id)
+
+# Check that n deduped trials same as numbat trials + removed trials
+if(nrow(trials_deduped) != nrow(trials_numbat) - n_numbat_ids_removed){
+  stop("n deduped trials should be same as numbat trials + removed trials")
+}
+
+results_deduped <-
+  results_numbat |>
+  semi_join(trials_deduped, by = "id")
+
+results_removed <-
+  results_numbat |>
+  anti_join(results_deduped, by = "id")
+
+numbat_ids_removed <-
+  trials_removed |>
+  distinct(id) |>
+  arrange(id) |>
+  pull()
+
+# Check that all removed results in removed trials
+all(pull(distinct(results_removed, id)) %in% numbat_ids_removed)
+
+# Check that expected and only expected trials removed
+# Note: We manually verified all expected removals
+numbat_ids_removed_expected <- c(
+  "tri00300",  "tri00516",  "tri00569",  "tri00651",  "tri00699",  "tri00845",
+  "tri01265",  "tri01296",  "tri01763",  "tri02158",  "tri02235",  "tri02657",
+  "tri02675",  "tri02990",  "tri03027",  "tri03220",  "tri03604",  "tri03940",
+  "tri04111",  "tri04421",  "tri04425",  "tri04691",  "tri04843",  "tri05580",
+  "tri05731",  "tri05866",  "tri07329",  "tri07829",  "tri08224",  "tri08270",
+  "tri08939",  "tri10297",  "tri10336"
+)
+
+if(!all(numbat_ids_removed == numbat_ids_removed_expected)){
+  stop("Unexpected trials removed in deduping!")
+}
+
+readr::write_csv(trials_deduped, fs::path(dir_deduplicated, "trials.csv"))
+readr::write_csv(results_deduped, fs::path(dir_deduplicated, "results.csv"))
