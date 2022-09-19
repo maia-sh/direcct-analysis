@@ -51,8 +51,18 @@ download_file(
   "registrations_1.csv"
 )
 
+download_file(
+  "https://raw.githubusercontent.com/maia-sh/direcct/master/data/reporting/trials.csv",
+  "trials_1.csv"
+)
 
 # OTHER -------------------------------------------------------------------
+
+# Registry 2
+download_file(
+  "https://github.com/ebmdatalab/direcct-phase2-python/raw/master/data/registry_data/registry_data_clean.csv",
+  "2021-01_registries.csv"
+)
 
 # Registry 3
 download_file(
@@ -63,15 +73,10 @@ download_file(
 # Registry 2022-04
 # Registry data for all registrations of all trials we thought would be included in 2022-04
 # Does not include trials we excluded or trials we later included
-# Note: No preprocessing by ND so do here
 download_file(
-  "https://github.com/ebmdatalab/direcct-phase2-python/raw/phase_3_testing/data/registry_data/registry_data_apr22.xlsx",
-  "2022-04_registries.xlsx"
+  "https://github.com/ebmdatalab/direcct-phase2-python/raw/phase_3_testing/data/registry_data/registry_data_clean_apr22.csv",
+  "2022-04_registries.csv"
 )
-
-readxl::read_xlsx(here::here("data", "raw", "2022-04_registries.xlsx"))|>
-  dplyr::mutate(rcd = dplyr::if_else(!is.na(pcd), pcd, scd), .before = pcd) |>
-  readr::write_csv(here::here("data", "raw", "2022-04_registries.csv"))
 
 # Metacovid
 download_file(
