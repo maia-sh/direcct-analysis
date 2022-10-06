@@ -20,6 +20,10 @@ reg_input <-
   # Use source 3 as source (differs from source 2 rarely)
   select(id, trn, registry, source = source_3)
 
+if (nrow(filter(reg_input, stringr::str_detect(trn, "Outside"))) > 0) {
+  stop("There is 1 or more TRNs with 'Outside', presumably EUCTR!")
+}
+
 reg_source <-
 
   reg_numbat |>
@@ -352,13 +356,14 @@ all(pull(distinct(results_removed, id)) %in% numbat_ids_removed)
 
 # Check that expected and only expected trials removed
 # Note: We manually verified all expected removals
+# https://docs.google.com/spreadsheets/d/1c1kNntef5itBiuMGkg-9b8ccbwmmEDekrlvOPRZldnU/
 numbat_ids_removed_expected <- c(
-  "tri00300",  "tri00516",  "tri00569",  "tri00651",  "tri00699",  "tri00845",
-  "tri01265",  "tri01296",  "tri01763",  "tri02158",  "tri02235",  "tri02657",
-  "tri02675",  "tri02990",  "tri03027",  "tri03220",  "tri03604",  "tri03940",
-  "tri04111",  "tri04421",  "tri04425",  "tri04691",  "tri04843",  "tri05580",
-  "tri05731",  "tri05866",  "tri07329",  "tri07829",  "tri08224",  "tri08270",
-  "tri08939",  "tri10297",  "tri10336"
+  "tri00300", "tri00516", "tri00569", "tri00651", "tri00699", "tri00845",
+  "tri01265", "tri01296", "tri01763", "tri02158", "tri02235", "tri02657",
+  "tri02675", "tri02990", "tri03027", "tri03220", "tri03604", "tri03940",
+  "tri04111", "tri04421", "tri04425", "tri04691", "tri04843", "tri05580",
+  "tri05731", "tri05866", "tri07329", "tri07829", "tri08139", "tri08224",
+  "tri08270", "tri08939", "tri10297", "tri10336"
 )
 
 if(!all(numbat_ids_removed == numbat_ids_removed_expected)){
