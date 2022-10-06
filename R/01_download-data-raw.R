@@ -66,7 +66,7 @@ download_file(
 
 # Registry 3
 download_file(
-  "https://raw.githubusercontent.com/ebmdatalab/direcct-phase2-python/phase_3_testing/data/registry_data/registry_data_clean_july21.csv",
+  "https://github.com/ebmdatalab/direcct-phase2-python/blob/phase_3_testing/data/registry_data/registry_data_clean_jul21.csv?raw=true",
   "2021-07_registries.csv"
 )
 
@@ -74,7 +74,7 @@ download_file(
 # Registry data for all registrations of all trials we thought would be included in 2022-04
 # Does not include trials we excluded or trials we later included
 download_file(
-  "https://github.com/ebmdatalab/direcct-phase2-python/raw/phase_3_testing/data/registry_data/registry_data_clean_apr22.csv",
+  "https://github.com/ebmdatalab/direcct-phase2-python/blob/phase_3_testing/data/registry_data/registry_data_clean_apr22.csv?raw=true",
   "2022-04_registries.csv"
 )
 
