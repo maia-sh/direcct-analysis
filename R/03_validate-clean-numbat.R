@@ -271,7 +271,7 @@ trials <-
 trials |>
 filter(is.na(is_clinical_trial_manual) & is.na(is_covid_manual) & is.na(is_not_withdrawn_manual))
 
-readr::write_csv(trials, here::here(dir_cleaned, paste0(latest_export_date, "_trials.csv")))
+readr::write_csv(trials, here::here(dir_cleaned, "trials.csv"))
 
 
 # Validate results --------------------------------------------------------
@@ -492,7 +492,7 @@ results <-
 
   rename(id = db_id)
 
-readr::write_csv(results, here::here(dir_cleaned, paste0(latest_export_date, "_results.csv")))
+readr::write_csv(results, here::here(dir_cleaned, "results.csv"))
 
 # Validate registrations --------------------------------------------------
 
@@ -636,4 +636,4 @@ registrations <-
 
   select(id = db_id, trn, registry, username, source)
 
-readr::write_csv(registrations, here::here(dir_cleaned, paste0(latest_export_date, "_registrations.csv")))
+readr::write_csv(registrations, here::here(dir_cleaned, "registrations.csv"))
