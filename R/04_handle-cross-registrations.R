@@ -6,13 +6,11 @@
 
 library(dplyr)
 
-source(here::here("R", "functions", "latest.R"))
-
 
 # Combine registrations from numbat and pre-numbat input ------------------
 
 reg_numbat <-
-  readr::read_csv(latest("registrations.csv", here::here("data", "cleaned")))
+  readr::read_csv(here::here("data", "cleaned", "registrations.csv"))
 
 reg_input <-
   readr::read_csv(here::here("data", "manual", "cleaned-registrations-3.csv")) |>
@@ -110,7 +108,7 @@ reg_input_numbat_2022 <-
 # We found additional cross-registrations during extraction as well as post-extraction checks in 2022, and now have multiple db_ids associated with one trn. We need to deduplicate so that each trn is associated with only a single db_id. A db_id can be associated with multiple trns (i.e., cross-registrations).
 
 trials_numbat <-
-  readr::read_csv(latest("trials.csv", here::here("data", "cleaned")))
+  readr::read_csv(here::here("data", "cleaned", "trials.csv"))
 
 # Prepare database duplicates (trns associated with >1 db_id) for manual deduplication
 prepare_db_dupes <- function(tbl_in) {
@@ -280,7 +278,7 @@ readr::write_csv(reg_deduped_unresolved, fs::path(dir_deduplicated, "registratio
 # Using deduplicated cross-registrations, deduplicate numbat extractions (trials/results)
 
 results_numbat <-
-  readr::read_csv(latest("results.csv", here::here("data", "cleaned")))
+  readr::read_csv(here::here("data", "cleaned", "results.csv"))
 
 # Create lookup table of new/old ids
 db_id_lookup <-
