@@ -242,7 +242,7 @@ valiate_utf8(extraction_trials_3)
 agent_extraction_trials_3 <- validate_trials(extraction_trials_3, tbl_name = filename)
 # agent_extraction_trials_3
 
-# flagged_trials <- get_data_extracts(agent_extraction_trials_3, i = 13)
+# get_data_extracts(agent_extraction_trials_3, i = 14)
 # anti_join(flagged_trials, problem_trials, by = "db_id")
 
 # Combine trials ----------------------------------------------------------
@@ -276,6 +276,12 @@ readr::write_csv(trials, here::here(dir_cleaned, paste0(latest_export_date, "_tr
 
 # Validate results --------------------------------------------------------
 
+# Prepare expected preprint domains
+preprint_domains <- c(
+  "medrxiv", "papers.ssrn", "researchsquare", "osf",
+  "authorea", "biorxiv", "preprints", "scientificarchives"#, "ncbi.nlm.nih"
+)
+
 select_result_vars <- function(tbl){
   tbl |>
   select(
@@ -301,6 +307,14 @@ validate_results <- function(tbl, tbl_name = NULL){
 
   tbl |>
 
+    # Extract domain from url
+    mutate(
+      domain =
+        stringr::str_remove(url, "^https?://") %>%
+        stringr::str_remove(., "^www.") %>%
+        stringr::str_remove(., "\\.(com|org|io|gov|net).*")
+    ) |>
+
     create_agent(
       tbl_name = tbl_name, label = "results",
       actions = action_levels(warn_at = 0.001)
@@ -312,7 +326,6 @@ validate_results <- function(tbl, tbl_name = NULL){
       label = "IDs exist"
     ) |>
 
-    # TODO: check why results info missing and how passed assertions! tri00660 nicole
     # Search type, pub type, and url should be non-na
     col_vals_not_null(
       vars(search_type, pub_type, url),
@@ -368,6 +381,28 @@ validate_results <- function(tbl, tbl_name = NULL){
       label = "No completion date when no completion date reported"
     ) |>
 
+    # Medrxiv dois should not have version number
+    col_vals_regex(
+      doi,
+      regex = "[^v]\\d$",
+      preconditions = ~ . %>% filter(stringr::str_detect(url, "medrxiv")),
+      label = "Medrxiv dois don't include version number"
+    ) |>
+
+    # Check preprint domains, in preprints and not in articles
+    col_vals_in_set(
+      domain,
+      set = preprint_domains,
+      preconditions = ~ . %>% filter(stringr::str_detect(pub_type, "preprint")),
+      label = "Preprints have expected domains"
+    ) |>
+    col_vals_not_in_set(
+      domain,
+      set = preprint_domains,
+      preconditions = ~ . %>% filter(stringr::str_detect(pub_type, "article")),
+      label = "Articles do not have expected preprint domains"
+    ) |>
+
     interrogate()
 }
 
@@ -384,7 +419,7 @@ reconciliation_results_2 <-
 agent_reconciliation_results_2 <- validate_results(reconciliation_results_2, tbl_name = filename)
 # agent_reconciliation_results_2
 
-# get_data_extracts(agent_reconciliation_results_2, i = 7) |> mutate(issue = glue::glue("[2] {db_id}/{trialid}")) |> pull(issue)
+# get_data_extracts(agent_reconciliation_results_2, i = 17)# |> mutate(issue = glue::glue("[2] {db_id}/{trialid}")) |> pull(issue)
 
 # Results 2 (extractions) -------------------------------------------------
 
@@ -415,7 +450,7 @@ reconciliation_results_3 <-
 
 agent_reconciliation_results_3 <- validate_results(reconciliation_results_3, tbl_name = filename)
 # agent_reconciliation_results_3
-# get_data_extracts(agent_reconciliation_results_3, i = 13) |> mutate(issue = glue::glue("[2] {db_id}/{trialid}")) |> pull(issue)
+# get_data_extracts(agent_reconciliation_results_3, i = 15) #|> mutate(issue = glue::glue("[2] {db_id}/{trialid}")) |> pull(issue)
 
 
 # Results 3 (extractions) -------------------------------------------------
@@ -451,6 +486,9 @@ multiagent_results <-
 
 results <-
   bind_rows(reconciliation_results_2, extraction_results_2, reconciliation_results_3, extraction_results_3) |>
+
+  # Standardize dois to lowercase
+  mutate(doi = tolower(doi)) |>
 
   rename(id = db_id)
 
