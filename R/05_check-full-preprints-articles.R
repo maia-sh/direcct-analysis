@@ -298,6 +298,7 @@ results_pub_group <-
     preconditions = ~ . %>% filter(!stringr::str_detect(pub_type, "full")),
   )
 
+readr::write_csv(results_pub_group, here::here("data", "processed", "results.csv"))
 
 # Explore pub groups ------------------------------------------------------
 results_pub_group_full <-
