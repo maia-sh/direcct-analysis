@@ -182,7 +182,7 @@ trials_medrxiv_additional_full_results <-
   semi_join(medrxiv_full_result, by = "id")
 
 # Gather full results pub groups
-full_results_pub_group <-
+full_results_pub_group_auto <-
 
   # Combine automated pub groups
   bind_rows(
@@ -212,14 +212,17 @@ full_results_pub_group <-
 
 # Prepare publications for manual pub group checks
 full_results_to_code <-
-  full_results_pub_group |>
+  full_results_pub_group_auto |>
   filter(review_pub_group) |>
   select(
     "n_results", "n_results_type", "id", "trn", "username",
     "pub_type", "doi", "pmid", "url", "date_publication",  "comments",
     "pub_group", "review_pub_group"
   ) |>
-  mutate(pub_group = tidyr::replace_na(as.character(pub_group), "")) |>
+  mutate(
+    pub_group = tidyr::replace_na(as.character(pub_group), ""),
+    pmid = tidyr::replace_na(as.character(pmid), "")
+  ) |>
   mutate(notes = "")
 
 readr::write_csv(full_results_to_code, here::here("data", "manual", "full-results-to-code.csv"))
@@ -242,13 +245,13 @@ googlesheets4::gs4_auth(google_id)
 # Get manual coded googlesheet
 full_results_googlesheet <- "https://docs.google.com/spreadsheets/d/1_DjRGs2chS3eO9xnCBzjM5fQAzA2Fb_JgtFIlCDzcqk/"
 
-full_results_coded_raw <-
+full_results_pub_group_manual <-
   googlesheets4::read_sheet(full_results_googlesheet)
 
 # Check for any uncoded, using url (since all results)
 full_results_uncoded <-
   anti_join(
-    full_results_to_code, full_results_coded_raw,
+    full_results_to_code, full_results_pub_group_manual,
     by = c("id", "pub_type", "url")
   )
 
@@ -260,10 +263,75 @@ if (nrow(full_results_uncoded) > 0) {
 # Check for any extra coded, using url (since all results)
 full_results_extra_coded <-
   anti_join(
-    full_results_coded_raw, full_results_to_code,
+    full_results_pub_group_manual, full_results_to_code,
     by = c("id", "pub_type", "url")
   )
 
 if (nrow(full_results_extra_coded) > 0) {
   stop("There are extra full results for preprint-article coded!")
 }
+
+
+# Prepare results with full results publication groups --------------------
+
+# Combine automated and manual pub groups and check expected number of results
+full_results_pub_group <-
+  full_results_pub_group_auto |>
+  filter(!review_pub_group) |>
+  bind_rows(full_results_pub_group_manual) %>%
+  assertr::verify(nrow(.) == nrow(full_results)) |>
+  select(id, pub_type, url, full_pub_group = pub_group)
+
+# Add full results pub groups into results
+results_pub_group <-
+  results |>
+  left_join(full_results_pub_group, by = c("id", "pub_type", "url")) %>%
+  assertr::verify(nrow(.) == nrow(results)) |>
+
+  # full_pub_group should be non-NA if and only if full result
+  pointblank::col_vals_not_null(
+    full_pub_group,
+    preconditions = ~ . %>% filter(stringr::str_detect(pub_type, "full"))
+  ) |>
+  pointblank::col_vals_null(
+    full_pub_group,
+    preconditions = ~ . %>% filter(!stringr::str_detect(pub_type, "full")),
+  )
+
+
+# Explore pub groups ------------------------------------------------------
+results_pub_group_full <-
+  results_pub_group |>
+  filter(stringr::str_detect(pub_type, "full"))
+
+# TODO: Check with ND
+# There are some (n = 5) trials with 2 preprints for 1 article
+# In this case, we care only about the earliest preprint
+results_pub_group_full |>
+  janitor::get_dupes(id, full_pub_group, pub_type) |>
+  arrange()
+
+full_pub_groups <-
+  results_pub_group_full |>
+
+  mutate(pub_type = stringr::str_remove(pub_type, "full_results_")) |>
+  select(id, full_pub_group, pub_type, date_publication) |>
+
+  # Limit to earliest of each pub type per trial pub group
+  dplyr::group_by(id, full_pub_group, pub_type) |>
+  slice_min(order_by = date_publication, n = 1) |>
+  ungroup() |>
+
+  # Spread to row per pub group
+  tidyr::pivot_wider(names_from = pub_type, values_from = date_publication)
+
+# Check for preprints following articles --> none!
+full_pub_groups |>
+  add_row(
+    id = "tri00000",
+    full_pub_group = 1,
+    journal_article = as.Date("2020-06-16"),
+    preprint = as.Date("2020-10-09"),
+    .before = 1
+  ) |>
+  filter(preprint > journal_article)
