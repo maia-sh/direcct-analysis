@@ -28,7 +28,7 @@ dir_raw <- fs::path(dir, latest_export_date)
 select_trial_vars <- function(tbl){
   tbl |>
   select(
-    referenceid, db_id, trialid,
+    id = db_id, trn = trialid,
     username,
     timestamp_finished,
     is_clinical_trial_manual,
@@ -42,8 +42,8 @@ select_trial_vars <- function(tbl){
     non_english,
     comments,
     unclear_screening,
-    team_review,
-    is_reconciled
+    team_review#,
+    # is_reconciled
   )
 }
 
@@ -70,7 +70,7 @@ validate_trials <- function(tbl, tbl_name = NULL){
 
     # IDs should be non-na
     col_vals_not_null(
-      vars(referenceid, db_id, trialid),
+      vars(id, trn),
       label = "IDs exist"
     ) |>
 
@@ -156,11 +156,10 @@ filename <- glue::glue("reconciliation-trials-{phase}")
 
 reconciliation_trials_2 <-
   readr::read_csv(fs::dir_ls(dir_raw, regexp = filename)) |>
-  mutate(
-    username = NA_character_,
-    is_reconciled = TRUE
-  ) |>
-  select_trial_vars()
+  mutate(username = NA_character_) |>
+  select_trial_vars() |>
+  mutate(is_reconciled = TRUE)
+
 
 valiate_utf8(reconciliation_trials_2)
 
@@ -178,18 +177,19 @@ filename <- glue::glue("extraction-trials-{phase}")
 
 extraction_trials_2 <-
   readr::read_csv(fs::dir_ls(dir_raw, regexp = filename)) |>
+  select_trial_vars() |>
 
   # For trials not reconciled, we use extraction data
-  anti_join(reconciliation_trials_2, by = "db_id") |>
+  anti_join(reconciliation_trials_2, by = "id") |>
 
   # For dual coded trials, use most recent extraction
-  group_by(db_id) |>
+  group_by(id) |>
   arrange(desc(timestamp_finished)) |>
   slice_head(n = 1) |>
   ungroup() |>
 
-  mutate(is_reconciled = FALSE) |>
-  select_trial_vars()
+  mutate(is_reconciled = FALSE)
+
 
 valiate_utf8(extraction_trials_2)
 
@@ -197,7 +197,7 @@ agent_extraction_trials_2 <- validate_trials(extraction_trials_2, tbl_name = fil
 # agent_extraction_trials_2
 
 # flagged_trials <- get_data_extracts(agent_extraction_trials_2, i = 13)
-# anti_join(flagged_trials, problem_trials, by = "db_id")
+# anti_join(flagged_trials, problem_trials, by = "id")
 
 # Trials 3 (reconciled) ---------------------------------------------------
 phase <- 3
@@ -205,18 +205,16 @@ filename <- glue::glue("reconciliation-trials-{phase}")
 
 reconciliation_trials_3 <-
   readr::read_csv(fs::dir_ls(dir_raw, regexp = filename)) |>
-  mutate(
-    username = NA_character_,
-    is_reconciled = TRUE
-  ) |>
-  select_trial_vars()
+  mutate(username = NA_character_) |>
+  select_trial_vars() |>
+  mutate(is_reconciled = TRUE)
 
 valiate_utf8(reconciliation_trials_3)
 
 agent_reconciliation_trials_3 <- validate_trials(reconciliation_trials_3, tbl_name = filename)
 # agent_reconciliation_trials_3
 
-# get_data_extracts(agent_reconciliation_trials_3, i = 13) |> mutate(issue = glue::glue("[3] {db_id}/{trialid}")) |> pull(issue)
+# get_data_extracts(agent_reconciliation_trials_3, i = 13) |> mutate(issue = glue::glue("[3] {id}/{trn}")) |> pull(issue)
 
 # Trials 3 (extractions) --------------------------------------------------
 phase <- 3
@@ -224,18 +222,18 @@ filename <- glue::glue("extraction-trials-{phase}")
 
 extraction_trials_3 <-
   readr::read_csv(fs::dir_ls(dir_raw, regexp = filename)) |>
+  select_trial_vars() |>
 
   # For trials not reconciled, we use extraction data
-  anti_join(reconciliation_trials_3, by = "db_id") |>
+  anti_join(reconciliation_trials_3, by = "id") |>
 
   # For dual coded trials, use most recent extraction
-  group_by(db_id) |>
+  group_by(id) |>
   arrange(desc(timestamp_finished)) |>
   slice_head(n = 1) |>
   ungroup() |>
 
-  mutate(is_reconciled = FALSE) |>
-  select_trial_vars()
+  mutate(is_reconciled = FALSE)
 
 valiate_utf8(extraction_trials_3)
 
@@ -243,7 +241,7 @@ agent_extraction_trials_3 <- validate_trials(extraction_trials_3, tbl_name = fil
 # agent_extraction_trials_3
 
 # get_data_extracts(agent_extraction_trials_3, i = 14)
-# anti_join(flagged_trials, problem_trials, by = "db_id")
+# anti_join(flagged_trials, problem_trials, by = "id")
 
 # Combine trials ----------------------------------------------------------
 
@@ -261,9 +259,7 @@ trials <-
   bind_rows(reconciliation_trials_2, extraction_trials_2, reconciliation_trials_3, extraction_trials_3) |>
 
   # Check that one row per trial
-  assertr::assert(assertr::is_uniq, db_id) |>
-
-  rename(id = db_id) |>
+  assertr::assert(assertr::is_uniq, id) |>
 
   # Trials failing any manual screening criteria are excluded
   mutate(is_manual_excluded = if_else(!is_clinical_trial_manual | !is_covid_manual | !is_not_withdrawn_manual, TRUE, FALSE))
@@ -285,7 +281,7 @@ preprint_domains <- c(
 select_result_vars <- function(tbl){
   tbl |>
   select(
-    referenceid, db_id, trialid,
+    id = db_id, trn = trialid,
     username,
     search_type,
     pub_type,
@@ -322,7 +318,7 @@ validate_results <- function(tbl, tbl_name = NULL){
 
     # IDs should be non-na
     col_vals_not_null(
-      vars(referenceid, db_id, trialid),
+      vars(id, trn),
       label = "IDs exist"
     ) |>
 
@@ -363,7 +359,7 @@ validate_results <- function(tbl, tbl_name = NULL){
     # Some publications known to not have doi so excepted
     col_vals_not_null(
       doi,
-      preconditions = ~ . %>% filter(!is.na(pmid) & !db_id %in% c("tri03558", "tri03853", "tri00776", "tri04760")),
+      preconditions = ~ . %>% filter(!is.na(pmid) & !id %in% c("tri03558", "tri03853", "tri00776", "tri04760")),
       label = "Results with pmid have doi (in general)"
     ) |>
 
@@ -419,7 +415,7 @@ reconciliation_results_2 <-
 agent_reconciliation_results_2 <- validate_results(reconciliation_results_2, tbl_name = filename)
 # agent_reconciliation_results_2
 
-# get_data_extracts(agent_reconciliation_results_2, i = 17)# |> mutate(issue = glue::glue("[2] {db_id}/{trialid}")) |> pull(issue)
+# get_data_extracts(agent_reconciliation_results_2, i = 17)# |> mutate(issue = glue::glue("[2] {id}/{trn}")) |> pull(issue)
 
 # Results 2 (extractions) -------------------------------------------------
 
@@ -428,14 +424,15 @@ filename <- glue::glue("extraction-results-{phase}")
 
 extraction_results_2 <-
   readr::read_csv(fs::dir_ls(dir_raw, regexp = filename)) |>
+  select_result_vars() |>
 
   # Limit to non-reconciled trials and most recent extraction
-  semi_join(extraction_trials_2, by = c("db_id", "username")) |>
-  select_result_vars()
+  semi_join(extraction_trials_2, by = c("id", "username"))
+
 
 agent_extraction_results_2 <- validate_results(extraction_results_2, tbl_name = filename)
 # agent_extraction_results_2
-# get_data_extracts(agent_extraction_results_2, i = 5) #|> anti_join(problem_trials, by = "db_id") |> mutate(issue = glue::glue("[2] {db_id}/{trialid}")) |> pull(issue)
+# get_data_extracts(agent_extraction_results_2, i = 5) #|> anti_join(problem_trials, by = "id") |> mutate(issue = glue::glue("[2] {id}/{trn}")) |> pull(issue)
 # expect issues with 5 for tri02586 (maia-sh)
 
 # Results 3 (reconciled) --------------------------------------------------
@@ -450,7 +447,7 @@ reconciliation_results_3 <-
 
 agent_reconciliation_results_3 <- validate_results(reconciliation_results_3, tbl_name = filename)
 # agent_reconciliation_results_3
-# get_data_extracts(agent_reconciliation_results_3, i = 15) #|> mutate(issue = glue::glue("[2] {db_id}/{trialid}")) |> pull(issue)
+# get_data_extracts(agent_reconciliation_results_3, i = 15) #|> mutate(issue = glue::glue("[2] {id}/{trn}")) |> pull(issue)
 
 
 # Results 3 (extractions) -------------------------------------------------
@@ -460,21 +457,21 @@ filename <- glue::glue("extraction-results-{phase}")
 
 extraction_results_3 <-
   readr::read_csv(fs::dir_ls(dir_raw, regexp = filename)) |>
+  select_result_vars() |>
 
   # Limit to non-reconciled trials and most recent extraction
   # Note: This also removes ghost extractions for unassigned coders (tri00319 and tri00324). Numbat deletes main but not sub-extractions.
-  semi_join(extraction_trials_3, by = c("db_id", "username")) |>
+  semi_join(extraction_trials_3, by = c("id", "username"))
 
-  select_result_vars()
 
 agent_extraction_results_3 <- validate_results(extraction_results_3, tbl_name = filename)
 # agent_extraction_results_3
 # get_data_extracts(agent_extraction_results_3, i = 15) |>
-#   # anti_join(problem_trials, by = "db_id") |>
-#   mutate(issue = glue::glue("[phase 3] {username}: {db_id}/{trialid}")) |>
+#   # anti_join(problem_trials, by = "id") |>
+#   mutate(issue = glue::glue("[phase 3] {username}: {id}/{trn}")) |>
 #   pull(issue)
 # results issues for tri00319 and tri00324 for many coders...but not showing up in extractions.. wrote to murph 2022-01-28 right now fixing by joining with trials TODO
-# ex_tr_3 %>% filter(db_id %in% c("tri00319", "tri00324"))
+# ex_tr_3 %>% filter(id %in% c("tri00319", "tri00324"))
 # [phase 3] MollyPugh-Jones: tri01208/NCT04362111
 
 # Combine results ---------------------------------------------------------
@@ -488,9 +485,7 @@ results <-
   bind_rows(reconciliation_results_2, extraction_results_2, reconciliation_results_3, extraction_results_3) |>
 
   # Standardize dois to lowercase
-  mutate(doi = tolower(doi)) |>
-
-  rename(id = db_id)
+  mutate(doi = tolower(doi))
 
 readr::write_csv(results, here::here(dir_cleaned, "results.csv"))
 
@@ -499,7 +494,7 @@ readr::write_csv(results, here::here(dir_cleaned, "results.csv"))
 prepare_registration_vars <- function(tbl){
   tbl |>
     select(
-      referenceid, db_id, trialid,
+      id = db_id, trialid,
       username,
       source_register,
       source,
@@ -507,7 +502,7 @@ prepare_registration_vars <- function(tbl){
     ) |>
 
     # Remove any duplicates (i.e., same trial id included twice in same extraction)
-    distinct(db_id, username, trn_numbat, source, .keep_all = TRUE) |>
+    distinct(id, username, trn_numbat, source, .keep_all = TRUE) |>
 
     # Clean trns and get registry
     ctregistries::mutate_trn_registry(trn_numbat) |>
@@ -567,15 +562,15 @@ filename <- glue::glue("extraction-registrations-{phase}")
 
 extraction_registrations_2 <-
   readr::read_csv(fs::dir_ls(dir_raw, regexp = filename)) |>
+  prepare_registration_vars() |>
 
   # Limit to non-reconciled trials and most recent extraction
-  # TODO: alternatively could include all extractions...
-  semi_join(extraction_trials_2, by = c("db_id", "username")) #|>
-
   # NOTE: Limiting to non-reconciled means no extracted only
-  # prepare_registration_vars()
+  # TODO: alternatively could include all extractions...
+  semi_join(extraction_trials_2, by = c("id", "username"))
 
-# agent_extraction_registrations_2 <- validate_registrations(extraction_registrations_2, tbl_name = filename)
+
+agent_extraction_registrations_2 <- validate_registrations(extraction_registrations_2, tbl_name = filename)
 # agent_extraction_registrations_2
 
 # get_data_extracts(agent_extraction_registrations_2, i = 1)
@@ -602,18 +597,17 @@ filename <- glue::glue("extraction-registrations-{phase}")
 
 extraction_registrations_3 <-
   readr::read_csv(fs::dir_ls(dir_raw, regexp = filename)) |>
+  prepare_registration_vars() |>
 
   # For trials not reconciled, we use extraction data
-  semi_join(extraction_trials_3, by = c("db_id", "username")) |>
-
-  prepare_registration_vars()
+  semi_join(extraction_trials_3, by = c("id", "username"))
 
 agent_extraction_registrations_3 <- validate_registrations(extraction_registrations_3, tbl_name = filename)
 # agent_extraction_registrations_3
 
 # get_data_extracts(agent_extraction_registrations_3, i = 3) #|>
-#   anti_join(problem_trials, by = "db_id") |>
-#   mutate(issue = glue::glue("[phase 3] {username}: {db_id}/{trialid}")) |>
+#   anti_join(problem_trials, by = "id") |>
+#   mutate(issue = glue::glue("[phase 3] {username}: {id}/{trialid}")) |>
 #   pull(issue)
 
 
@@ -622,18 +616,17 @@ agent_extraction_registrations_3 <- validate_registrations(extraction_registrati
 multiagent_registrations <-
   create_multiagent(
     agent_reconciliation_registrations_2,
-    # agent_extraction_registrations_2,
+    agent_extraction_registrations_2,
     agent_reconciliation_registrations_3,
     agent_extraction_registrations_3
   )
 
-
 registrations <-
   bind_rows(reconciliation_registrations_2,
             extraction_registrations_2,
-          reconciliation_registrations_3,
-          extraction_registrations_3) |>
+            reconciliation_registrations_3,
+            extraction_registrations_3) |>
 
-  select(id = db_id, trn, registry, username, source)
+  select(id, trn, registry, username, source)
 
 readr::write_csv(registrations, here::here(dir_cleaned, "registrations.csv"))
