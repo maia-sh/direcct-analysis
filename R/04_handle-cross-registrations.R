@@ -62,11 +62,11 @@ reg_2022_raw <-
 
 reg_2022 <-
   reg_2022_raw |>
-  select(trial_id, crossreg, euctr_hidden) |>
+  select(trn, crossreg, euctr_hidden) |>
   mutate(euctr_hidden = if_else(euctr_hidden == 1, TRUE, FALSE)) |>
 
   # Check that one row per trial
-  assertr::assert(assertr::is_uniq, trial_id) |>
+  assertr::assert(assertr::is_uniq, trn) |>
 
   # Get one row per cross-registration
   tidyr::separate_rows(crossreg, sep = "; ") |> #count(euctr_hidden)
@@ -74,17 +74,17 @@ reg_2022 <-
   # euctr_hidden only relevant for euctr registrations
   mutate(euctr_hidden = if_else(!stringr::str_detect(crossreg, "EUCTR"), NA, euctr_hidden)) |>
 
-  # Add in tri ids for trial_id and crossreg and then deduplicate
-  left_join(select(reg_input_numbat, id, trn), by = c("trial_id" = "trn")) |>
+  # Add in tri ids for trn and crossreg and then deduplicate
+  left_join(select(reg_input_numbat, id, trn), by = c("trn")) |>
   rename(id_trial_id = id) |>
-  left_join(select(reg_input_numbat, id, trn), by = c("crossreg" = "trn")) |>
+  left_join(select(reg_input_numbat, id, trn), by = c("trn")) |>
   rename(id_crossreg = id)
 
 # Get all trn/id combinations, excluding empty and duplicates
 reg_2022_trns_ids <-
   bind_rows(
-    select(reg_2022, id = id_trial_id, trn = trial_id),
-    select(reg_2022, id = id_crossreg, trn = trial_id),
+    select(reg_2022, id = id_trial_id, trn),
+    select(reg_2022, id = id_crossreg, trn),
     select(reg_2022, id = id_trial_id, trn = crossreg),
     select(reg_2022, id = id_crossreg, trn = crossreg)
   ) |>
@@ -308,7 +308,7 @@ trials_new_id <-
 trials_dupe <-
   trials_new_id |>
   janitor::get_dupes(id) |>
-  arrange(id, desc(trialid))
+  arrange(id, desc(trn))
 
 results_dupe <-
   results_numbat |>
@@ -316,7 +316,7 @@ results_dupe <-
   semi_join(trials_dupe, by = "id_numbat") |>
   left_join(select(trials_dupe, id, id_numbat), by = "id_numbat") |>
   relocate(id, .before = id_numbat) |>
-  arrange(id, desc(trialid))
+  arrange(id, desc(trn))
 
 # Keep rows where new/old id match (i.e., remove duplicates)
 trials_deduped <-
