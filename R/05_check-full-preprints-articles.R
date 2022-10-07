@@ -298,6 +298,8 @@ results_pub_group <-
     preconditions = ~ . %>% filter(!stringr::str_detect(pub_type, "full")),
   )
 
+dir_processed <- fs::dir_create(here::here("data", "processed"))
+readr::write_csv(results_pub_group, fs::path(dir_processed, "results.csv"))
 
 # Explore pub groups ------------------------------------------------------
 results_pub_group_full <-
@@ -308,8 +310,7 @@ results_pub_group_full <-
 # There are some (n = 5) trials with 2 preprints for 1 article
 # In this case, we care only about the earliest preprint
 results_pub_group_full |>
-  janitor::get_dupes(id, full_pub_group, pub_type) |>
-  arrange()
+  janitor::get_dupes(id, full_pub_group, pub_type)
 
 full_pub_groups <-
   results_pub_group_full |>
