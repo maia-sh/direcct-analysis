@@ -56,7 +56,8 @@ download_file(
   "trials_1.csv"
 )
 
-# OTHER -------------------------------------------------------------------
+
+# Registries --------------------------------------------------------------
 
 # Registry 2
 download_file(
@@ -77,6 +78,9 @@ download_file(
   "https://github.com/ebmdatalab/direcct-phase2-python/blob/phase_3_testing/data/registry_data/registry_data_clean_apr22.csv?raw=true",
   "2022-04_registries.csv"
 )
+
+
+# OTHER -------------------------------------------------------------------
 
 # Metacovid
 download_file(
