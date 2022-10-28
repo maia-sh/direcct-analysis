@@ -7,3 +7,5 @@
 # Ignore data, for now
 # All data can be downloaded/generated from scripts, aside from manual/
 data/
+
+R/dep/
