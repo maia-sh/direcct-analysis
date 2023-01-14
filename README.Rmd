@@ -1,5 +1,7 @@
 ---
 output: github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -7,35 +9,67 @@ output: github_document
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  echo = FALSE,
+  message = FALSE
 )
 ```
 
-# direcct-analysis
+# DIRECCT
 
-## data
-The `data` directory has the following structure of subdirectories:
+# Data
 
-```
-├── cleaned
-│   ├── registrations.csv
-│   ├── results.csv
-│   └── trials.csv
-├── deduplicated
-│   ├── registrations.csv
-│   ├── results.csv
-│   └── trials.csv
-├── manual
-├── processed
-│   └── results.csv
-└── raw
-    └── numbat
-```
+# Directory Structure
 
-`raw` contains data downloaded from other sources by `01_download-data-raw.R` and extractions in Numbat by `02_download-data-numbat.R`.
+The `data` directory has the below structure of subdirectories. Data pushed to remote is shown below and is limited to `reporting` and data files that are not code-generated.
+
+    ├── cleaned
+    │   ├── registrations.csv
+    │   ├── results.csv
+    │   └── trials.csv
+    ├── manual
+    ├── processed
+    ├── raw
+    │    └── numbat
+    └── reporting
+        ├── 2021-07-01_ictrp.csv
+        ├── 2021-07_registries.csv
+        ├── 2022-04_registries.csv
+        ├── extraction-info.csv
+        ├── metadata
+        │   ├── codebook.csv
+        │   └── datamodel.pdf
+        ├── registrations.csv
+        ├── results.csv
+        └── screening-trials.csv
+
+`raw` contains data downloaded from other sources by `01_download-data-raw.R` and extractions in Numbat by `03_download-data-numbat.R`.
 
 `manual` contains any data manually added to the repository. Some additional manual data is read in from Google Sheets.
 
 `cleaned` contains data after cleaning, including tidying names to for consistency across tables.
 
-`deduplicated` contains data with unique database identifiers (`id`) in all tables, after deduplicating cross-registrations. 
+`processed` contains intermediary data, i.e. with unique database identifiers (`id`) in all tables, after deduplicating cross-registrations, and matched preprint-article results.
+
+`reporting` contains the final data for analysis and dissemination.
+
+## Data model
+
+This data model includes all `reporting` data.
+
+![data-model](data/reporting/metadata/datamodel.png)
+
+## Codebook
+
+```{r codebook}
+readr::read_csv(here::here("data", "reporting", "metadata", "codebook.csv")) |> 
+  knitr::kable()
+```
+
+## Screening flowchart
+
+-   Cross-registrations include any duplicates identified at any stage and includes those automatically and manually discovered in the registry or in publications
+-   TODO: Specify which criteria are any/all for cross-registrations
+
+
+![flowchart](data/reporting/metadata/flow-trials.png)

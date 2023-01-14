@@ -269,8 +269,8 @@ reg_deduped_unresolved <-
   left_join(reg_unresolved, by = "trn")
 
 
-dir_deduplicated <- fs::dir_create(here::here("data", "deduplicated"))
-readr::write_csv(reg_deduped_unresolved, fs::path(dir_deduplicated, "registrations.csv"))
+dir_processed <- fs::dir_create(here::here("data", "processed"))
+readr::write_csv(reg_deduped_unresolved, fs::path(dir_processed, "deduped-registrations.csv"))
 
 
 # Deduplicate trials/results extractions ----------------------------------
@@ -368,5 +368,5 @@ if(!all(numbat_ids_removed == numbat_ids_removed_expected)){
   stop("Unexpected trials removed in deduping!")
 }
 
-readr::write_csv(trials_deduped, fs::path(dir_deduplicated, "trials.csv"))
-readr::write_csv(results_deduped, fs::path(dir_deduplicated, "results.csv"))
+readr::write_csv(trials_deduped, fs::path(dir_processed, "deduped-trials.csv"))
+readr::write_csv(results_deduped, fs::path(dir_processed, "deduped-results.csv"))

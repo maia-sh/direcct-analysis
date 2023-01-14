@@ -6,6 +6,10 @@
 
 # Ignore data, for now
 # All data can be downloaded/generated from scripts, aside from manual/
-data/
+data/*
+!data/reporting/
+data/reporting/metadata/
 
-R/dep/
+R/ignore/
+
+docs/

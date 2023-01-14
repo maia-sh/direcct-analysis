@@ -1,13 +1,16 @@
 # We match preprints and articles for full results, which we did not explicitly do in our extractions. We do this via automation when possible (i.e., single full result, full results of only a single type, single medrxiv match with no additional full results) and otherwise manually.
 # We use the medrxiv API to check for preprint-article matches, as well as to verify there are no missing articles in our extractions.
+# For trials with multiple publication groups, group number is set by
 
 library(dplyr)
 # install.packages("medrxivr")
 library(medrxivr)
 
-registrations <- readr::read_csv(here::here("data", "deduplicated", "registrations.csv"))
-trials <- readr::read_csv(here::here("data", "deduplicated", "trials.csv"))
-results <- readr::read_csv(here::here("data", "deduplicated", "results.csv"))
+dir_processed <- here::here("data", "processed")
+
+registrations <- readr::read_csv(fs::path(dir_processed, "deduped-registrations.csv"))
+trials <- readr::read_csv(fs::path(dir_processed, "deduped-trials.csv"))
+results <- readr::read_csv(fs::path(dir_processed, "deduped-results.csv"))
 
 # Check preprint/article domains ------------------------------------------
 
@@ -118,7 +121,7 @@ count(full_results, n_results, n_results_type, name = "n_trials")
 # Use automated publication groups where possible; manually code remaining full results.
 # Automated publication groups can be used for trials with:
 # 1) 1 full result --> set group to 1
-# 2) >1 result all of a single type --> set group to by earliest publication date
+# 2) >1 result all of a single type --> set group by earliest publication date (Note: tri07286 has 2 preprint/article pairs, with earlier preprint matching later article --> group 1 set to earlier preprint)
 # 3) 1 full result pair in medrxiv and no additional full results --> set group to 1
 
 
@@ -258,7 +261,7 @@ full_results_uncoded <-
 if (nrow(full_results_uncoded) > 0) {
   message("There are additional full results for preprint-article manual grouping!")
   googlesheets4::sheet_append(full_results_googlesheet, full_results_uncoded)
-} else message("Preprint-article full results successfully manual grouped!")
+} else message("Preprint-article full results successfully manually grouped!")
 
 # Check for any extra coded, using url (since all results)
 full_results_extra_coded <-
@@ -285,7 +288,12 @@ full_results_pub_group <-
 # Add full results pub groups into results
 results_pub_group <-
   results |>
-  left_join(full_results_pub_group, by = c("id", "pub_type", "url")) %>%
+  left_join(full_results_pub_group, by = c("id", "pub_type", "url")) |>
+
+  # Tidy variables
+  select(-trn, -username) |>
+  relocate(full_pub_group, .after = "pub_type") %>%
+
   assertr::verify(nrow(.) == nrow(results)) |>
 
   # full_pub_group should be non-NA if and only if full result
@@ -298,8 +306,7 @@ results_pub_group <-
     preconditions = ~ . %>% filter(!stringr::str_detect(pub_type, "full")),
   )
 
-dir_processed <- fs::dir_create(here::here("data", "processed"))
-readr::write_csv(results_pub_group, fs::path(dir_processed, "results.csv"))
+readr::write_csv(results_pub_group, fs::path(dir_processed, "matched-results.csv"))
 
 # Explore pub groups ------------------------------------------------------
 results_pub_group_full <-
@@ -328,11 +335,11 @@ full_pub_groups <-
 
 # Check for preprints following articles --> none!
 full_pub_groups |>
-  add_row(
-    id = "tri00000",
-    full_pub_group = 1,
-    journal_article = as.Date("2020-06-16"),
-    preprint = as.Date("2020-10-09"),
-    .before = 1
-  ) |>
+  # add_row(
+  #   id = "tri00000",
+  #   full_pub_group = 1,
+  #   journal_article = as.Date("2020-06-16"),
+  #   preprint = as.Date("2020-10-09"),
+  #   .before = 1
+  # ) |>
   filter(preprint > journal_article)
