@@ -8,7 +8,10 @@
 # All data can be downloaded/generated from scripts, aside from manual/
 data/*
 !data/reporting/
-data/reporting/metadata/
+data/reporting/metadata/*
+!data/reporting/metadata/datamodel.png
+!data/reporting/metadata/flow-trials.png
+
 
 R/ignore/
 
