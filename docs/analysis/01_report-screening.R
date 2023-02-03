@@ -1,7 +1,7 @@
-library(dplyr)
+# library(dplyr)
 
-trials_screening <- readr::read_csv(here::here("data", "reporting", "screening-trials.csv"))
-ictrp <- readr::read_csv(here::here("data", "reporting", "2021-07-01_ictrp.csv"))
+# trials_screening <- readr::read_csv(here::here("data", "reporting", "screening-trials.csv"))
+# ictrp <- readr::read_csv(here::here("data", "reporting", "2021-07-01_ictrp.csv"))
 
 
 # Prepare screening functions ---------------------------------------------
@@ -210,7 +210,7 @@ blank_9 -> withdrawn_manual
 ")
 
 # Export image
-dir_reporting_metadata <- fs::dir_create(fs::path("data", "reporting", "metadata"))
+dir_reporting_metadata <- fs::dir_create(here::here("data", "reporting", "metadata"))
 
 flow_trials |>
   DiagrammeRsvg::export_svg() |>
@@ -227,3 +227,7 @@ flow_trials |>
                  width = 160*6,
                  height = 450*6
   )
+
+# Clean up
+rm(list=ls(pattern = "label_"))
+rm(trials_screened)

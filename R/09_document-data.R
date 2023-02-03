@@ -81,6 +81,7 @@ dm_img |>
 
 # Codebook ----------------------------------------------------------------
 
+# TODO: add screening-trials
 # TODO: change to function with metaprogramming
 
 codebook <- bind_rows(

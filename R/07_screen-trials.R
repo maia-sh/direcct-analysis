@@ -249,18 +249,25 @@ screening_trials <-
   # Verify no duplicate ids
   assertr::assert(assertr::is_uniq, id) |>
 
-  # Add analysis population flag
-  mutate(is_analysis_pop = if_else(
-    in_ictrp &
-      is_reg_2020 &
-      is_intervention &
-      is_not_withdrawn_auto &
-      is_not_phase_1_manually_excluded &
-      is_rcd_cutoff_3 &
-      is_clinical_trial_manual &
-      is_covid_manual &
-      is_not_withdrawn_manual,
-    TRUE, FALSE, missing = FALSE)
+  # Add analysis population flags
+  mutate(
+
+    # Since numerous sensitivity analyses with different completion, create flag for analysis except completion
+    is_pass_screening_ignore_cd = if_else(
+      in_ictrp &
+        is_reg_2020 &
+        is_intervention &
+        is_not_withdrawn_auto &
+        is_not_phase_1_manually_excluded &
+        is_clinical_trial_manual &
+        is_covid_manual &
+        is_not_withdrawn_manual,
+      TRUE, FALSE, missing = FALSE),
+
+    # Main analysis population (considering completion date)
+    is_analysis_pop = if_else(
+      is_pass_screening_ignore_cd & is_rcd_cutoff_3,
+      TRUE, FALSE, missing = FALSE)
   )
 
 # TODO: Figure out metaprogramming

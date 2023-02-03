@@ -5,14 +5,16 @@
 .DS_Store
 
 # Ignore data, for now
-# All data can be downloaded/generated from scripts, aside from manual/
+# All data can be downloaded/generated from scripts, aside from manual
 data/*
 !data/reporting/
 data/reporting/metadata/*
 !data/reporting/metadata/datamodel.png
 !data/reporting/metadata/flow-trials.png
 
+docs/*
+!docs/analysis/
 
 R/ignore/
 
-docs/
+
