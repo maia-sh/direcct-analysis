@@ -94,7 +94,7 @@ screening_counts <-
 # Report trial screening counts -------------------------------------------
 
 n_ictrp <- report_n(screening_counts, "ictrp", TRUE)
-n_auto_pass <- report_n(screening_counts, "is_not_phase_1_manually_excluded", TRUE)
+n_auto_pass <- report_n(screening_counts, "is_rcd_cutoff_3", TRUE)
 n_analysis <- report_n(screening_counts, "is_not_withdrawn_manual", TRUE)
 n_crossreg <- report_n(screening_counts, "unique_trial", FALSE)
 n_pre2020 <- report_n(screening_counts, "is_reg_2020", FALSE)
@@ -157,9 +157,9 @@ blank_1 -> blank_2
 blank_2 -> blank_3
 blank_3 -> blank_4
 blank_4 -> blank_5
-blank_5 -> auto_pass
-auto_pass -> blank_6
-blank_6 -> blank_7
+blank_5 -> blank_6
+blank_6 -> auto_pass
+auto_pass -> blank_7
 blank_7 -> blank_8
 blank_8 -> blank_9
 blank_9 -> analysis
