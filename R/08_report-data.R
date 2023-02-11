@@ -14,6 +14,8 @@ readr::read_csv(fs::path(dir_processed, "deduped-trials.csv")) |>
     dual_coded = is_reconciled,
     timestamp_finished, # last update, extraction or reconciliation (if dual coded)
     starts_with("incidental"),
+    soc,
+    dual_coded_intervention = is_reconciled_intervention,
     comments
   ) |>
   readr::write_csv(fs::path(dir_reporting, "extraction-info.csv"))
@@ -22,6 +24,7 @@ readr::read_csv(fs::path(dir_processed, "deduped-trials.csv")) |>
 # - trials screening
 # - results
 # - registrations
+# - arms
 # - ictrp 2021-07
 # - registries 2021-07 & 2022-04
 
@@ -40,6 +43,12 @@ fs::file_copy(
 fs::file_copy(
   fs::path(dir_processed, "deduped-registrations.csv"),
   fs::path(dir_reporting, "registrations.csv"),
+  overwrite = TRUE
+)
+
+fs::file_copy(
+  fs::path(dir_processed, "deduped-arms.csv"),
+  fs::path(dir_reporting, "arms.csv"),
   overwrite = TRUE
 )
 

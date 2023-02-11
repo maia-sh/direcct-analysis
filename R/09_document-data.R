@@ -37,6 +37,7 @@ dm_direcct <-
     `extraction-info`,
     `registrations`,
     `results`,
+    `arms`,
     `screening-trials`
   ) |>
 
@@ -49,6 +50,7 @@ dm_direcct <-
 
   # Add foreign keys
   dm_add_fk(`results`, `id`, `screening-trials`) |>
+  dm_add_fk(`arms`, `id`, `screening-trials`) |>
   dm_add_fk(`registrations`, `id`, `screening-trials`) |>
   dm_add_fk(`extraction-info`, `id`, `screening-trials`) |>
   dm_add_fk(`2021-07-01_ictrp`, `trn`, `registrations`) |>
@@ -94,6 +96,11 @@ codebook <- bind_rows(
     table = "results",
     variable = colnames(results),
     type = tolower(purrr::map_chr(results, class))
+  ),
+  tibble(
+    table = "arms",
+    variable = colnames(arms),
+    type = tolower(purrr::map_chr(arms, class))
   ),
   tibble(
     table = "extraction-info",
@@ -197,6 +204,12 @@ description <- tribble(
   "incidental_screening_comment",
   "",
 
+  "soc",
+  "",
+
+  "dual_coded_intervention",
+  "",
+
   "timestamp_finished",
   "",
 
@@ -282,6 +295,24 @@ description <- tribble(
   "",
 
   "url",
+  "",
+
+  "type",
+  "",
+
+  "control_type",
+  "",
+
+  "placebo_plus_soc",
+  "",
+
+  "category",
+  "",
+
+  "intervention",
+  "",
+
+  "intervention_plus_soc",
   ""
 )
 
@@ -301,6 +332,7 @@ tibble(
     "extraction-info",
     "registrations",
     "results",
+    "arms",
     "screening-trials"
   )
 )

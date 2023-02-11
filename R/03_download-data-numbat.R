@@ -4,7 +4,7 @@ loggit::set_logfile(fs::path(dir, "numbat-downloads.log"))
 # Set global variables for numbat reference sets for phase 2 and 3
 PHASE_2_REFSET <- "26"
 PHASE_3_REFSET <- "31"
-
+INTERVENTION_REFSET <- "34"
 
 # Export reference sets and assignments -----------------------------------
 
@@ -42,13 +42,16 @@ export_numbat <- function(url, dir){
       stringr::str_detect(url, "form_5") ~ "trials",
       stringr::str_detect(url, "sub_registrations") ~ "registrations",
       stringr::str_detect(url, "table_keyword_search") ~ "keywords",
-      stringr::str_detect(url, "sub_result") ~ "results"
+      stringr::str_detect(url, "sub_result") ~ "results",
+      stringr::str_detect(url, "form_7") ~ "interventions",
+      stringr::str_detect(url, "sub_arm") ~ "arms"
     )
 
   phase <-
     dplyr::case_when(
       stringr::str_detect(url, paste0("refset_", PHASE_2_REFSET)) ~ "2",
-      stringr::str_detect(url, paste0("refset_", PHASE_3_REFSET)) ~ "3"
+      stringr::str_detect(url, paste0("refset_", PHASE_3_REFSET)) ~ "3",
+      stringr::str_detect(url, paste0("refset_", INTERVENTION_REFSET)) ~ "23"
     )
 
   message(glue::glue("Downloading {step} {type} for phase {phase}"))
@@ -62,29 +65,40 @@ export_numbat <- function(url, dir){
 
 numbat_urls <- c(
 
-  # Phase 2 Extractions
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063656-form_5-refset_26-extractions.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063704-sub_registrations-refset_26-sub-extraction.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063712-table_keyword_search-refset_26-table-extraction.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063719-sub_result-refset_26-sub-extraction.tsv",
+#   # Phase 2 Extractions
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063656-form_5-refset_26-extractions.tsv",
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063704-sub_registrations-refset_26-sub-extraction.tsv",
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063712-table_keyword_search-refset_26-table-extraction.tsv",
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063719-sub_result-refset_26-sub-extraction.tsv",
+#
+#   # Phase 2 Reconciliations
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063726-form_5-refset_26-final.tsv",
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063732-sub_registrations-refset_26-sub-final.tsv",
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063740-table_keyword_search-refset_26-table-final.tsv",
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063746-sub_result-refset_26-sub-final.tsv",
+#
+#   # Phase 3 Extractions
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063215-form_5-refset_31-extractions.tsv",
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063225-sub_registrations-refset_31-sub-extraction.tsv",
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063234-table_keyword_search-refset_31-table-extraction.tsv",
+# "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_064844-sub_result-refset_31-sub-extraction.tsv",
+#
+#   # Phase 3 Reconciliations
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063253-form_5-refset_31-final.tsv",
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063301-sub_registrations-refset_31-sub-final.tsv",
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063310-table_keyword_search-refset_31-table-final.tsv",
+#   "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063318-sub_result-refset_31-sub-final.tsv",
 
-  # Phase 2 Reconciliations
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063726-form_5-refset_26-final.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063732-sub_registrations-refset_26-sub-final.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063740-table_keyword_search-refset_26-table-final.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063746-sub_result-refset_26-sub-final.tsv",
+  # Phase 2/3 Interventions
+"https://numbat.bgcarlisle.com/direcct/export/2023-02-10_035706-form_7-refset_34-extractions.tsv",
+"https://numbat.bgcarlisle.com/direcct/export/2023-02-10_035714-sub_arm-refset_34-sub-extraction.tsv",
+"https://numbat.bgcarlisle.com/direcct/export/2023-02-10_035722-form_7-refset_34-final.tsv",
+"https://numbat.bgcarlisle.com/direcct/export/2023-02-10_035729-sub_arm-refset_34-sub-final.tsv"
+  # "https://numbat.bgcarlisle.com/direcct/export/2023-02-03_033151-form_7-refset_34-final.tsv",
+  # "https://numbat.bgcarlisle.com/direcct/export/2023-02-03_033200-sub_arm-refset_34-sub-final.tsv",
+  # "https://numbat.bgcarlisle.com/direcct/export/2023-02-03_033048-form_7-refset_34-extractions.tsv",
+  # "https://numbat.bgcarlisle.com/direcct/export/2023-02-03_033143-sub_arm-refset_34-sub-extraction.tsv"
 
-  # Phase 3 Extractions
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063215-form_5-refset_31-extractions.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063225-sub_registrations-refset_31-sub-extraction.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063234-table_keyword_search-refset_31-table-extraction.tsv",
-"https://numbat.bgcarlisle.com/direcct/export/2023-01-05_064844-sub_result-refset_31-sub-extraction.tsv",
-
-  # Phase 3 Reconciliations
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063253-form_5-refset_31-final.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063301-sub_registrations-refset_31-sub-final.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063310-table_keyword_search-refset_31-table-final.tsv",
-  "https://numbat.bgcarlisle.com/direcct/export/2023-01-05_063318-sub_result-refset_31-sub-final.tsv"
 )
 
 purrr::walk(numbat_urls, export_numbat, dir = dir)

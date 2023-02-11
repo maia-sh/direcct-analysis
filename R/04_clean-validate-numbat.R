@@ -267,7 +267,64 @@ trials <-
 trials |>
 filter(is.na(is_clinical_trial_manual) & is.na(is_covid_manual) & is.na(is_not_withdrawn_manual))
 
-readr::write_csv(trials, here::here(dir_cleaned, "trials.csv"))
+
+# Prepare intervention arms -----------------------------------------------
+
+reconciliation_arms <-
+  readr::read_csv(fs::dir_ls(dir_raw, regexp = glue::glue("reconciliation-arms"))) |>
+  select(id = db_id, trn = trialid, type, control_type, placebo_plus_soc, category, intervention, intervention_plus_soc)
+
+extraction_arms <-
+  readr::read_csv(fs::dir_ls(dir_raw, regexp = glue::glue("extraction-arms"))) |>
+  select(id = db_id, trn = trialid, type, control_type, placebo_plus_soc, category, intervention, intervention_plus_soc) |>
+
+  # For trials not reconciled, we use extraction data
+  anti_join(reconciliation_arms, by = "id")
+
+arms <- bind_rows(reconciliation_arms, extraction_arms)
+
+readr::write_csv(arms, here::here(dir_cleaned, "arms.csv"))
+
+
+# Prepare standard of care ------------------------------------------------
+
+reconciliation_interventions <-
+  readr::read_csv(fs::dir_ls(dir_raw, regexp = glue::glue("reconciliation-interventions"))) |>
+  select(id = db_id, soc) |>
+  mutate(is_reconciled_intervention = TRUE)
+
+extraction_interventions <-
+  readr::read_csv(fs::dir_ls(dir_raw, regexp = glue::glue("extraction-interventions"))) |>
+  select(id = db_id, soc) |>
+  mutate(is_reconciled_intervention = FALSE) |>
+
+  # For trials not reconciled, we use extraction data
+  anti_join(reconciliation_interventions, by = "id") |>
+
+  # Check that one row per trial
+  assertr::assert(assertr::is_uniq, id)
+
+interventions <- bind_rows(reconciliation_interventions, extraction_interventions)
+
+# Save trials (with standard of care) -------------------------------------
+
+# Verify no interventions not in trials
+if (nrow(anti_join(interventions, trials, by = "id")) != 0){
+  stop("There are interventions not in trials!")
+}
+
+trials_soc <-
+  trials |>
+  left_join(interventions, by = "id") |>
+
+  # All trials not excluded manually should have intervention extraction
+  col_vals_not_null(
+    vars(is_reconciled_intervention),
+    preconditions = ~ . %>% filter(!is_manual_excluded),
+    label = "Intervention extracted for non-manually-excluded trials"
+  )
+
+readr::write_csv(trials_soc, here::here(dir_cleaned, "trials.csv"))
 
 
 # Validate results --------------------------------------------------------

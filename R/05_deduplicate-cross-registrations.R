@@ -280,6 +280,9 @@ readr::write_csv(reg_deduped_unresolved, fs::path(dir_processed, "deduped-regist
 results_numbat <-
   readr::read_csv(here::here("data", "cleaned", "results.csv"))
 
+arms_numbat <-
+  readr::read_csv(here::here("data", "cleaned", "arms.csv"))
+
 # Create lookup table of new/old ids
 db_id_lookup <-
   reg_deduped_unresolved|>
@@ -310,8 +313,19 @@ trials_dupe <-
   janitor::get_dupes(id) |>
   arrange(id, desc(trn))
 
+
+# Visually inspect results/arms for cross-registrations of trials
+# Make sure "true" results/arms encoded (via numbat) for primary trn
 results_dupe <-
   results_numbat |>
+  rename(id_numbat = id) |>
+  semi_join(trials_dupe, by = "id_numbat") |>
+  left_join(select(trials_dupe, id, id_numbat), by = "id_numbat") |>
+  relocate(id, .before = id_numbat) |>
+  arrange(id, desc(trn))
+
+arms_dupe <-
+  arms_numbat |>
   rename(id_numbat = id) |>
   semi_join(trials_dupe, by = "id_numbat") |>
   left_join(select(trials_dupe, id, id_numbat), by = "id_numbat") |>
@@ -335,6 +349,7 @@ if(nrow(trials_deduped) != nrow(trials_numbat) - n_numbat_ids_removed){
   stop("n deduped trials should be same as numbat trials + removed trials")
 }
 
+# Use deduped trials to dedupe results/arms
 results_deduped <-
   results_numbat |>
   semi_join(trials_deduped, by = "id")
@@ -343,14 +358,23 @@ results_removed <-
   results_numbat |>
   anti_join(results_deduped, by = "id")
 
+arms_deduped <-
+  arms_numbat |>
+  semi_join(trials_deduped, by = "id")
+
+arms_removed <-
+  arms_numbat |>
+  anti_join(arms_deduped, by = "id")
+
 numbat_ids_removed <-
   trials_removed |>
   distinct(id) |>
   arrange(id) |>
   pull()
 
-# Check that all removed results in removed trials
+# Check that all removed results/arms in removed trials
 all(pull(distinct(results_removed, id)) %in% numbat_ids_removed)
+all(pull(distinct(arms_removed, id)) %in% numbat_ids_removed)
 
 # Check that expected and only expected trials removed
 # Note: We manually verified all expected removals
@@ -370,3 +394,4 @@ if(!all(numbat_ids_removed == numbat_ids_removed_expected)){
 
 readr::write_csv(trials_deduped, fs::path(dir_processed, "deduped-trials.csv"))
 readr::write_csv(results_deduped, fs::path(dir_processed, "deduped-results.csv"))
+readr::write_csv(arms_deduped, fs::path(dir_processed, "deduped-arms.csv"))
