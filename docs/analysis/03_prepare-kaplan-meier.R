@@ -1,9 +1,9 @@
 # Create dataframe with info on each trial's earliest result per and across types
 
-
-# Prep kaplan meier -------------------------------------------------------
-
 library(lubridate)
+
+
+# Prep publication dates --------------------------------------------------
 
 # Get earliest publication by type
 results_type <-
@@ -67,6 +67,9 @@ results_km_all <-
   ) |>
   mutate(publication = TRUE, .after = "pub_type")
 
+
+# Prep completion dates ---------------------------------------------------
+
 # Prepare latest completion date before cutoff
 latest_rcd_pre_cutoff <-
   registrations |>
@@ -85,6 +88,9 @@ latest_rcd_pre_cutoff <-
   group_by(id) |>
   summarise(date_completion = max(rcd, na.rm = TRUE))
 
+
+# Prep kaplan meier dataframes --------------------------------------------
+
 km_data_long <-
 
   # Create df with row per trial per pubtype
@@ -94,7 +100,7 @@ km_data_long <-
   ) |>
 
   # Add in cutoff and completion dates to calculate time to publication/censoring
-  mutate(date_cutoff = PHASE_3_CUTOFF) |>
+  mutate(date_cutoff = RESULTS_CUTOFF) |>
   left_join(latest_rcd_pre_cutoff, by = "id") |>
 
   # Add in results
@@ -124,10 +130,9 @@ readr::write_csv(km_data_wide, here::here("data", "reporting", "kaplan-meier-tim
 
 
 # Analyze kaplan meier ----------------------------------------------------
-# TODO: issue with min follow-up <6 weeks due to cd selection
+
 # Get follow-up times for unreported trials
 follow_up_unreported <-
   km_data_wide |>
   filter(!publication_any) |>
   pull(time_publication_any)
-
