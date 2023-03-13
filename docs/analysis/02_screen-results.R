@@ -1,16 +1,4 @@
-# library(dplyr)
-
-# RESULTS_CUTOFF <- as.Date("2021-08-15")
-
-# trials_screening <-
-#   readr::read_csv(here::here("data", "reporting", "screening-trials.csv"))
-# trials <- filter(trials_screening, is_analysis_pop)
-# results_all <-  readr::read_csv(here::here("data", "reporting", "results.csv"))
-
-
-
 # Prepare results (summary, full article, full preprint) ------------------
-
 
 results <-
   results_all |>
@@ -42,6 +30,11 @@ dupe_results <-
     dupe = dupe_doi | dupe_pmid | dupe_url
   ) |>
   filter(dupe)
+
+trials_w_results <-
+  results |>
+  distinct(id) |>
+  mutate(has_full_result = TRUE)
 
 # Remove duplicate result from count
 n_full_results <- nrow(results) - n_distinct(dupe_results$doi)
@@ -88,4 +81,69 @@ dupe_results_interim <-
 n_full_interim_results <- nrow(results_interim) - n_distinct(dupe_results_interim$doi)
 n_trials_w_full_interim_results <- n_distinct(results_interim$id)
 p_trials_w_full_interim_results <- n_trials_w_full_interim_results/ n_analysis
+
+
+# Prepare results for km (with type and publication date) -----------------
+
+# Get earliest publication by type
+results_type <-
+  results |>
+
+  mutate(pub_type = case_when(
+    pub_type == "full_results_journal_article" ~ "article",
+    pub_type == "full_results_preprint" ~ "preprint",
+    pub_type == "summary_results" ~ "summary"
+  )) |>
+
+  group_by(id, pub_type) |>
+  summarise(
+    date_publication = min(date_publication),
+    .groups = "drop"
+  )
+
+# Get earliest publication any
+results_any <-
+  results |>
+  group_by(id) |>
+  summarise(
+    pub_type = "any",
+    date_publication = min(date_publication)
+  )
+
+# Get earliest publication any including interim
+results_interim_any <-
+  results_interim |>
+  group_by(id) |>
+  summarise(
+    pub_type = "interim_any",
+    date_publication = min(date_publication)
+  )
+
+# Get earliest publication by type including interim
+# results_interim_type <-
+#   results_interim |>
+#
+#   # TODO: decide whether interim-only OR either interim or full
+#   # Limit to interim preprint/article
+#   filter(stringr::str_detect(pub_type, "interim")) |>
+#   mutate(pub_type = case_when(
+#     pub_type == "interim_results_journal_article" ~ "interim_article",
+#     pub_type == "interim_results_preprint" ~ "interim_preprint"
+#   )) |>
+#
+#   # Get earliest publication by type and any
+#   group_by(id, pub_type) |>
+#   summarise(
+#     date_publication = min(date_publication),
+#     .groups = "drop"
+#   )
+
+# Combine earliest publications
+results_km_all <-
+  bind_rows(
+    results_any,
+    results_type,
+    results_interim_any
+  ) |>
+  mutate(publication = TRUE, .after = "pub_type")
 

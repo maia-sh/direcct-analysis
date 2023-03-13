@@ -1,9 +1,3 @@
-# library(dplyr)
-
-# trials_screening <- readr::read_csv(here::here("data", "reporting", "screening-trials.csv"))
-# ictrp <- readr::read_csv(here::here("data", "reporting", "2021-07-01_ictrp.csv"))
-
-
 # Prepare screening functions ---------------------------------------------
 
 # Apply screening criteria
@@ -51,20 +45,22 @@ screening_criteria <- c(
   "is_intervention",
   "is_not_withdrawn_auto",
   "is_not_phase_1_manually_excluded",
-  "is_rcd_cutoff_3",
+  "is_any_rcd_cutoff_3",
   "is_clinical_trial_manual",
   "is_covid_manual",
-  "is_not_withdrawn_manual"
+  "is_not_withdrawn_manual",
+  "is_cd_cutoff_3"
 )
 
-trials_screened <-  count_filter(trials_screening, screening_criteria)
+trials_screened <-  count_filter(trials_screening_main, screening_criteria)
 
 trials <- trials_screened$data
 
+# NOTE: deprecated since added additional cd screening
 # Check that analysis pop screening matches
-if (!nrow(filter(trials_screening, is_analysis_pop)) == nrow(trials)){
-  stop("There is a discrepancy in the analysis pop screening!")
-}
+# if (!nrow(filter(trials_screening, is_analysis_pop)) == nrow(trials)){
+#   stop("There is a discrepancy in the analysis pop screening!")
+# }
 
 # Tabularize trial screening counts ---------------------------------------
 
@@ -94,17 +90,19 @@ screening_counts <-
 # Report trial screening counts -------------------------------------------
 
 n_ictrp <- report_n(screening_counts, "ictrp", TRUE)
-n_auto_pass <- report_n(screening_counts, "is_rcd_cutoff_3", TRUE)
-n_analysis <- report_n(screening_counts, "is_not_withdrawn_manual", TRUE)
+n_auto_pass <- report_n(screening_counts, "is_any_rcd_cutoff_3", TRUE)
+n_manual_pass <- report_n(screening_counts, "is_not_withdrawn_manual", TRUE)
+n_analysis <- report_n(screening_counts, "is_cd_cutoff_3", TRUE)
 n_crossreg <- report_n(screening_counts, "unique_trial", FALSE)
 n_pre2020 <- report_n(screening_counts, "is_reg_2020", FALSE)
 n_nonintervention <- report_n(screening_counts, "is_intervention", FALSE)
 n_withdrawn_auto <- report_n(screening_counts, "is_not_withdrawn_auto", FALSE)
 n_exphase1 <- report_n(screening_counts, "is_not_phase_1_manually_excluded", FALSE)
-n_incomplete <- report_n(screening_counts, "is_rcd_cutoff_3", FALSE)
+n_incomplete <- report_n(screening_counts, "is_any_rcd_cutoff_3", FALSE)
 n_nonct <- report_n(screening_counts, "is_clinical_trial_manual", FALSE)
 n_noncovid <- report_n(screening_counts, "is_covid_manual", FALSE)
 n_withdrawn_manual <- report_n(screening_counts, "is_not_withdrawn_manual", FALSE)
+n_cd_analysis_exclude <- report_n(screening_counts, "is_cd_cutoff_3", FALSE)
 
 
 # Prepare flowchart -------------------------------------------------------
@@ -114,16 +112,19 @@ library(glue)
 # Prepare labels
 label_ictrp <- glue('Registered COVID-19 Studies\non ICTRP in July 2021\n(n = {n_ictrp})')
 label_auto_pass <- glue('Passed Automated Inclusion\n(n = {n_auto_pass})')
+label_manual_pass <- glue('Passed Manual Inclusion\n(n = {n_manual_pass})')
 label_analysis <- glue('Final Dataset\n(n = {n_analysis})')
 label_crossreg <- glue('Cross-Registrations\n(n = {n_crossreg})')
 label_pre2020 <- glue('Registered Prior to 2020\n(n = {n_pre2020})')
 label_nonintervention <- glue('Not interventional\n(n = {n_nonintervention})')
 label_withdrawn_auto <- glue('Withdrawn on ICTRP/registry\n(n = {n_withdrawn_auto})')
 label_exphase1 <- glue('Manually excluded in Phase 1\n(n = {n_exphase1})')
-label_incomplete <- glue('Completion > 30 June 2021\n(n = {n_incomplete})')
+label_incomplete <- glue('Any completion > 30 June 2021\n(n = {n_incomplete})')
 label_nonct <- glue('Not a Clinical Trial\n(n = {n_nonct})')
 label_noncovid <- glue('Not on Treatment/Prevention\n(n = {n_noncovid})')
 label_withdrawn_manual <- glue('Withdrawn on Manual Review\n(n = {n_withdrawn_manual})')
+label_cd_analysis_exclude <- glue('Last updated completion\n> 30 June 2021\n(n = {n_cd_analysis_exclude})')
+
 
 # Prepare flowchart
 flow_trials <- DiagrammeR::grViz("digraph trials {
@@ -139,7 +140,8 @@ subgraph included {
 # NODES INCLUSION
 ictrp [label = '@@1']
 auto_pass [label = '@@2']
-analysis [label = '@@3']
+manual_pass [label = '@@3']
+analysis [label = '@@4']
 
 # NODES BLANK
 node [label = '', width = 0.01, height = 0.01, style = invis]
@@ -148,7 +150,7 @@ rank = same
 
 # EDGES INCLUSION
 edge [minlen = 5]
-ictrp -> auto_pass -> analysis
+ictrp -> auto_pass -> manual_pass -> analysis
 
 # EDGES BLANK
 edge [dir = none, style = invis]
@@ -162,7 +164,9 @@ blank_6 -> auto_pass
 auto_pass -> blank_7
 blank_7 -> blank_8
 blank_8 -> blank_9
-blank_9 -> analysis
+blank_9 -> manual_pass
+manual_pass -> blank_10
+blank_10 -> analysis
 }
 
 # EXCLUSION SUBGRAPH
@@ -171,15 +175,16 @@ subgraph excluded {
 node [width = 2.4]
 
 # NODES EXCLUSION
-crossreg [label = '@@4']
-pre2020 [label = '@@5']
-nonintervention [label = '@@6']
-withdrawn_auto [label = '@@7']
-exphase1 [label = '@@8']
-incomplete [label = '@@9']
-nonct [label = '@@10']
-noncovid [label = '@@11']
-withdrawn_manual [label = '@@12']
+crossreg [label = '@@5']
+pre2020 [label = '@@6']
+nonintervention [label = '@@7']
+withdrawn_auto [label = '@@8']
+exphase1 [label = '@@9']
+incomplete [label = '@@10']
+nonct [label = '@@11']
+noncovid [label = '@@12']
+withdrawn_manual [label = '@@13']
+cd_analysis_exclude [label = '@@14']
 }
 
 # EDGES EXCLUSION
@@ -192,21 +197,24 @@ blank_6 -> incomplete
 blank_7 -> nonct
 blank_8 -> noncovid
 blank_9 -> withdrawn_manual
+blank_10 -> cd_analysis_exclude
 }
 
 # LABELS
 [1]: label_ictrp
 [2]: label_auto_pass
-[3]: label_analysis
-[4]: label_crossreg
-[5]: label_pre2020
-[6]: label_nonintervention
-[7]: label_withdrawn_auto
-[8]: label_exphase1
-[9]: label_incomplete
-[10]: label_nonct
-[11]: label_noncovid
-[12]: label_withdrawn_manual
+[3]: label_manual_pass
+[4]: label_analysis
+[5]: label_crossreg
+[6]: label_pre2020
+[7]: label_nonintervention
+[8]: label_withdrawn_auto
+[9]: label_exphase1
+[10]: label_incomplete
+[11]: label_nonct
+[12]: label_noncovid
+[13]: label_withdrawn_manual
+[14]: label_cd_analysis_exclude
 ")
 
 # Export image
@@ -216,16 +224,16 @@ flow_trials |>
   DiagrammeRsvg::export_svg() |>
   charToRaw() |>
   rsvg::rsvg_pdf(fs::path(dir_reporting_metadata, "flow-trials.pdf"),
-                 width = 160,
-                 height = 450
+                 width = 150,
+                 height = 500
   )
 
 flow_trials |>
   DiagrammeRsvg::export_svg() |>
   charToRaw() |>
   rsvg::rsvg_png(fs::path(dir_reporting_metadata, "flow-trials.png"),
-                 width = 160*6,
-                 height = 450*6
+                 width = 150*8,
+                 height = 500*8
   )
 
 # Clean up

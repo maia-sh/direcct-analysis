@@ -1,138 +1,50 @@
 # Create dataframe with info on each trial's earliest result per and across types
 
-library(lubridate)
-
-
-# Prep publication dates --------------------------------------------------
-
-# Get earliest publication by type
-results_type <-
-  results |>
-
-  mutate(pub_type = case_when(
-    pub_type == "full_results_journal_article" ~ "article",
-    pub_type == "full_results_preprint" ~ "preprint",
-    pub_type == "summary_results" ~ "summary"
-  )) |>
-
-  group_by(id, pub_type) |>
-  summarise(
-    date_publication = min(date_publication),
-    .groups = "drop"
-  )
-
-# Get earliest publication any
-results_any <-
-  results |>
-  group_by(id) |>
-  summarise(
-    pub_type = "any",
-    date_publication = min(date_publication)
-  )
-
-# Get earliest publication any including interim
-results_interim_any <-
-  results_interim |>
-  group_by(id) |>
-  summarise(
-    pub_type = "interim_any",
-    date_publication = min(date_publication)
-  )
-
-# Get earliest publication by type including interim
-# results_interim_type <-
-#   results_interim |>
-#
-#   # TODO: decide whether interim-only OR either interim or full
-#   # Limit to interim preprint/article
-#   filter(stringr::str_detect(pub_type, "interim")) |>
-#   mutate(pub_type = case_when(
-#     pub_type == "interim_results_journal_article" ~ "interim_article",
-#     pub_type == "interim_results_preprint" ~ "interim_preprint"
-#   )) |>
-#
-#   # Get earliest publication by type and any
-#   group_by(id, pub_type) |>
-#   summarise(
-#     date_publication = min(date_publication),
-#     .groups = "drop"
-#   )
-
-# Combine earliest publications
-results_km_all <-
-  bind_rows(
-    results_any,
-    results_type,
-    results_interim_any
-  ) |>
-  mutate(publication = TRUE, .after = "pub_type")
-
-
-# Prep completion dates ---------------------------------------------------
-
-# Prepare latest completion date before cutoff
-latest_rcd_pre_cutoff <-
-  registrations |>
-
-  # Get all trns for included trials
-  semi_join(trials, by = "id") |>
-
-  # Get all rcd's for all registrations of included trials
-  left_join(select(registries, trn, rcd), by = "trn") |>
-  select(id, trn, registry, rcd) |>
-
-  # Limit to rcd's before cutoff
-  filter(rcd < PHASE_3_CUTOFF) |>
-
-  # Collapse to latest rcd before cutoff
-  group_by(id) |>
-  summarise(date_completion = max(rcd, na.rm = TRUE))
-
-
 # Prep kaplan meier dataframes --------------------------------------------
 
-km_data_long <-
+prepare_km <- function(trials){
 
-  # Create df with row per trial per pubtype
-  tibble(
-    id = rep(trials$id, each = 5),
-    pub_type = rep(c("any", "article", "preprint", "summary", "interim_any"), length(trials$id))
-  ) |>
+  trials_cd <- select(trials, id, date_completion)
 
-  # Add in cutoff and completion dates to calculate time to publication/censoring
-  mutate(date_cutoff = RESULTS_CUTOFF) |>
-  left_join(latest_rcd_pre_cutoff, by = "id") |>
+  km_data_long <-
 
-  # Add in results
-  left_join(results_km_all, by = c("id", "pub_type")) |>
+    # Create df with row per trial per pubtype
+    bind_rows(
+      mutate(trials_cd, pub_type = "any"),
+      mutate(trials_cd, pub_type = "article"),
+      mutate(trials_cd, pub_type = "preprint"),
+      mutate(trials_cd, pub_type = "summary"),
+      mutate(trials_cd, pub_type = "interim_any")
+    )|>
+    relocate(pub_type, .after = "id") |>
+    arrange(id) |>
 
-  # Change NA to FALSE for no results
-  mutate(publication = tidyr::replace_na(publication, FALSE)) |>
+    # Add in results cutoff date to calculate time to publication/censoring
+    mutate(date_cutoff = RESULTS_CUTOFF) |>
 
-  # Calculate time to publication/censoring
-  mutate(
-    time_publication =
-      if_else(publication,
-              lubridate::as.duration(date_completion %--% date_publication)/ ddays(1),
-              lubridate::as.duration(date_completion %--% date_cutoff)/ ddays(1)
-      )
-  )
+    # Add in results
+    left_join(results_km_all, by = c("id", "pub_type")) |>
 
-km_data_wide <-
-  km_data_long |>
-  tidyr::pivot_wider(
-    names_from = pub_type,
-    names_glue = "{.value}_{pub_type}",
-    values_from = ends_with("publication")
-  )
+    # Change NA to FALSE for no results
+    mutate(publication = tidyr::replace_na(publication, FALSE)) |>
 
-readr::write_csv(km_data_wide, here::here("data", "reporting", "kaplan-meier-time-to-pub.csv"))
+    # Calculate time to publication/censoring
+    mutate(
+      time_publication =
+        if_else(publication,
+                lubridate::as.duration(date_completion %--% date_publication)/ ddays(1),
+                lubridate::as.duration(date_completion %--% date_cutoff)/ ddays(1)
+        )
+    )
 
+  km_data_wide <-
+    km_data_long |>
+    tidyr::pivot_wider(
+      names_from = pub_type,
+      names_glue = "{.value}_{pub_type}",
+      values_from = ends_with("publication")
+    )
 
-# Analyze kaplan meier ----------------------------------------------------
+}
 
-# Get follow-up times for unreported trials
-follow_up_unreported <-
-  km_data_wide |>
-  filter(!publication_any) |>
-  pull(time_publication_any)
+# readr::write_csv(km_data_wide, here::here("data", "reporting", "kaplan-meier-time-to-pub.csv"))
