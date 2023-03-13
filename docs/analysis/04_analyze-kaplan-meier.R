@@ -124,7 +124,8 @@ km_preprint_article_combined <-
   rename(time_preprint_article = time_preprint_cutoff) |>
   # select(-date_cutoff) |>
   bind_rows(mutate(km_preprint_article, publication_article = TRUE)) |>
-  mutate(publication_preprint = TRUE, date_cutoff = RESULTS_CUTOFF)
+  mutate(publication_preprint = TRUE, date_cutoff = RESULTS_CUTOFF) |>
+  mutate(publication_article = tidyr::replace_na(publication_article, FALSE))
 
 readr::write_csv(km_preprint_article_combined, here::here("data", "reporting", "kaplan-meier-preprint-to-article.csv"))
 
