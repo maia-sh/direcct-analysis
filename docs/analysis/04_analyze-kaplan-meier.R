@@ -13,7 +13,6 @@ follow_up_unreported <-
   pull(time_publication_any)
 
 
-
 # Analyze preprint-to-article ---------------------------------------------
 
 # Trials with preprint only
