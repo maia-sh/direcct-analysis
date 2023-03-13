@@ -123,12 +123,9 @@ REGISTRY_SCRAPE_MAX <- as.Date("2021-07-18")
 
 clean_registrations <- function(reg_df){
   reg_df |>
-    select(-1) |>
-    rename(
-      trn = trial_id,
-      rcd = relevant_comp_date
-    ) |>
-    relocate(rcd, .after = "scd") |>
+    select(-1, -relevant_comp_date) |>
+    rename(trn = trial_id) |>
+    mutate(rcd = if_else(!is.na(pcd), pcd, scd), .after = "scd") |>
     mutate(across(
       c(pcd, scd, rcd, last_updated), ~ as.Date(., "%d/%m/%Y")
     )) |>
@@ -168,7 +165,10 @@ registries_2204 <-
 # ND post-hoc collected registry data from 2021-07 for several cross-registrations
 registries_2107_manual <-
   readr::read_csv(here::here("data", "manual", "2021-07_registries-manual.csv")) |>
-  select(-resolved)
+  select(-resolved, -rcd) |>
+
+  # Recalculate rcd in case
+  mutate(rcd = if_else(!is.na(pcd), pcd, scd), .after = "scd")
 
 # Confirm that later registry data not in earlier data
 semi_join(registries_2107_manual, registries_2107, by = "trn") %>%
