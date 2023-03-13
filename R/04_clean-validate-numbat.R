@@ -412,6 +412,14 @@ validate_results <- function(tbl, tbl_name = NULL){
       label = "Articles, preprints, and summary results have publication date"
     ) |>
 
+    # Results should be published as of 2020 (if a publication date)
+    pointblank::col_vals_gt(
+      date_publication,
+      "2020-01-01",
+      na_pass = TRUE,
+      label = "Publication date after 2020-01-01"
+    ) |>
+
     # In general, results with pmid should have doi
     # Some publications known to not have doi so excepted
     col_vals_not_null(
