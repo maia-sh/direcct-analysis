@@ -70,8 +70,8 @@ screening_deduped_registries <-
   summarize(
     trn_registries = paste(trn, collapse = ";"),
     n_registries = n(),
-    is_not_withdrawn_registry = all(is_not_withdrawn_registry),
-    is_rcd_cutoff_3 = any(is_rcd_cutoff_3)
+    is_not_withdrawn_registry = all(is_not_withdrawn_registry, na.rm = TRUE),
+    is_any_rcd_cutoff_3 = any(is_rcd_cutoff_3, na.rm = TRUE)
   ) |>
   mutate(in_registries = TRUE, .after = id)
 
@@ -82,7 +82,7 @@ excluded_trials_missing_crossreg <-
   screening_deduped_registries |>
 
   # Limit to trials excluded based on completion date
-  filter(!is_rcd_cutoff_3 | is.na(is_rcd_cutoff_3)) |>
+  filter(!is_any_rcd_cutoff_3) |>
 
   # Get all trns associated with excluded trials
   # NOTE: limit to registrations that resolve
@@ -114,11 +114,11 @@ excluded_trials_missing_crossreg <-
 # Prepare screening: ICTRP + phase 1 --------------------------------------
 
 # Per ICTRP/registry data from 2021-07:
-# Intervention
-# Completion date < 2021-07-01  TODO:REMOVE
-# Registration date > 2020-01-01
-# Not withdrawn (from both ICTRP & registry)
-# Additionally, for trials including in Phase 1, not manually manually excluded
+# Intervention (any)
+# Completion date  < 2021-07-01  (any)
+# Registration date > 2020-01-01 (any)
+# Not withdrawn (from both ICTRP & registry) (all)
+# Additionally, for trials including in Phase 1, not manually manually excluded (all)
 
 trials_1_manually_excluded <-
   trials_1 |>
@@ -186,17 +186,41 @@ screening_ictrp <-
 # Include if ANY intervention, registered
 # Exclude if ANY withdrawn
 # Exclude if ANY manually excluded in phase 1 (though NO cross-registered were excluded in phase 1)
+# screening_deduped_ictrp_with_euctr_dupes <-
+#   screening_ictrp |>
+#   group_by(id) |>
+#   summarize(
+#     trn_ictrp = paste(trn, collapse = ";"),
+#     n_ictrp = n(),
+#     is_intervention = any(is_intervention),
+#     is_reg_2020 = any(is_reg_2020),
+#     is_not_withdrawn_ictrp = all(is_not_withdrawn_ictrp),
+#     is_phase_1_manually_excluded = any(is_phase_1_manually_excluded)
+#   ) |>
+#   mutate(in_ictrp = TRUE, .after = id)
+
+# Get deduped trn in ictrp
+# NOTE: collapse multiple euctr registrations, also for count (i.e., mutliple euctr countries count as single registration)
+screening_deduped_ictrp_trn <-
+  screening_ictrp |>
+  distinct(id, trn) |>
+  group_by(id) |>
+  summarize(
+    trn_ictrp = paste(trn, collapse = ";"),
+    n_ictrp = n()
+  )
+
 screening_deduped_ictrp <-
   screening_ictrp |>
   group_by(id) |>
   summarize(
-    trn_ictrp = paste(trn, collapse = ";"),
-    n_ictrp = n(),
     is_intervention = any(is_intervention),
     is_reg_2020 = any(is_reg_2020),
     is_not_withdrawn_ictrp = all(is_not_withdrawn_ictrp),
     is_phase_1_manually_excluded = any(is_phase_1_manually_excluded)
   ) |>
+  left_join(screening_deduped_ictrp_trn) |>
+  relocate(trn_ictrp, n_ictrp, .after = id) |>
   mutate(in_ictrp = TRUE, .after = id)
 
 
@@ -246,57 +270,51 @@ screening_trials <-
     by = "id"
   ) |>
 
+  mutate(is_extracted = tidyr::replace_na(is_extracted, FALSE)) |>
+
   # Verify no duplicate ids
   assertr::assert(assertr::is_uniq, id) |>
 
   # Add analysis population flags
   mutate(
 
-    # Since numerous sensitivity analyses with different completion, create flag for analysis except completion
-    is_pass_screening_ignore_cd = if_else(
+    # Since numerous sensitivity analyses with different completion, create flag for pass auto and all screening, except completion
+
+    is_pass_screening_auto = if_else(
       in_ictrp &
         is_reg_2020 &
         is_intervention &
         is_not_withdrawn_auto &
-        is_not_phase_1_manually_excluded &
+        is_not_phase_1_manually_excluded,
+      TRUE, FALSE, missing = FALSE),
+
+    is_pass_screening_manual_ignore_cd = if_else(
+      is_pass_screening_auto &
         is_clinical_trial_manual &
         is_covid_manual &
         is_not_withdrawn_manual,
       TRUE, FALSE, missing = FALSE),
 
-    # Main analysis population (considering completion date)
-    is_analysis_pop = if_else(
-      is_pass_screening_ignore_cd & is_rcd_cutoff_3,
+    # Pass screening considering *any* completion date
+    is_pass_screening_manual = if_else(
+      is_pass_screening_manual_ignore_cd & is_any_rcd_cutoff_3,
       TRUE, FALSE, missing = FALSE)
   )
-
-# TODO: Figure out metaprogramming
-# screening_criteria_auto <- c(
-#   "in_ictrp",
-#   "is_reg_2020",
-#   "is_intervention",
-#   "is_not_withdrawn_auto",
-#   "is_not_phase_1_manually_excluded",
-#   "is_rcd_cutoff_3"
-# )
-#
-# screening_criteria <- c(
-#   screening_criteria_auto,
-#   "is_clinical_trial_manual",
-#   "is_covid_manual",
-#   "is_not_withdrawn_manual"
-# )
 
 # All trials that pass auto-screening should be extracted
 screening_trials |>
   filter(
-    in_ictrp,
-    is_reg_2020,
-    is_intervention,
-    is_not_withdrawn_auto,
-    is_not_phase_1_manually_excluded,
-    is_rcd_cutoff_3
-  ) |>
-  assertr::assert(assertr::not_na, is_extracted)
+    is_pass_screening_auto,
+    is_any_rcd_cutoff_3
+  ) |> #filter(!is_extracted) TODO: extract tri07331: ISRCTN14037053;NCT04685603
+  assertr::assert(assertr::in_set(TRUE), is_extracted)
+
+#TODO: REMOVE!!! when tri07331 fixed
+screening_trials <-
+  screening_trials |>
+  mutate(
+    is_extracted = if_else(id == "tri07331", TRUE, is_extracted),
+    is_clinical_trial_manual = if_else(id == "tri07331", FALSE, is_clinical_trial_manual)
+    )
 
 readr::write_csv(screening_trials, here::here("data", "processed", "screening-trials.csv"))
