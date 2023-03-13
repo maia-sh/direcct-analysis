@@ -21,7 +21,7 @@ tbl_crossreg <-
   # Recode cross-registrations
   mutate(cross_registry = if_else(stringr::str_detect(cross_registry, ", "), "Cross-registered", cross_registry))
 
-tbl_prep <-
+tbl_registration_characteristics <-
   ictrp |>
 
   select(trn, phase, countries, target_enrollment) |>
@@ -30,14 +30,16 @@ tbl_prep <-
   semi_join(cross_registrations, by = "trn") |>
 
   # Add id
-  left_join(cross_registrations, by = "trn")
+  left_join(cross_registrations, by = "trn") |>
+  relocate(id, .before = 1) |>
+  relocate(registry, .after = "trn")
 
 
 # Prepare countries -------------------------------------------------------
 
 tbl_countries <-
 
-  tbl_prep |>
+  tbl_registration_characteristics |>
 
   select(id, countries) |>
 
@@ -60,7 +62,7 @@ tbl_countries <-
 # Prepare phases ----------------------------------------------------------
 
 tbl_phases <-
-  tbl_prep |>
+  tbl_registration_characteristics |>
   select(id, phase) |>
 
   # tri03199 has issue with phase --> recode as "Not Applicable"
@@ -89,7 +91,7 @@ tbl_phases <-
 # Note: 6 trials with NA enrollment: tri00917, tri02448, tri03029, tri03309, tri06336, tri06856
 
 tbl_enrollment <-
-  tbl_prep |>
+  tbl_registration_characteristics |>
   distinct(id, target_enrollment) |>
 
   # Tidy enrollment
@@ -98,12 +100,13 @@ tbl_enrollment <-
     target_enrollment = as.numeric(target_enrollment)
   )|>
 
-  # Get average enrollment across registrations
-  # TODO: discuss with ND, could also us max, min, etc.
+  # Get average/max/min enrollment across registrations
   group_by(id) |>
-  summarise(target_enrollment = mean(target_enrollment)) |>
-  mutate(target_enrollment = round(target_enrollment))
-
+  summarise(
+    target_enrollment_mean = round(mean(target_enrollment, na.rm = TRUE)),
+    target_enrollment_max = max(target_enrollment, na.rm = TRUE),
+    target_enrollment_min = min(target_enrollment, na.rm = TRUE)
+  )
 
 # Lump infrequent (<5 trials) countries
 # countries =
@@ -112,10 +115,10 @@ tbl_enrollment <-
 # cross_registry =
 #   fct_lump_min(cross_registry, 3, other_level = "Registries with <3 trials")
 
-library(forcats)
-library(gtsummary)
 
-tbl_trials <-
+# Prepare trial characteristics -------------------------------------------
+
+tbl_trial_characteristics <-
   trials |>
   select(id) |>
 
@@ -125,64 +128,79 @@ tbl_trials <-
   left_join(tbl_enrollment, by = "id") |>
   left_join(tbl_phases, by = "id") |>
   left_join(tbl_crossreg, by = "id") |>
-  left_join(tbl_countries, by = "id") |>
-  mutate(
+  left_join(tbl_countries, by = "id")
 
-    # Lump infrequent registries
-    # cross_registry =
-    #   fct_lump_min(cross_registry, 3, other_level = "Registries with <3 trials"),
 
-    # Order by frequency, with cross-registrations first, and lumped last
-    cross_registry =
-      fct_infreq(cross_registry),
-    cross_registry =
-      fct_relevel(cross_registry, "Cross-registered", after = 0),
-    # cross_registry =
-    #   fct_relevel(cross_registry, "Registries with <3 trials", after = Inf),
+# Prepare table 1 ---------------------------------------------------------
 
-    # Lump infrequent countries
-    countries =
-      fct_lump_min(countries, 15, other_level = "Countries with <15 trials"),
-
-    # Order by frequency, with multinational, lumped, and no country at end
-    countries = fct_infreq(countries),
-    countries = fct_relevel(countries, "Multinational", after = Inf),
-    countries = fct_relevel(countries, "Countries with <15 trials", after = Inf),
-    countries = fct_relevel(countries, "No Country Given", after = Inf),
-  ) |>
-
-  select(-id) |>
-
-  gtsummary::tbl_summary(
-    by = has_result,
-    # type = all_continuous() ~ "continuous2",
-    # statistic = all_continuous() ~ c("{N_nonmiss}",
-    #                                  "{median} ({p25}, {p75})",
-    #                                  "{min}, {max}"),
-    missing = "no",
-    label = list(
-      target_enrollment ~ "Target enrollment",
-      # study_type ~ "Study type",
-      phase ~ "Phase",
-      cross_registry ~ "Registry",
-      countries ~ "Countries"
-    ),
-    # sort = list(
-    # cross_registry ~ "frequency",
-    # countries ~ "frequency"
-    # ),
-  ) %>%
-
-  add_overall() %>%
-
-  # add_difference(include = target_enrollment) %>%
-
-  # modify_header(label = "**Publication Type**") %>%
-
-  bold_labels() %>%
-  modify_spanning_header(all_stat_cols() ~ "**Results Disseminated**") %>%
-  modify_caption("**Trial Characteristics** (N = {N})")
-
-gt_tbl_trials <- as_gt(tbl_trials)
-gt::gtsave(gt_tbl_trials, here::here("docs", "figures", "tbl-trials.png"))
-writeLines(gt::as_rtf(gt_tbl_trials), here("docs", "figures", "tbl-trials.rtf"))
+# library(forcats)
+# library(gtsummary)
+#
+# tbl_trials <-
+#   tbl_trial_characteristics |>
+#
+#   # For trials with discrepant enrollments, use max
+#   # TODO: discuss with ND, could use mean, min, etc.
+#   select(-target_enrollment_mean, -target_enrollment_min) |>
+#   rename(target_enrollment = target_enrollment_max) |>
+#
+#   mutate(
+#
+#     # Lump infrequent registries
+#     # cross_registry =
+#     #   fct_lump_min(cross_registry, 3, other_level = "Registries with <3 trials"),
+#
+#     # Order by frequency, with cross-registrations first, and lumped last
+#     cross_registry =
+#       fct_infreq(cross_registry),
+#     cross_registry =
+#       fct_relevel(cross_registry, "Cross-registered", after = 0),
+#     # cross_registry =
+#     #   fct_relevel(cross_registry, "Registries with <3 trials", after = Inf),
+#
+#     # Lump infrequent countries
+#     countries =
+#       fct_lump_min(countries, 15, other_level = "Countries with <15 trials"),
+#
+#     # Order by frequency, with multinational, lumped, and no country at end
+#     countries = fct_infreq(countries),
+#     countries = fct_relevel(countries, "Multinational", after = Inf),
+#     countries = fct_relevel(countries, "Countries with <15 trials", after = Inf),
+#     countries = fct_relevel(countries, "No Country Given", after = Inf),
+#   ) |>
+#
+#   select(-id) |>
+#
+#   gtsummary::tbl_summary(
+#     by = has_result,
+#     # type = all_continuous() ~ "continuous2",
+#     # statistic = all_continuous() ~ c("{N_nonmiss}",
+#     #                                  "{median} ({p25}, {p75})",
+#     #                                  "{min}, {max}"),
+#     missing = "no",
+#     label = list(
+#       target_enrollment ~ "Target enrollment",
+#       # study_type ~ "Study type",
+#       phase ~ "Phase",
+#       cross_registry ~ "Registry",
+#       countries ~ "Countries"
+#     ),
+#     # sort = list(
+#     # cross_registry ~ "frequency",
+#     # countries ~ "frequency"
+#     # ),
+#   ) %>%
+#
+#   add_overall() %>%
+#
+#   # add_difference(include = target_enrollment) %>%
+#
+#   # modify_header(label = "**Publication Type**") %>%
+#
+#   bold_labels() %>%
+#   modify_spanning_header(all_stat_cols() ~ "**Results Disseminated**") %>%
+#   modify_caption("**Trial Characteristics** (N = {N})")
+#
+# gt_tbl_trials <- as_gt(tbl_trials)
+# gt::gtsave(gt_tbl_trials, here::here("docs", "figures", "tbl-trials.png"))
+# writeLines(gt::as_rtf(gt_tbl_trials), here("docs", "figures", "tbl-trials.rtf"))

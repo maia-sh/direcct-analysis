@@ -1,6 +1,8 @@
 dir_sub <- fs::dir_create(here::here("data", "reporting", "subgroup-analyses"))
 
-# 6-month blocks (i.e., Jan 2020-Jun 2020, July 2020-Dec 2020, & Jan 2021-Jun 2021)
+
+# 6-month blocks ----------------------------------------------------------
+# I.e., Jan 2020-Jun 2020, July 2020-Dec 2020, & Jan 2021-Jun 2021
 
 # Prepare km dataset with semesters
 km_semester <-
@@ -45,11 +47,6 @@ plot_trials_semester <-
   )) +
   geom_bar(linewidth = 1.5)
 
-# TODO
-# preprints earlier vs. later
-# how many preprints in each block and whether converted to
-# time to pub earlier vs later
-
 # Prepare km preprint/article dataset with semesters
 km_preprint_article_semester <-
   km_preprint_article_combined |>
@@ -83,3 +80,26 @@ time_preprint_article_semester <-
 time_preprint_article_semester_1 <- filter(time_preprint_article_semester, semester == 1)
 time_preprint_article_semester_2 <- filter(time_preprint_article_semester, semester == 2)
 time_preprint_article_semester_3 <- filter(time_preprint_article_semester, semester == 3)
+
+
+# minimum standard of design ----------------------------------------------
+# minimum standard of design and enrollment standards as a proxy for those most likely to influence clinical practice. We defined these as randomized trials designated as Phase 2 or higher and conducted in at least 100 participants
+
+# For trials with multiple registrations in registries and/or ictrp, we include trials designated as [(1) randomized TODO: need variable from ND] and (2) Phase 2 or higher in ANY registration and (3) conducted in at least 100 participants per the max of ANY registration
+
+# remember: multiple reg/ictrp for some trials! use any?
+# ictrp:target_enrollment, phase
+# don't have randomized, asking nd
+
+km_min_standards <-
+
+  # Get trials that meet minimum standards
+  tbl_trial_characteristics |>
+  filter(
+    stringr::str_detect(phase, "2|3|4"),
+    target_enrollment_max >= 100
+    #TODO: add randomized
+  ) %>%
+  semi_join(km_main, ., by = "id")
+
+readr::write_csv(km_min_standards, fs::path(dir_sub, "kaplan-meier-minimum-standards.csv"))
