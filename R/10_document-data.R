@@ -38,7 +38,8 @@ dm_direcct <-
     `registrations`,
     `results`,
     `arms`,
-    `screening-trials`
+    `screening-trials`,
+    `completion-dates`
   ) |>
 
   # Add primary keys
@@ -55,7 +56,8 @@ dm_direcct <-
   dm_add_fk(`extraction-info`, `id`, `screening-trials`) |>
   dm_add_fk(`2021-07-01_ictrp`, `trn`, `registrations`) |>
   dm_add_fk(`2021-07_registries`, `trn`, `registrations`) |>
-  dm_add_fk(`2022-04_registries`, `trn`, `registrations`)
+  dm_add_fk(`2022-04_registries`, `trn`, `registrations`) |>
+  dm_add_fk(`completion-dates`, `id`, `screening-trials`)
 
 # Check constraints
 # dm_examine_constraints(dm_direcct)
@@ -126,8 +128,15 @@ codebook <- bind_rows(
     table = "2022-04_registries",
     variable = colnames(`2022-04_registries`),
     type = tolower(purrr::map_chr(`2022-04_registries`, class))
+  ),
+
+  tibble(
+    table = "completion-dates",
+    variable = colnames(`completion-dates`),
+    type = tolower(purrr::map_chr(`completion-dates`, class))
   )
 ) |>
+
   # Reset to POSIX
   mutate(type = if_else(variable == "timestamp_finished", "POSIX", type)) |>
 
@@ -313,8 +322,36 @@ description <- tribble(
   "",
 
   "intervention_plus_soc",
+  "",
+
+  "date_completion_rcd_latest",
+  "",
+
+  "date_completion_rcd_latest_pre_cutoff",
+  "",
+
+  "date_completion_last_updated_exclude_missing_update_date",
+  "",
+
+  "date_completion_last_updated_prefer_euctr",
+  "",
+
+  "status_complete_last_updated_prefer_euctr",
+  "",
+
+  "date_completion_ictrp",
+  "",
+
+  "date_completion_22_21_last_updated_prefer_euctr",
+  "",
+
+  "date_completion_study_last_updated_prefer_euctr",
+  "",
+
+  "date_completion_results",
   ""
 )
+
 
 codebook_description <-
   codebook |>
@@ -333,6 +370,7 @@ tibble(
     "registrations",
     "results",
     "arms",
-    "screening-trials"
+    "screening-trials",
+    "completion-dates"
   )
 )

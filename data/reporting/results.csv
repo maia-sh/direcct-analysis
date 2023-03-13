@@ -30,7 +30,7 @@ tri02956,registry,interim_results_journal_article,NA,NA,10.1056/nejmoa2027906,33
 tri02956,registry,interim_results_journal_article,NA,NA,10.1056/nejmoa2034577,33301246,https://www.nejm.org/doi/10.1056/NEJMoa2034577,2020-12-10,NA,NA,NA,NA,NA,NA
 tri02956,cochrane,interim_results_preprint,NA,NA,10.1101/2020.08.17.20176651,NA,https://www.medrxiv.org/content/10.1101/2020.08.17.20176651v2,2020-08-20,NA,NA,NA,NA,NA,NA
 tri02956,cochrane,interim_results_preprint,NA,NA,10.1101/2020.06.30.20142570,NA,https://www.medrxiv.org/content/10.1101/2020.06.30.20142570v1,2020-07-01,NA,NA,NA,NA,NA,NA
-tri03499,cochrane,full_results_preprint,1,NA,10.1101/2021.05.10.21256192,NA,https://www.medrxiv.org/content/10.1101/2021.05.10.21256192v1.full-text,2021-05-10,unclear_cd,2021-02-23,NA,NA,NA,NA
+tri03499,cochrane,full_results_preprint,1,NA,10.1101/2021.05.10.21256192,NA,https://www.medrxiv.org/content/10.1101/2021.05.10.21256192v1.full-text,2021-05-10,scd,2021-02-23,NA,NA,NA,NA
 tri03558,keywords,full_results_journal_article,1,google,NA,32920571,https://www.infezmed.it/media/journal/Vol_28_3_2020_9.pdf,2020-09-01,scd,2020-06-01,NA,NA,NA,NA
 tri05951,registry,interim_results_journal_article,NA,NA,10.1056/nejmoa2033130,33356051,https://www.ncbi.nlm.nih.gov/pmc/articles/pmid/33356051/,2020-12-22,NA,NA,NA,NA,NA,NA
 tri03340,cochrane,other,NA,NA,10.1158/1557-3265.covid-19-po-002,NA,https://clincancerres.aacrjournals.org/content/26/18_Supplement/PO-002,2020-09-01,NA,NA,NA,NA,NA,NA
@@ -299,7 +299,7 @@ tri04114,cochrane,full_results_preprint,1,NA,10.1101/2020.11.27.20234997,NA,http
 tri02910,registry,summary_results,NA,NA,NA,NA,https://rpcec.sld.cu/en/trials/RPCEC00000309-En,2020-09-09,NA,NA,NA,NA,NA,NA
 tri02910,auto,interim_results_preprint,NA,NA,10.21203/rs.3.rs-68403/v1,NA,https://www.researchsquare.com/article/rs-68403/v1,2020-09-10,NA,NA,NA,NA,NA,NA
 tri04526,cochrane,full_results_preprint,1,NA,10.1101/2021.02.17.21251899,NA,https://www.medrxiv.org/content/10.1101/2021.02.17.21251899v1,2021-02-19,NA,NA,NA,NA,NA,NA
-tri04698,trn,full_results_journal_article,1,europe_pmc,10.1093/infdis/jiab098,NA,https://academic.oup.com/jid/article/223/9/1538/6135116,2015-02-21,pcd,2020-09-30,NA,NA,28,TRUE
+tri04698,trn,full_results_journal_article,1,europe_pmc,10.1093/infdis/jiab098,NA,https://academic.oup.com/jid/article/223/9/1538/6135116,2021-02-15,pcd,2020-09-30,NA,NA,28,TRUE
 tri04775,registry,other,NA,NA,NA,NA,http://www.ctri.nic.in/Clinicaltrials/pmaindet2.php?trialid=45564,NA,NA,NA,NA,NA,NA,NA
 tri04826,trn,full_results_preprint,1,google_scholar,10.31219/osf.io/c8f9h,NA,https://osf.io/c8f9h,2021-03-12,pcd,2020-09-11,NA,NA,NA,NA
 tri03196,trn,full_results_preprint,1,google_scholar,10.2139/ssrn.3787463,NA,https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3787463,2021-02-17,NA,NA,NA,NA,NA,NA
@@ -409,7 +409,7 @@ tri03558,registry,other,NA,NA,NA,NA,https://clinicaltrials.gov/ProvidedDocs/24/N
 tri03558,cochrane,full_results_preprint,1,NA,10.1101/2020.06.24.20121905,NA,https://www.medrxiv.org/content/10.1101/2020.06.24.20121905v1,2020-06-29,scd,2020-06-01,NA,NA,NA,NA
 tri05951,cochrane,interim_results_preprint,NA,NA,10.1101/2021.07.19.21260559,NA,https://www.medrxiv.org/content/10.1101/2021.07.19.21260559,2021-07-22,NA,NA,NA,NA,NA,NA
 tri06088,registry,protocol,NA,NA,10.1186/s13063-020-04812-2,33106183,https://www.ncbi.nlm.nih.gov/pmc/articles/pmid/33106183/,2020-10-26,NA,NA,NA,NA,NA,NA
-tri06088,trn,full_results_preprint,1,europe_pmc,10.21203/rs.3.rs-138540/v2,NA,https://www.researchsquare.com/article/rs-138540/v2,2001-01-05,NA,NA,2020-09-04,14,21,NA
+tri06088,trn,full_results_preprint,1,europe_pmc,10.21203/rs.3.rs-138540/v2,NA,https://www.researchsquare.com/article/rs-138540/v2,2021-01-05,NA,NA,2020-09-04,14,21,NA
 tri06088,registry,full_results_journal_article,1,NA,10.1016/j.intimp.2021.107916,34224994,https://pubmed.ncbi.nlm.nih.gov/34224994/,2021-06-29,NA,NA,2020-09-04,NA,21,NA
 tri06103,registry,full_results_journal_article,1,NA,10.1177/03000605211013550,33983065,https://pubmed.ncbi.nlm.nih.gov/33983065/,2021-05-13,NA,NA,2020-08-30,NA,14,NA
 tri02130,keywords,other,NA,pubmed,10.3389/fmed.2021.583842,33816515,https://pubmed.ncbi.nlm.nih.gov/33816515/,2021-03-17,NA,NA,NA,NA,NA,NA
@@ -921,7 +921,7 @@ tri02025,cochrane,full_results_journal_article,1,NA,10.1038/s41467-021-23469-2,3
 tri00185,auto,full_results_journal_article,1,NA,10.3389/fmed.2021.566609,35186959,https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8854372/,2022-02-04,NA,NA,2020-03-31,7,30,TRUE
 tri03444,cochrane,full_results_preprint,1,NA,10.1101/2021.05.20.21257520,NA,https://www.medrxiv.org/content/10.1101/2021.05.20.21257520v1,2021-05-24,NA,NA,NA,NA,NA,NA
 tri03467,registry,summary_results,NA,NA,NA,NA,https://clinicaltrials.gov/ct2/show/results/NCT04426695,2022-07-25,NA,NA,NA,NA,NA,NA
-tri03051,registry,full_results_journal_article,1,NA,10.1016/s2213-2600(21)00214-9,34126053,https://www.thelancet.com/journals/lanres/article/PIIS2213-2600(21)00214-9/fulltext,2012-06-11,NA,NA,2021-01-20,30,30,NA
+tri03051,registry,full_results_journal_article,1,NA,10.1016/s2213-2600(21)00214-9,34126053,https://www.thelancet.com/journals/lanres/article/PIIS2213-2600(21)00214-9/fulltext,2021-06-11,NA,NA,2021-01-20,30,30,NA
 tri05660,registry,other,NA,NA,10.1016/s1473-3099(20)30942-7,33485468,https://www.ncbi.nlm.nih.gov/labs/pmc/articles/PMC7825810/,2021-01-21,NA,NA,NA,NA,NA,NA
 tri05660,auto,other,NA,NA,10.1101/2020.12.11.20210419,NA,https://www.medrxiv.org/content/10.1101/2020.12.11.20210419v1,2020-12-15,NA,NA,NA,NA,NA,NA
 tri03217,registry,summary_results,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/trial/2020-001376-15/results,2021-11-06,pcd,2021-04-28,NA,NA,NA,NA
@@ -985,7 +985,6 @@ tri10131,cochrane,full_results_preprint,1,NA,10.1101/2021.06.22.21259318,NA,http
 tri10131,cochrane,full_results_journal_article,1,NA,10.7759/cureus.20691,34976549,https://www.ncbi.nlm.nih.gov/labs/pmc/articles/PMC8712234/,2021-12-25,scd,2021-04-16,NA,NA,NA,NA
 tri05660,registry,full_results_journal_article,1,NA,10.1016/s1473-3099(21)00070-0,33705727,https://www.ncbi.nlm.nih.gov/labs/pmc/articles/PMC8221739/,2021-03-08,NA,NA,2020-09-12,56,NA,NA
 tri05660,auto,full_results_preprint,1,NA,10.1101/2020.12.21.20248643,NA,https://www.medrxiv.org/content/10.1101/2020.12.21.20248643v1,2020-12-22,NA,NA,NA,NA,NA,NA
-tri05660,trn,full_results_preprint,2,google_scholar,10.1101/2022.01.05.22268777,NA,https://www.medrxiv.org/content/10.1101/2022.01.05.22268777v1,2022-01-08,NA,NA,NA,NA,NA,NA
 tri05649,registry,full_results_journal_article,1,NA,10.1056/nejmoa2035389,33378609,https://www.ncbi.nlm.nih.gov/labs/pmc/articles/PMC7787219/,2020-12-30,NA,NA,2020-11-20,14,NA,NA
 tri05649,registry,full_results_journal_article,2,NA,10.1056/nejmoa2113017,34551225,https://www.ncbi.nlm.nih.gov/labs/pmc/articles/PMC8482810/,2021-09-22,NA,NA,NA,NA,NA,NA
 tri05649,registry,other,NA,NA,10.1101/2021.08.09.21261290,34401888,https://www.medrxiv.org/content/10.1101/2021.08.09.21261290v4,2021-08-10,NA,NA,NA,NA,NA,NA

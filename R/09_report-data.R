@@ -27,6 +27,7 @@ readr::read_csv(fs::path(dir_processed, "deduped-trials.csv")) |>
 # - arms
 # - ictrp 2021-07
 # - registries 2021-07 & 2022-04
+# - completion dates
 
 fs::file_copy(
   fs::path(dir_processed, "screening-trials.csv"),
@@ -67,5 +68,11 @@ fs::file_copy(
 fs::file_copy(
   fs::path(dir_cleaned, "2022-04_registries.csv"),
   fs::path(dir_reporting, "2022-04_registries.csv"),
+  overwrite = TRUE
+)
+
+fs::file_copy(
+  fs::path(dir_processed, "completion-dates.csv"),
+  fs::path(dir_reporting, "completion-dates.csv"),
   overwrite = TRUE
 )

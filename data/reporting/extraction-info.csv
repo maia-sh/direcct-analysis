@@ -29,7 +29,7 @@ tri00894,NCT04257656,TRUE,2021-10-14T08:32:21Z,NA,NA,NA,NA,FALSE,NA
 tri00895,NCT04273646,TRUE,2021-10-07T07:27:51Z,NA,NA,NA,NA,FALSE,NA
 tri02082,NCT04393961,TRUE,2021-10-07T04:55:05Z,NA,NA,NA,NA,NA,Diagnostic
 tri06469,NCT04573270,TRUE,2021-10-07T05:13:30Z,NA,NA,NA,NA,FALSE,NA
-tri00424,ChiCTR2000030703,TRUE,2021-10-07T07:30:24Z,TRUE,FALSE,"The protocol makes it clear this research is ongoing:\n\nTrial registration number is ChiCTR2000030703 (version 1.7 as of March 19, 2020). The recruitment is ongoing, and the date recruitment was initiated in June 2020. The anticipated date of the end of data collection is June 2021.",Chloroquine;Lopinavir;Ribavirin;Ritonavir;Umifenovir (Arbidol),FALSE,NA
+tri00424,ChiCTR2000030703,TRUE,2021-10-07T07:30:24Z,TRUE,FALSE,"The protocol makes it clear this research is ongoing: 'Trial registration number is ChiCTR2000030703 (version 1.7 as of March 19, 2020). The recruitment is ongoing, and the date recruitment was initiated in June 2020. The anticipated date of the end of data collection is June 2021.'",Chloroquine;Lopinavir;Ribavirin;Ritonavir;Umifenovir (Arbidol),FALSE,NA
 tri01243,ISRCTN83971151,TRUE,2022-03-03T02:23:03Z,NA,NA,NA,NA,FALSE,"There is some weirdness about DISCOVERY and its role in SOLIDARITY and whether we should consider it it's own trial or just the French wing of SOLIDARITY. See the DISCOVERY protocol:\nhttps://www.ncbi.nlm.nih.gov/pmc/articles/PMC7507250/\n\nAlso in the NEJM SOLIDARITY publication they give the ClinicalTrials.gov ID for DISCOVERY alongside SOLIDARITY. It looks like DISCOVERY feeds data to SOLIDARITY through a common protocol but may also be recording its own data. For our purposes I'm inclined to think it might be better to combine. If so, we would add the DISCOVERY IDs to the cross-registrations above. (NCT04315948 and whatever the EUCTR entry is)"
 tri02683,DRKS00021447,TRUE,2021-10-07T05:38:11Z,NA,NA,NA,NA,FALSE,NA
 tri02699,DRKS00021573,TRUE,2021-10-07T05:39:08Z,NA,NA,NA,NA,NA,NA
@@ -44,7 +44,7 @@ tri03295,NCT04335136,TRUE,2021-10-26T05:09:18Z,NA,NA,NA,NA,TRUE,NA
 tri02334,NCT04351516,TRUE,2021-10-07T05:12:20Z,NA,NA,NA,NA,NA,Cross-reg: 2020-001482-37\n\nProtocol: https://clinicaltrials.gov/ct2/bye/rQoPWwoRrXS9-i-wudNgpQDxudhWudNzlXNiZip9Ei7ym67VZRFncgCtORCJA6h9Ei4L3BUgWwNG0it\n\nNote of withdrawal on EUCTR: https://www.clinicaltrialsregister.eu/ctr-search/trial/2020-001482-37/results
 tri02956,NCT04368728,TRUE,2021-10-07T05:47:15Z,NA,NA,NA,NA,TRUE,NA
 tri03130,NCT04425460,TRUE,2022-09-09T13:06:23Z,NA,NA,NA,NA,FALSE,Prematurely ended according to cross-registration: EUCTR2020-001608-40 (tri04111). Possible press release: https://www.prnewswire.com/in/news-releases/zhejiang-hisun-pharmaceutical-covid-19-pandemic-brought-under-control-in-china-with-favipiravir-showing-excellent-clinical-results-829741127.html
-tri03499,NCT04433910,TRUE,2021-10-21T08:40:12Z,NA,NA,NA,NA,FALSE,Looks like there are some kinda related pubs about diagnostics but not worth listing I don't think.
+tri03499,NCT04433910,TRUE,2023-02-28T05:29:19Z,NA,NA,NA,NA,FALSE,Looks like there are some kinda related pubs about diagnostics but not worth listing I don't think.
 tri05951,NCT04501978,TRUE,2021-10-14T08:28:16Z,NA,NA,NA,NA,FALSE,Interim because this is just 1 arm of an adaptive trial (Like RECOVERY). Not adding completion date here as they are difficult to define for this trial and it's adaptive anyway so the actual completion date for the whole trial is far in the future.
 tri03340,NCT04362137,TRUE,2021-10-21T08:43:05Z,NA,NA,NA,NA,FALSE,the other publication of an abstract about the trial design is what the embase link leads to
 tri03212,NCT04382053,TRUE,2021-10-07T06:00:22Z,NA,NA,NA,NA,FALSE,NA
@@ -68,7 +68,7 @@ tri03287,NCT04324463,TRUE,2021-10-07T06:01:53Z,NA,NA,NA,NA,FALSE,NA
 tri02559,NCT04327401,TRUE,2021-10-07T05:30:12Z,NA,NA,NA,NA,FALSE,"Terminated (The Data Monitoring Committee recommended to stop the trial based on the Recovery Trial results, which was accepted by the CoDEX Steering Committee.)\n\nPrimary and Study completion are the same so called it Primary"
 tri01279,NCT04328480,TRUE,2021-10-07T04:53:02Z,NA,NA,NA,NA,FALSE,NA
 tri02451,NCT04329832,TRUE,2021-10-07T05:26:04Z,NA,NA,NA,NA,FALSE,NA
-tri01097,NCT04331808,TRUE,2022-07-01T09:56:48Z,NA,NA,"This article reports on CORIMUNO-TOCI 1, a CORIMUNO, multicenter, open-label, randomized clinical trial in patients with moderate or severe pneumonia. The trial registration, NCT04331808, describes this study and a second study, CORIMUNO-TOCI 2, a trial conducted in patients with critical pneumonia. Although the 2 trials were placed under the same registration number, they are distinct studies with different participants, and were never intended to be reported together.",NA,FALSE,"We decided that since the registration contained two different trial, the publication of each trial will be a full result. The first full publication of either of these 2 trials would be the one used for analysis. Sub-trial of NCT04324047/EUCTR2020-001246-18 (tri00659) observational supra-'trial' (excluded)"
+tri01097,NCT04331808,TRUE,2022-07-01T09:56:48Z,NA,NA,NA,NA,FALSE,"This article reports on CORIMUNO-TOCI 1, a CORIMUNO, multicenter, open-label, randomized clinical trial in patients with moderate or severe pneumonia. The trial registration, NCT04331808, describes this study and a second study, CORIMUNO-TOCI 2, a trial conducted in patients with critical pneumonia. Although the 2 trials were placed under the same registration number, they are distinct studies with different participants, and were never intended to be reported together. We decided that since the registration contained two different trials, the publication of each trial will be a full result. The first full publication of either of these 2 trials would be the one used for analysis. Sub-trial of NCT04324047/EUCTR2020-001246-18 (tri00659) observational supra-'trial' (excluded)"
 tri02937,NCT04335305,TRUE,2021-10-07T05:43:12Z,NA,NA,NA,NA,FALSE,NA
 tri00781,NCT04338698,TRUE,2021-10-07T07:30:12Z,NA,NA,NA,NA,FALSE,No conflicts but this review: https://www.nature.com/articles/s41467-021-22446-z confirms the trial has collected some data as they got some.
 tri03303,NCT04343729,TRUE,2021-10-07T06:06:23Z,NA,NA,NA,NA,FALSE,NA
@@ -1139,7 +1139,7 @@ tri06109,NCT04524598,TRUE,2021-11-21T23:11:52Z,NA,NA,NA,NA,NA,NA
 tri06114,NCT04525378,TRUE,2021-11-21T23:12:08Z,NA,NA,NA,NA,FALSE,NA
 tri06136,NCT04527432,TRUE,2021-11-21T23:12:18Z,NA,NA,NA,NA,NA,NA
 tri06241,NCT04539626,TRUE,2021-11-21T23:12:33Z,NA,NA,NA,NA,FALSE,NA
-tri06252,NCT04540926,TRUE,2021-12-06T09:28:58Z,NA,NA,[Left blank],NA,FALSE,NA
+tri06252,NCT04540926,TRUE,2021-12-06T09:28:58Z,NA,NA,NA,NA,FALSE,NA
 tri06271,NCT04542694,TRUE,2021-12-13T01:33:39Z,NA,NA,NA,Azithromycin;Chloroquine;Hydroxychloroquine;Lopinavir;Ritonavir,FALSE,"result according to Cochrane but I cannot access the link: https://www.embase.com/search/results?subaction=viewrecord&id=L2011742737\nalso, non-english-result: https://www.pharmpharm.ru/jour/article/view/709"
 tri06272,NCT04542850,TRUE,2021-11-25T04:20:21Z,NA,NA,NA,NA,NA,adverse events
 tri06304,NCT04547634,TRUE,2021-11-21T23:13:14Z,NA,NA,NA,NA,NA,NA
@@ -1159,7 +1159,7 @@ tri06445,NCT04568889,TRUE,2021-11-21T23:17:19Z,NA,NA,NA,NA,NA,NA
 tri06488,NCT04576312,TRUE,2021-11-25T04:15:34Z,NA,NA,NA,NA,NA,NA
 tri06561,NCT04587219,TRUE,2021-11-26T03:55:04Z,NA,NA,NA,NA,TRUE,NA
 tri06566,NCT04587414,TRUE,2021-11-21T23:17:47Z,NA,NA,NA,NA,NA,NA
-tri06572,NCT04589104,TRUE,2021-12-09T05:38:39Z,NA,NA,[Left blank],NA,NA,NA
+tri06572,NCT04589104,TRUE,2021-12-09T05:38:39Z,NA,NA,NA,NA,NA,NA
 tri06604,NCT04593641,TRUE,2021-12-06T09:27:54Z,NA,NA,NA,NA,NA,Safety and tolerability outcomes
 tri06609,NCT04594330,TRUE,2021-11-21T23:18:37Z,NA,NA,NA,NA,FALSE,NA
 tri06631,NCT04597034,TRUE,2021-11-26T03:53:33Z,NA,NA,NA,NA,TRUE,NA
@@ -1331,7 +1331,7 @@ tri01363,NCT04369274,TRUE,2022-02-05T04:10:45Z,NA,NA,NA,NA,TRUE,NA
 tri05383,NCT04371107,TRUE,2021-11-30T07:42:06Z,NA,NA,NA,NA,TRUE,NA
 tri01452,NCT04371965,TRUE,2022-02-10T05:44:45Z,NA,NA,NA,NA,FALSE,NA
 tri02960,NCT04372017,TRUE,2021-11-30T07:42:41Z,NA,NA,NA,NA,FALSE,NA
-tri01459,NCT04372680,TRUE,2022-01-26T16:48:55Z,NA,NA,[Left blank],NA,FALSE,Primary outcome is time on ventilation: 'Delay from the start of Mechanical Ventilation weaning process to extubation'
+tri01459,NCT04372680,TRUE,2022-01-26T16:48:55Z,NA,NA,NA,NA,FALSE,Primary outcome is time on ventilation: 'Delay from the start of Mechanical Ventilation weaning process to extubation'
 tri02345,NCT04373200,TRUE,2021-11-30T07:42:56Z,NA,NA,NA,NA,NA,No intervention; only collection blood and saliva samples to analyze antibodies
 tri01536,NCT04374942,TRUE,2021-11-30T07:43:26Z,NA,NA,NA,NA,FALSE,"Terminated (Due to unproven issues associated with hydroxychloroquine use and safety, further complicated by media and political misinformation which in effect rendered all global studies on HCQ to stop enrolling participants.)"
 tri03065,NCT04375098,TRUE,2021-12-10T05:17:01Z,NA,NA,NA,NA,FALSE,NA
