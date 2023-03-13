@@ -1,16 +1,33 @@
 # Analysis for main kaplan meier
 # NOTE: if do additional km sensitivity analyses, then functionalize
 
-km_data_wide <- km_main
 trials_cd <- select(trials, id, date_completion)
 
 # Analyze kaplan meier ----------------------------------------------------
 
 # Get follow-up times for unreported trials
 follow_up_unreported <-
-  km_data_wide |>
+  km_main |>
   filter(!publication_any) |>
   pull(time_publication_any)
+
+km_main_long <-
+  km_main |>
+  tidyr::pivot_longer(
+    contains("publication"),
+    names_to = c(".value", "pub_type"),
+    names_pattern = "(^.*publication)_(.*)"
+  )
+
+# Get reporting rates for any and by pub type
+reporting_rates_pub_type <-
+  km_main_long |>
+  add_count(pub_type, name = "n_trials") |>
+  add_count(pub_type, publication, name = "n_results") |>
+  filter(publication) |>
+  distinct(pub_type, n_trials, n_results) |>
+  mutate(p_results = n_results/n_trials)
+
 
 
 # Analyze preprint-to-article ---------------------------------------------
@@ -19,7 +36,7 @@ follow_up_unreported <-
 
 # For preprint/article conversion analysis, get trials with preprint and article from matching groups (pair or more)
 preprint_article_groups <-
-  km_data_wide |>
+  km_main |>
 
   # Get trials with both preprint and article
   filter(publication_article & publication_preprint) %>%
@@ -93,7 +110,7 @@ km_preprint_article <-
 
 
 # Get preprints that do NOT convert to article
-# tri01280 has preprint/article but not matching so should be included as non-converted preprint. Hence can't use `filter(km_data_wide, !publication_article & publication_preprint)` since would be excluded and instead use results
+# tri01280 has preprint/article but not matching so should be included as non-converted preprint. Hence can't use `filter(km_main, !publication_article & publication_preprint)` since would be excluded and instead use results
 km_preprint_cutoff <-
   results |>
 
@@ -131,7 +148,7 @@ readr::write_csv(km_preprint_article_combined, here::here("data", "reporting", "
 
 # Get trials with article only (NO preprint)
 km_article_only <-
-  km_data_wide |>
+  km_main |>
 
   # Get trials with both preprint and article
   filter(publication_article & !publication_preprint)
