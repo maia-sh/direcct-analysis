@@ -309,12 +309,4 @@ screening_trials |>
   ) |> #filter(!is_extracted) TODO: extract tri07331: ISRCTN14037053;NCT04685603
   assertr::assert(assertr::in_set(TRUE), is_extracted)
 
-#TODO: REMOVE!!! when tri07331 fixed
-screening_trials <-
-  screening_trials |>
-  mutate(
-    is_extracted = if_else(id == "tri07331", TRUE, is_extracted),
-    is_clinical_trial_manual = if_else(id == "tri07331", FALSE, is_clinical_trial_manual)
-    )
-
 readr::write_csv(screening_trials, here::here("data", "processed", "screening-trials.csv"))

@@ -618,6 +618,96 @@ tri03217,NCT04387409,experimental,NA,NA,vaccine_non_covid,VPM1002 vaccine,no
 tri03217,NCT04387409,control,placebo,no,NA,NA,NA
 tri05711,NCT04475588,experimental,NA,NA,biologics,itolizumab,undefined_soc
 tri05711,NCT04475588,control,undefined_soc,NA,NA,NA,NA
+tri04895,CTRI/2020/08/027120,experimental,NA,NA,traditional_medicine,Traditional Medicine,no
+tri04895,CTRI/2020/08/027120,control,undefined_soc,NA,NA,NA,NA
+tri00995,NCT04348877,experimental,NA,NA,biologics,Convalescent Plasma,defined_soc
+tri00801,NCT04344080,experimental,NA,NA,procedure,Cytokine absorber,defined_soc
+tri00801,NCT04344080,control,defined_soc,NA,NA,NA,NA
+tri06780,NCT04621149,control,placebo,no,NA,NA,NA
+tri06780,NCT04621149,experimental,NA,NA,drug,chlorine dioxide,no
+tri06780,NCT04621149,experimental,NA,NA,drug,Zinc (Any),no
+tri06780,NCT04621149,experimental,NA,NA,drug,Zinc (Any);chlorine dioxide,no
+tri06780,NCT04621149,experimental,NA,NA,multiple,Famotidine;Green Tea Extract;Lactoferrin,no
+tri06780,NCT04621149,experimental,NA,NA,multiple,Green Tea Extract;Lactoferrin;chlorine dioxide,no
+tri06780,NCT04621149,experimental,NA,NA,multiple,Famotidine;Green Tea Extract;Lactoferrin;Zinc (Any),no
+tri06780,NCT04621149,experimental,NA,NA,multiple,Famotidine;Green Tea Extract;Lactoferrin;Zinc (Any);chlorine dioxide,no
+tri00317,ChiCTR2000029993,experimental,NA,NA,multiple,Traditional Medicine;Umifenovir (Arbidol),undefined_soc
+tri00317,ChiCTR2000029993,control,undefined_soc,NA,NA,NA,NA
+tri00692,ACTRN12620000454976,experimental,NA,NA,drug,Zinc (Any),no
+tri00692,ACTRN12620000454976,control,placebo,no,NA,NA,NA
+tri05664,NCT04471766,experimental,NA,NA,device,Mask (PPE),defined_soc
+tri05664,NCT04471766,control,defined_soc,NA,NA,NA,NA
+tri06938,NCT04647305,experimental,NA,NA,device,Face shield,defined_soc
+tri06938,NCT04647305,control,defined_soc,NA,NA,NA,NA
+tri06836,NCT04630054,experimental,NA,NA,multiple,Awareness campaign;Masks (PPE),NA
+tri06836,NCT04630054,control,no_treatment,NA,NA,NA,NA
+tri06834,NCT04629989,control,defined_soc,NA,NA,NA,NA
+tri06834,NCT04629989,experimental,NA,NA,device,Double-Trunk Mask,defined_soc
+tri06834,NCT04629989,experimental,NA,NA,multiple,Mask (PPE) (PPE),defined_soc
+tri00534,NCT04254874,control,defined_soc,NA,NA,NA,NA
+tri00534,NCT04254874,experimental,NA,NA,drug,Interferon atomization,defined_soc
+tri00186,ChiCTR2000029803,experimental,NA,NA,drug,Hydroxychloroquine,no
+tri00186,ChiCTR2000029803,experimental,NA,NA,drug,Hydroxychloroquine,no
+tri00186,ChiCTR2000029803,experimental,NA,NA,drug,Umifenovir (Arbidol),no
+tri00186,ChiCTR2000029803,experimental,NA,NA,drug,Umifenovir (Arbidol),no
+tri00521,ChiCTR2000030254,experimental,NA,NA,drug,Favipiravir,no
+tri00521,ChiCTR2000030254,experimental,NA,NA,drug,Umifenovir (Arbidol),no
+tri01135,NCT04355429,experimental,NA,NA,drug,Captopril,no
+tri01135,NCT04355429,control,undefined_soc,NA,NA,NA,NA
+tri00005,NCT04260594,experimental,NA,NA,drug,Umifenovir (Arbidol),undefined_soc
+tri00005,NCT04260594,control,undefined_soc,NA,NA,NA,NA
+tri02845,IRCT20200523047550N1,experimental,NA,NA,drug,Umifenovir (Arbidol),defined_soc
+tri02845,IRCT20200523047550N1,control,defined_soc,NA,NA,NA,NA
+tri03647,NCT04447534,experimental,NA,NA,drug,Zinc (Any),defined_soc
+tri03647,NCT04447534,control,defined_soc,NA,NA,NA,NA
+tri06069,NCT04519125,experimental,NA,NA,drug,Emtricitabine;Tenofovir,defined_soc
+tri06069,NCT04519125,control,placebo,defined_soc,NA,NA,NA
+tri02592,NCT04384458,experimental,NA,NA,drug,Ivermectin;Zinc (Any),no
+tri02592,NCT04384458,experimental,NA,NA,drug,Hydroxychloroquine;Zinc (Any),no
+tri01559,NCT04377646,experimental,NA,NA,drug,Hydroxychloroquine;Zinc (Any),no
+tri01559,NCT04377646,experimental,NA,NA,drug,Hydroxychloroquine,no
+tri01559,NCT04377646,control,placebo,no,NA,NA,NA
+tri01321,NCT04366089,experimental,NA,NA,multiple,Ozone-based Therapy;Probiotic (Unspecified),defined_soc
+tri01321,NCT04366089,control,defined_soc,NA,NA,NA,NA
+tri05372,NCT04359303,experimental,NA,NA,procedure,Ozone-based Therapy,undefined_soc
+tri05372,NCT04359303,control,undefined_soc,NA,NA,NA,NA
+tri00070,ChiCTR2000029621,experimental,NA,NA,drug,Umifenovir (Arbidol),undefined_soc
+tri00070,ChiCTR2000029621,control,undefined_soc,NA,NA,NA,NA
+tri00329,NCT04296643,experimental,NA,NA,device,Mask (PPE),no
+tri00329,NCT04296643,experimental,NA,NA,device,Mask (PPE),no
+tri04722,CTRI/2020/07/026354,experimental,NA,NA,procedure,Ozone-based Therapy,undefined_soc
+tri04722,CTRI/2020/07/026354,control,undefined_soc,NA,NA,NA,NA
+tri06498,NCT04578236,experimental,NA,NA,drug,Captopril;Retinoic acid (Any),no
+tri06498,NCT04578236,control,undefined_soc,NA,NA,NA,NA
+tri07034,NCT04584567,experimental,NA,NA,drug,Doxycycline;Zinc (Any),no
+tri07034,NCT04584567,experimental,NA,NA,drug,Doxycycline,no
+tri07034,NCT04584567,control,placebo,no,NA,NA,NA
+tri02957,NCT04370223,experimental,NA,NA,procedure,Ozone-based Therapy,undefined_soc
+tri02957,NCT04370223,control,undefined_soc,NA,NA,NA,NA
+tri00116,ChiCTR2000030165,experimental,NA,NA,procedure,Ozone-based Therapy,undefined_soc
+tri00116,ChiCTR2000030165,control,undefined_soc,NA,NA,NA,NA
+tri00126,ChiCTR2000030102,experimental,NA,NA,procedure,Ozone-based Therapy,undefined_soc
+tri00126,ChiCTR2000030102,control,undefined_soc,NA,NA,NA,NA
+tri00776,NCT04337541,experimental,NA,NA,device,Mask (PPE),no
+tri00776,NCT04337541,control,no_treatment,NA,NA,NA,NA
+tri00002,NCT04252885,experimental,NA,NA,drug,Lopinavir;Ritonavir,undefined_soc
+tri00002,NCT04252885,experimental,NA,NA,drug,Umifenovir (Arbidol),undefined_soc
+tri00002,NCT04252885,control,undefined_soc,NA,NA,NA,NA
+tri03634,NCT04446104,experimental,NA,NA,drug,Hydroxychloroquine,no
+tri03634,NCT04446104,experimental,NA,NA,drug,Ivermectin,no
+tri03634,NCT04446104,experimental,NA,NA,drug,Vitamin C;Zinc (Any),no
+tri03634,NCT04446104,experimental,NA,NA,drug,Povidone-iodine,no
+tri03634,NCT04446104,control,defined_soc,NA,NA,NA,NA
+tri05858,NCT04492228,experimental,NA,NA,other,Ketogenic diet,no
+tri05858,NCT04492228,control,no_treatment,NA,NA,NA,NA
+tri05526,NCT04457609,experimental,NA,NA,biologics,Stem Cells (Mesenchymal),defined_soc
+tri05526,NCT04457609,control,defined_soc,NA,NA,NA,NA
+tri03853,IRCT20150107020592N29,control,defined_soc,NA,NA,NA,NA
+tri03853,IRCT20150107020592N29,experimental,NA,NA,procedure,Blood Filtratration,defined_soc
+tri07079,NCT04647695,experimental,NA,NA,drug,Interferon Beta (Any),defined_soc
+tri07079,NCT04647695,control,defined_soc,NA,NA,NA,NA
+tri06373,NCT04558476,experimental,NA,NA,biologics,Convalescent Plasma,no
+tri06373,NCT04558476,control,undefined_soc,NA,NA,NA,NA
 tri00037,ChiCTR2000029790,experimental,NA,NA,traditional_medicine,Traditional Medicine,undefined_soc
 tri00037,ChiCTR2000029790,control,undefined_soc,NA,NA,NA,NA
 tri00030,ChiCTR2000029814,experimental,NA,NA,traditional_medicine,Traditional Medicine,undefined_soc
@@ -637,9 +727,6 @@ tri03057,NCT04362813,experimental,NA,NA,drug,Canakinumab,NA
 tri03057,NCT04362813,control,placebo,NA,NA,NA,NA
 tri03340,NCT04362137,experimental,NA,NA,drug,Ruxolitinib,NA
 tri03340,NCT04362137,control,placebo,NA,NA,NA,NA
-tri00801,NCT04344080,experimental,NA,NA,device,Cytokine absorber,undefined_soc
-tri00801,NCT04344080,control,undefined_soc,NA,NA,NA,NA
-tri00801,NCT04344080,NA,NA,NA,NA,NA,NA
 tri03499,NCT04433910,experimental,NA,NA,biologics,Convalescent Plasma,NA
 tri03499,NCT04433910,control,undefined_soc,NA,NA,NA,NA
 tri01805,NCT04346199,experimental,NA,NA,drug,Acalabrutinib,NA
@@ -669,7 +756,7 @@ tri00114,ChiCTR2000030167,control,placebo,undefined_soc,NA,NA,NA
 tri00143,ChiCTR2000030039,experimental,NA,NA,biologics,Convalescent Plasma,undefined_soc
 tri00143,ChiCTR2000030039,control,undefined_soc,NA,NA,NA,NA
 tri04443,RPCEC00000337,experimental,NA,NA,biologics,Interferon Alpha (Any),no
-tri02921,RPCEC00000320,experimental,NA,NA,other,Ozone-based Therapy,defined_soc
+tri02921,RPCEC00000320,experimental,NA,NA,procedure,Ozone-based Therapy,defined_soc
 tri02921,RPCEC00000320,control,defined_soc,NA,NA,NA,NA
 tri02912,RPCEC00000311,experimental,NA,NA,biologics,itolizumab,undefined_soc
 tri02328,NCT04328493,experimental,NA,NA,drug,Chloroquine,undefined_soc
@@ -785,10 +872,8 @@ tri01845,NCT04381858,experimental,NA,NA,biologics,Immunoglobulin,no
 tri01560,NCT04377750,experimental,NA,NA,biologics,Tocilizumab,no
 tri01560,NCT04377750,control,placebo,no,NA,NA,NA
 tri03142,NCT04426201,experimental,NA,NA,drug,Interleukin-7,no
-tri06373,NCT04558476,control,undefined_soc,NA,NA,Convalescent Plasma,NA
 tri03142,NCT04426201,control,placebo,no,NA,NA,NA
 tri00270,ChiCTR2000030627,experimental,NA,NA,biologics,Convalescent Plasma,undefined_soc
-tri06373,NCT04558476,experimental,NA,NA,biologics,Convalescent Plasma,undefined_soc
 tri00270,ChiCTR2000030627,control,undefined_soc,NA,NA,NA,NA
 tri05450,NCT04451174,experimental,NA,NA,drug,Prednisone,no
 tri05450,NCT04451174,control,no_treatment,NA,NA,NA,NA
@@ -802,8 +887,6 @@ tri06729,NCT04613271,experimental,NA,NA,drug,Favipiravir,defined_soc
 tri06729,NCT04613271,control,defined_soc,NA,NA,NA,NA
 tri02244,NCT04321278,experimental,NA,NA,drug,Azithromycin,defined_soc
 tri02244,NCT04321278,control,defined_soc,NA,NA,NA,NA
-tri07079,NCT04647695,experimental,NA,NA,drug,Interferon Beta (Any),defined_soc
-tri07079,NCT04647695,control,defined_soc,NA,NA,Remdesivir,NA
 tri07018,NCT04565197,experimental,NA,NA,biologics,Convalescent Plasma,no
 tri03437,NCT04410354,experimental,NA,NA,drug,Merimepodib;Remdesivir,NA
 tri03437,NCT04410354,control,placebo,defined_soc,NA,NA,NA
@@ -855,8 +938,6 @@ tri00997,NCT04349410,experimental,NA,NA,drug,Methylprednisolone,no
 tri00997,NCT04349410,experimental,NA,NA,drug,Interferon Alpha (Any),no
 tri00997,NCT04349410,experimental,NA,NA,drug,Losartan,no
 tri00997,NCT04349410,experimental,NA,NA,biologics,Convalescent Plasma,no
-tri00995,NCT04348877,experimental,NA,NA,biologics,Convalescent Plasma,no
-tri00995,NCT04348877,NA,NA,NA,NA,NA,NA
 tri01119,NCT04348474,experimental,NA,NA,drug,Azithromycin;Hydroxychloroquine,no
 tri02100,NCT04347681,experimental,NA,NA,biologics,Convalescent Plasma,no
 tri02100,NCT04347681,control,no_treatment,NA,NA,NA,NA
@@ -937,11 +1018,6 @@ tri06329,NCT04551755,experimental,NA,NA,drug,Doxycycline;Ivermectin,defined_soc
 tri06329,NCT04551755,control,placebo,defined_soc,NA,NA,NA
 tri06132,NCT04527211,experimental,NA,NA,drug,Ivermectin,no
 tri06132,NCT04527211,control,placebo,no,NA,NA,NA
-tri03634,NCT04446104,experimental,NA,NA,drug,Hydroxychloroquine,no
-tri03634,NCT04446104,experimental,NA,NA,drug,Ivermectin,no
-tri03634,NCT04446104,experimental,NA,NA,drug,Vitamin C;Zinc (Any) (Any),no
-tri03634,NCT04446104,experimental,NA,NA,drug,Povidone-iodine,no
-tri03634,NCT04446104,experimental,NA,NA,drug,Vitamin C,no
 tri03624,NCT04445467,experimental,NA,NA,drug,Favipiravir,undefined_soc
 tri03624,NCT04445467,control,placebo,undefined_soc,NA,NA,NA
 tri03587,NCT04443725,experimental,NA,NA,drug,Daclatasvir;Sofosbuvir,defined_soc
@@ -994,9 +1070,6 @@ tri00327,NCT04293887,experimental,NA,NA,biologics,Interferon Alpha (Any),undefin
 tri00327,NCT04293887,control,undefined_soc,NA,NA,NA,NA
 tri01795,NCT04273321,experimental,NA,NA,drug,Methylprednisolone,no
 tri01795,NCT04273321,control,no_treatment,NA,NA,NA,NA
-tri00002,NCT04252885,experimental,NA,NA,drug,Lopinavir;Ritonavir,undefined_soc
-tri00002,NCT04252885,experimental,NA,NA,drug,Umifenovir (Arbidol),undefined_soc
-tri00002,NCT04252885,control,undefined_soc,NA,NA,NA,NA
 tri01030,NCT04355247,experimental,NA,NA,drug,Methylprednisolone,no
 tri01029,NCT04355026,experimental,NA,NA,drug,Bromhexine,defined_soc
 tri01029,NCT04355026,control,defined_soc,NA,NA,NA,NA
@@ -1028,7 +1101,7 @@ tri00328,NCT04295551,experimental,NA,NA,traditional_medicine,Traditional Medicin
 tri00328,NCT04295551,control,defined_soc,NA,NA,NA,NA
 tri01275,NCT04273763,experimental,NA,NA,drug,Bromhexine,defined_soc
 tri01275,NCT04273763,control,defined_soc,NA,NA,NA,NA
-tri00535,NCT04255017,experimental,NA,NA,drug,Umifenovir (Arbidol) (Arbidol),no
+tri00535,NCT04255017,experimental,NA,NA,drug,Umifenovir (Arbidol),no
 tri00535,NCT04255017,experimental,NA,NA,drug,Lopinavir;Ritonavir,no
 tri00535,NCT04255017,experimental,NA,NA,drug,Oseltamivir,no
 tri00535,NCT04255017,control,undefined_soc,NA,NA,NA,NA
@@ -1045,11 +1118,9 @@ tri01597,ChiCTR2000029638,experimental,NA,NA,biologics,Interferon Alpha (Any),de
 tri01249,ChiCTR2000032487,experimental,NA,NA,drug,Hydroxychloroquine,no
 tri01249,ChiCTR2000032487,control,placebo,no,NA,NA,NA
 tri00513,ChiCTR2000030922,experimental,NA,NA,biologics,Interferon Alpha (Any),defined_soc
-tri00513,ChiCTR2000030922,experimental,NA,NA,drug,Umifenovir (Arbidol) (Arbidol),defined_soc
+tri00513,ChiCTR2000030922,experimental,NA,NA,drug,Umifenovir (Arbidol),defined_soc
 tri00424,ChiCTR2000030703,experimental,NA,NA,biologics,Ixekizumab,defined_soc
 tri00424,ChiCTR2000030703,control,defined_soc,NA,NA,NA,NA
-tri03853,IRCT20150107020592N29,experimental,NA,NA,procedure,Blood Filtratration,defined_soc
-tri03853,IRCT20150107020592N29,control,defined_soc,NA,NA,Continuous renal replacement therapy,NA
 tri03467,NCT04426695,experimental,NA,NA,biologics,Casirivimab;Imdevimab,no
 tri02225,EUCTR2020-001536-98,experimental,NA,NA,drug,Hydroxychloroquine,no
 tri02225,EUCTR2020-001536-98,control,no_treatment,NA,NA,NA,NA
@@ -1125,8 +1196,6 @@ tri06592,NCT04591600,experimental,NA,NA,drug,Doxycycline;Ivermectin,defined_soc
 tri06592,NCT04591600,control,defined_soc,NA,NA,NA,NA
 tri06158,NCT04530370,experimental,NA,NA,biologics,Convalescent Plasma,no
 tri06158,NCT04530370,control,placebo,no,NA,NA,NA
-tri05526,NCT04457609,control,defined_soc,NA,NA,Azithromycin;Oseltamivir,NA
-tri05526,NCT04457609,experimental,NA,NA,biologics,Stem Cells (Mesenchymal),defined_soc
 tri03522,NCT04435808,experimental,NA,NA,drug,Hydroxychloroquine,no
 tri03522,NCT04435808,control,no_treatment,NA,NA,NA,NA
 tri03270,NCT04434131,experimental,NA,NA,biologics,Convalescent Plasma,no
@@ -1182,8 +1251,8 @@ tri04429,PACTR202009483194545,experimental,NA,NA,traditional_medicine,Traditiona
 tri04429,PACTR202009483194545,experimental,NA,NA,traditional_medicine,Traditional Medicine,no
 tri04429,PACTR202009483194545,experimental,NA,NA,traditional_medicine,Traditional Medicine,no
 tri04429,PACTR202009483194545,control,defined_soc,NA,NA,NA,NA
-tri04415,PACTR202010519682638,experimental,NA,NA,drug,Azithromycin;Hydroxychloroquine;Zinc (Any) (Any) (Any),no
-tri04415,PACTR202010519682638,experimental,NA,NA,drug,Lopinavir;Ritonavir;Zinc (Any) (Any),no
+tri04415,PACTR202010519682638,experimental,NA,NA,drug,Azithromycin;Hydroxychloroquine;Zinc (Any),no
+tri04415,PACTR202010519682638,experimental,NA,NA,drug,Lopinavir;Ritonavir,no
 tri04415,PACTR202010519682638,control,defined_soc,NA,NA,NA,NA
 tri10222,NCT04931238,experimental,NA,NA,biologics,JS016,undefined_soc
 tri10222,NCT04931238,control,undefined_soc,NA,NA,NA,NA
@@ -1290,8 +1359,6 @@ tri01420,NCT04333550,experimental,NA,NA,drug,Deferoxamine,undefined_soc
 tri01420,NCT04333550,control,undefined_soc,NA,NA,NA,NA
 tri01100,NCT04333589,experimental,NA,NA,drug,Favipiravir,no
 tri01100,NCT04333589,control,undefined_soc,NA,NA,NA,NA
-tri00776,NCT04337541,experimental,NA,NA,device,Mask (PPE),no
-tri00776,NCT04337541,control,no_treatment,NA,NA,NA,NA
 tri03200,NCT04340414,experimental,NA,NA,device,Low Flow Extracorporeal Membrane Oxygenation (ECMO),no
 tri02097,NCT04341675,experimental,NA,NA,drug,Sirolimus,no
 tri02097,NCT04341675,control,placebo,no,NA,NA,NA
@@ -1370,17 +1437,8 @@ tri00044,ChiCTR2000029776,experimental,NA,NA,drug,Polyinosinic-polycytidylic Aci
 tri00044,ChiCTR2000029776,control,undefined_soc,NA,NA,NA,NA
 tri00137,ChiCTR2000030058,experimental,NA,NA,drug,Leflunomide,no
 tri00137,ChiCTR2000030058,control,placebo,no,NA,NA,NA
-tri00126,ChiCTR2000030102,experimental,NA,NA,procedure,Ozone-based Therapy-based Therapy,undefined_soc
-tri00126,ChiCTR2000030102,experimental,NA,NA,procedure,Ozone-based Therapy-based Therapy,NA
-tri00126,ChiCTR2000030102,experimental,NA,NA,procedure,Ozone-based Therapy-based Therapy,undefined_soc
-tri00126,ChiCTR2000030102,control,undefined_soc,NA,NA,NA,NA
-tri00126,ChiCTR2000030102,control,undefined_soc,NA,NA,NA,NA
-tri00126,ChiCTR2000030102,control,undefined_soc,NA,NA,NA,NA
 tri00118,ChiCTR2000030138,experimental,NA,NA,biologics,Stem Cells (Mesenchymal),no
 tri00118,ChiCTR2000030138,control,placebo,undefined_soc,NA,NA,NA
-tri00116,ChiCTR2000030165,experimental,NA,NA,procedure,Ozone-based Therapy-based Therapy,undefined_soc
-tri00116,ChiCTR2000030165,experimental,NA,NA,procedure,Ozone-based Therapy-based Therapy,undefined_soc
-tri00116,ChiCTR2000030165,control,undefined_soc,NA,NA,NA,NA
 tri00112,ChiCTR2000030173,experimental,NA,NA,biologics,Stem Cells (Mesenchymal),no
 tri00112,ChiCTR2000030173,control,undefined_soc,NA,NA,NA,NA
 tri00105,ChiCTR2000029418,experimental,NA,NA,traditional_medicine,Traditional Medicine,undefined_soc
@@ -1419,8 +1477,6 @@ tri00390,ChiCTR2000030779,experimental,NA,NA,drug,Ulinastatin,undefined_soc
 tri00390,ChiCTR2000030779,control,undefined_soc,NA,NA,NA,NA
 tri00358,ChiCTR2000030841,experimental,NA,NA,biologics,Immunoglobulin,no
 tri00358,ChiCTR2000030841,control,other_unknown,NA,NA,NA,NA
-tri02957,NCT04370223,experimental,NA,NA,procedure,Ozone-based Therapy-based Therapy,undefined_soc
-tri02957,NCT04370223,control,undefined_soc,NA,NA,NA,NA
 tri01324,NCT04366180,experimental,NA,NA,nutritional_supplement,Lactobacillus,no
 tri01324,NCT04366180,control,placebo,no,NA,NA,NA
 tri01514,NCT04363437,experimental,NA,NA,drug,Colchicine,no
@@ -1650,9 +1706,6 @@ tri01827,NCT04380688,experimental,NA,NA,drug,Acalabrutinib,undefined_soc
 tri01827,NCT04380688,control,undefined_soc,NA,NA,NA,NA
 tri06926,NCT04645407,experimental,NA,NA,traditional_medicine,Traditional Medicine,undefined_soc
 tri06926,NCT04645407,control,undefined_soc,NA,NA,NA,NA
-tri07034,NCT04584567,experimental,NA,NA,drug,Doxycycline;Zinc (Any) (Any),no
-tri07034,NCT04584567,control,placebo,no,NA,NA,NA
-tri07034,NCT04584567,control,placebo,no,NA,NA,NA
 tri03196,NCT04311177,experimental,NA,NA,drug,Losartan,no
 tri03196,NCT04311177,control,placebo,no,NA,NA,NA
 tri05432,NCT04435522,experimental,NA,NA,drug,Maraviroc,no
@@ -1736,8 +1789,6 @@ tri02591,NCT04382950,experimental,NA,NA,drug,Isotretinoin;Recombinant Bacterial 
 tri02591,NCT04382950,control,undefined_soc,NA,NA,NA,NA
 tri02929,TCTR20200404004,experimental,NA,NA,drug,Chloroquine,no
 tri02929,TCTR20200404004,experimental,NA,NA,drug,Vitamin C,no
-tri06498,NCT04578236,experimental,NA,NA,drug,Retinoic acid (Any);captopril,no
-tri06498,NCT04578236,control,undefined_soc,NA,NA,NA,NA
 tri06219,NCT04536363,experimental,NA,NA,drug,Prostaglandin E1,defined_soc
 tri06219,NCT04536363,control,defined_soc,NA,NA,NA,NA
 tri03440,NCT04412291,experimental,NA,NA,drug,Anakinra,defined_soc
@@ -1821,8 +1872,6 @@ tri04701,CTRI/2020/06/026220,experimental,NA,NA,drug,Nafamostat,defined_soc
 tri04701,CTRI/2020/06/026220,control,defined_soc,NA,NA,NA,NA
 tri04711,CTRI/2020/07/026337,experimental,NA,NA,traditional_medicine,Traditional Medicine,no
 tri04711,CTRI/2020/07/026337,control,undefined_soc,NA,NA,NA,NA
-tri04722,CTRI/2020/07/026354,experimental,NA,NA,procedure,Ozone-based Therapy,undefined_soc
-tri04722,CTRI/2020/07/026354,control,undefined_soc,NA,NA,NA,NA
 tri04758,CTRI/2020/07/026535,experimental,NA,NA,drug,Sodium Bicarbonate,no
 tri04723,CTRI/2020/07/026353,experimental,NA,NA,traditional_medicine,Traditional Medicine,no
 tri04766,CTRI/2020/07/026579,experimental,NA,NA,traditional_medicine,Traditional Medicine,no
@@ -1830,8 +1879,6 @@ tri04775,CTRI/2020/07/026601,experimental,NA,NA,traditional_medicine,Traditional
 tri04778,CTRI/2020/07/026631,experimental,NA,NA,traditional_medicine,Traditional Medicine,no
 tri04886,CTRI/2020/08/027085,experimental,NA,NA,traditional_medicine,Traditional Medicine,undefined_soc
 tri04886,CTRI/2020/08/027085,control,undefined_soc,NA,NA,NA,NA
-tri04895,CTRI/2020/08/027120,experimental,NA,NA,traditional_medicine,Traditional Medicine,no
-tri04895,CTRI/2020/08/027120,control,undefined_soc,NA,NA,NA,NA
 tri04973,CTRI/2020/09/027548,experimental,NA,NA,traditional_medicine,Traditional Medicine,undefined_soc
 tri04973,CTRI/2020/09/027548,control,undefined_soc,NA,NA,NA,NA
 tri05060,CTRI/2020/10/028231,experimental,NA,NA,traditional_medicine,Traditional Medicine,no
@@ -1839,8 +1886,6 @@ tri02062,NCT04390477,experimental,NA,NA,nutritional_supplement,Probiotic (Unspec
 tri02062,NCT04390477,control,no_treatment,NA,NA,NA,NA
 tri05469,NCT04452669,experimental,NA,NA,drug,Epoprostenol,no
 tri05469,NCT04452669,control,placebo,no,NA,NA,NA
-tri00329,NCT04296643,experimental,NA,NA,device,Mask (PPE),no
-tri00329,NCT04296643,experimental,NA,NA,device,Mask (PPE),no
 tri04052,ISRCTN95933274,experimental,NA,NA,drug,Povidone-iodine,no
 tri04052,ISRCTN95933274,experimental,NA,NA,drug,Chlorhexidine (CHX),no
 tri04052,ISRCTN95933274,experimental,NA,NA,drug,Cetylpyridinium chloride (CPC),no
@@ -1883,8 +1928,6 @@ tri00731,NCT04252274,control,undefined_soc,NA,NA,NA,NA
 tri00812,ChiCTR2000032098,experimental,NA,NA,traditional_medicine,Traditional Medicine,undefined_soc
 tri00238,ChiCTR2000030225,experimental,NA,NA,traditional_medicine,Traditional Medicine,undefined_soc
 tri00238,ChiCTR2000030225,control,undefined_soc,NA,NA,NA,NA
-tri00070,ChiCTR2000029621,experimental,NA,NA,drug,Umifenovir (Arbidol) (Arbidol),undefined_soc
-tri00070,ChiCTR2000029621,control,undefined_soc,NA,NA,NA,NA
 tri01367,NCT04369469,experimental,NA,NA,biologics,Ravulizumab,undefined_soc
 tri01367,NCT04369469,control,undefined_soc,NA,NA,NA,NA
 tri00919,NCT04333420,experimental,NA,NA,drug,IFX-1,undefined_soc
@@ -2076,8 +2119,6 @@ tri01036,NCT04356508,experimental,NA,NA,biologics,Nivolumab,undefined_soc
 tri01036,NCT04356508,control,undefined_soc,NA,NA,NA,NA
 tri01153,NCT04357613,experimental,NA,NA,drug,imatinib,no
 tri01153,NCT04357613,control,undefined_soc,NA,NA,NA,NA
-tri05372,NCT04359303,experimental,NA,NA,procedure,Ozone-based Therapy,undefined_soc
-tri05372,NCT04359303,control,undefined_soc,NA,NA,NA,NA
 tri01174,NCT04359615,experimental,NA,NA,drug,Favipiravir;Hydroxychloroquine,no
 tri01174,NCT04359615,experimental,NA,NA,drug,Hydroxychloroquine,no
 tri01182,NCT04360356,experimental,NA,NA,drug,Ivermectin;Nitazoxanide,no
@@ -2099,8 +2140,6 @@ tri01315,NCT04365309,control,undefined_soc,NA,NA,NA,NA
 tri01320,NCT04366063,experimental,NA,NA,biologics,Stem Cells (Mesenchymal),undefined_soc
 tri01320,NCT04366063,experimental,NA,NA,biologics,Stem Cells (Mesenchymal),undefined_soc
 tri01320,NCT04366063,control,undefined_soc,NA,NA,NA,NA
-tri01321,NCT04366089,experimental,NA,NA,multiple,Ozone-based Therapy;Probiotic (Unspecified) (Unspecified),defined_soc
-tri01321,NCT04366089,control,defined_soc,NA,NA,NA,NA
 tri03060,NCT04366232,experimental,NA,NA,drug,Anakinra;Ruxolitinib,no
 tri03060,NCT04366232,control,undefined_soc,NA,NA,NA,NA
 tri01327,NCT04366739,experimental,NA,NA,drug,Chlorpromazine,undefined_soc
@@ -2121,9 +2160,6 @@ tri03211,NCT04376814,experimental,NA,NA,drug,Favipiravir;Hydroxychloroquine,no
 tri03211,NCT04376814,experimental,NA,NA,drug,Hydroxychloroquine;Lopinavir;Ritonavir,no
 tri01557,NCT04377503,experimental,NA,NA,biologics,Tocilizumab,no
 tri01557,NCT04377503,experimental,NA,NA,drug,Methylprednisolone,no
-tri01559,NCT04377646,experimental,NA,NA,drug,Hydroxychloroquine;Zinc (Any) (Any),no
-tri01559,NCT04377646,experimental,NA,NA,drug,Hydroxychloroquine,no
-tri01559,NCT04377646,control,placebo,no,NA,NA,NA
 tri01826,NCT04380376,experimental,NA,NA,drug,Melphalan,no
 tri01826,NCT04380376,control,undefined_soc,NA,NA,NA,NA
 tri01583,NCT04380519,experimental,NA,NA,biologics,RPH-104,undefined_soc
@@ -2133,8 +2169,6 @@ tri01834,NCT04380935,experimental,NA,NA,biologics,Convalescent Plasma,undefined_
 tri01834,NCT04380935,control,undefined_soc,NA,NA,NA,NA
 tri01868,NCT04384380,experimental,NA,NA,drug,Hydroxychloroquine,no
 tri01868,NCT04384380,control,undefined_soc,NA,NA,NA,NA
-tri02592,NCT04384458,experimental,NA,NA,drug,Hydroxychloroquine;Zinc (Any) (Any),no
-tri02592,NCT04384458,experimental,NA,NA,drug,Ivermectin;Zinc (Any) (Any),no
 tri01935,NCT04385043,experimental,NA,NA,biologics,Convalescent Plasma,undefined_soc
 tri01935,NCT04385043,control,undefined_soc,NA,NA,NA,NA
 tri01964,NCT04388410,experimental,NA,NA,biologics,Convalescent Plasma,no
@@ -2208,8 +2242,6 @@ tri05877,NCT04494204,control,undefined_soc,NA,NA,NA,NA
 tri05913,NCT04497623,experimental,NA,NA,device,Mechanical Ventilation (Any),no
 tri05936,NCT04500067,experimental,NA,NA,biologics,Immunoglobulin,undefined_soc
 tri05936,NCT04500067,control,undefined_soc,NA,NA,NA,NA
-tri06069,NCT04519125,experimental,NA,NA,multiple,Emtricitabine;Personal protective equipment (PPE);Tenofovir,no
-tri06069,NCT04519125,control,placebo,no,NA,NA,NA
 tri06085,NCT04521296,experimental,NA,NA,drug,Camostat Mesilate,no
 tri06085,NCT04521296,control,placebo,no,NA,NA,NA
 tri06114,NCT04525378,experimental,NA,NA,biologics,Stem Cells (Mesenchymal),undefined_soc
@@ -2247,8 +2279,6 @@ tri03208,NCT04370262,control,placebo,undefined_soc,NA,NA,NA
 tri03496,NCT04433546,experimental,NA,NA,drug,Pemziviptadil,no
 tri03496,NCT04433546,experimental,NA,NA,drug,Pemziviptadil,no
 tri03496,NCT04433546,experimental,NA,NA,drug,Pemziviptadil,no
-tri03647,NCT04447534,experimental,NA,NA,drug,Chloroquine,no
-tri03647,NCT04447534,experimental,NA,NA,drug,Chloroquine;Zinc (Any) (Any),no
 tri07010,NCT04559113,experimental,NA,NA,drug,Methylprednisolone,no
 tri07011,NCT04560205,experimental,NA,NA,biologics,Tocilizumab,no
 tri07171,NCT04661527,experimental,NA,NA,biologics,Sarilumab,no
@@ -2293,8 +2323,6 @@ tri06549,NCT04584580,experimental,NA,NA,drug,Heparin (LMWH or Unfractionated),no
 tri06549,NCT04584580,experimental,NA,NA,drug,Heparin (LMWH or Unfractionated),no
 tri06516,NCT04581161,experimental,NA,NA,device,Mechanical Ventilation (Any),undefined_soc
 tri06516,NCT04581161,control,undefined_soc,NA,NA,NA,NA
-tri05858,NCT04492228,experimental,NA,NA,other,Ketogenic diet,no
-tri05858,NCT04492228,control,other_unknown,NA,NA,Standard diet,NA
 tri05680,NCT04473170,experimental,NA,NA,biologics,Stem Cells (Mesenchymal),undefined_soc
 tri05680,NCT04473170,control,undefined_soc,NA,NA,NA,NA
 tri03468,NCT04427098,experimental,NA,NA,drug,Heparin (LMWH or Unfractionated),no
@@ -2369,8 +2397,6 @@ tri00230,ChiCTR2000030261,experimental,NA,NA,biologics,Stem Cells (Mesenchymal),
 tri00230,ChiCTR2000030261,control,no_treatment,NA,NA,NA,NA
 tri00222,ChiCTR2000030314,experimental,NA,NA,traditional_medicine,Traditional Medicine,no
 tri00244,ChiCTR2000030196,experimental,NA,NA,biologics,Tocilizumab,undefined_soc
-tri02845,IRCT20200523047550N1,experimental,NA,NA,drug,Hydroxychloroquine;Umifenovir (Arbidol),no
-tri02845,IRCT20200523047550N1,experimental,NA,NA,drug,Hydroxychloroquine,no
 tri03856,IRCT20150107020592N26,experimental,NA,NA,drug,Favipiravir,no
 tri02674,EUCTR2020-001270-29,experimental,NA,NA,drug,Hydroxychloroquine,undefined_soc
 tri02674,EUCTR2020-001270-29,control,undefined_soc,NA,NA,NA,NA
@@ -2380,8 +2406,6 @@ tri03964,IRCT20200705048013N1,experimental,NA,NA,drug,Pentoxifylline,no
 tri03964,IRCT20200705048013N1,control,defined_soc,NA,NA,NA,NA
 tri03193,NCT04244591,experimental,NA,NA,drug,Methylprednisolone,undefined_soc
 tri03193,NCT04244591,control,undefined_soc,NA,NA,NA,NA
-tri00005,NCT04260594,experimental,NA,NA,drug,Umifenovir (Arbidol) (Arbidol),undefined_soc
-tri00005,NCT04260594,control,undefined_soc,NA,NA,NA,NA
 tri00536,NCT04261270,experimental,NA,NA,drug,ASC09F;Oseltamivir,no
 tri00536,NCT04261270,experimental,NA,NA,drug,Oseltamivir;Ritonavir,no
 tri00536,NCT04261270,experimental,NA,NA,drug,Oseltamivir,no
@@ -2395,8 +2419,6 @@ tri00191,NCT04273529,control,placebo,no,NA,NA,NA
 tri00265,NCT04276987,experimental,NA,NA,biologics,Stem Cells (Mesenchymal),undefined_soc
 tri02446,NCT04292899,experimental,NA,NA,drug,Remdesivir,undefined_soc
 tri02446,NCT04292899,experimental,NA,NA,drug,Remdesivir,undefined_soc
-tri01135,NCT04355429,experimental,NA,NA,drug,Captopril,undefined_soc
-tri01135,NCT04355429,control,undefined_soc,NA,NA,NA,NA
 tri01132,NCT04355052,experimental,NA,NA,drug,Azithromycin;Hydroxychloroquine,no
 tri01132,NCT04355052,experimental,NA,NA,drug,Camostat Mesilate;Hydroxychloroquine,no
 tri01132,NCT04355052,control,no_treatment,NA,NA,NA,NA
@@ -2436,8 +2458,6 @@ tri00409,ChiCTR2000030744,control,undefined_soc,NA,NA,NA,NA
 tri00507,ChiCTR2000030939,experimental,NA,NA,drug,LL-37 antiviral peptide (CAS001),no
 tri00526,ChiCTR2000029868,experimental,NA,NA,drug,Hydroxychloroquine,no
 tri00526,ChiCTR2000029868,control,undefined_soc,NA,NA,NA,NA
-tri00521,ChiCTR2000030254,experimental,NA,NA,drug,Favipiravir,no
-tri00521,ChiCTR2000030254,experimental,NA,NA,drug,Umifenovir (Arbidol) (Arbidol),no
 tri00582,ChiCTR2000031204,experimental,NA,NA,drug,Chloroquine,no
 tri00582,ChiCTR2000031204,control,placebo,no,NA,NA,NA
 tri00593,ChiCTR2000030936,experimental,NA,NA,traditional_medicine,Traditional Medicine,undefined_soc
@@ -2625,10 +2645,6 @@ tri00264,ChiCTR2000029386,control,undefined_soc,NA,NA,NA,NA
 tri00263,ChiCTR2000029387,experimental,NA,NA,drug,Ribavirin,defined_soc
 tri00263,ChiCTR2000029387,experimental,NA,NA,drug,Lopinavir;Ritonavir,defined_soc
 tri00263,ChiCTR2000029387,experimental,NA,NA,drug,Lopinavir;Ribavirin;Ritonavir,defined_soc
-tri00186,ChiCTR2000029803,experimental,NA,NA,drug,Hydroxychloroquine,no
-tri00186,ChiCTR2000029803,experimental,NA,NA,drug,Hydroxychloroquine,no
-tri00186,ChiCTR2000029803,experimental,NA,NA,drug,Umifenovir (Arbidol) (Arbidol),no
-tri00186,ChiCTR2000029803,experimental,NA,NA,drug,Umifenovir (Arbidol) (Arbidol),no
 tri00086,ChiCTR2000029539,experimental,NA,NA,drug,Lopinavir;Ritonavir,undefined_soc
 tri00086,ChiCTR2000029539,control,undefined_soc,NA,NA,NA,NA
 tri00020,ChiCTR2000029867,experimental,NA,NA,drug,Carrimycin,no
@@ -2652,7 +2668,7 @@ tri05683,NCT04473261,control,placebo,undefined_soc,NA,NA,NA
 tri06320,NCT04550325,experimental,NA,NA,biologics,Immunoglobulin,no
 tri01889,NCT04342728,experimental,NA,NA,drug,Vitamin C,no
 tri01889,NCT04342728,experimental,NA,NA,drug,Zinc (Any),no
-tri01889,NCT04342728,experimental,NA,NA,drug,Vitamin C;Zinc (Any) (Any),no
+tri01889,NCT04342728,experimental,NA,NA,drug,Vitamin C;Zinc (Any),no
 tri01889,NCT04342728,control,no_treatment,NA,NA,NA,NA
 tri03296,NCT04337918,experimental,NA,NA,drug,Nitric Oxide Gas,undefined_soc
 tri03296,NCT04337918,control,undefined_soc,NA,NA,NA,NA
@@ -2832,8 +2848,6 @@ tri00418,ChiCTR2000030718,experimental,NA,NA,drug,Chloroquine,no
 tri00418,ChiCTR2000030718,control,no_treatment,NA,NA,NA,NA
 tri00232,ChiCTR2000030259,experimental,NA,NA,drug,Danoprevir;Ritonavir,no
 tri00232,ChiCTR2000030259,control,undefined_soc,NA,NA,NA,NA
-tri00534,NCT04254874,experimental,NA,NA,drug,Umifenovir (Arbidol) (Arbidol),undefined_soc
-tri00534,NCT04254874,experimental,NA,NA,multiple,Umifenovir (Arbidol) (Arbidol);interferon atomization,undefined_soc
 tri00738,NCT04310228,experimental,NA,NA,multiple,Favipiravir;Tocilizumab,no
 tri00738,NCT04310228,experimental,NA,NA,drug,Favipiravir,no
 tri00738,NCT04310228,experimental,NA,NA,biologics,Tocilizumab,no
@@ -2849,7 +2863,7 @@ tri03312,NCT04349241,control,defined_soc,NA,NA,NA,NA
 tri05359,NCT04349592,experimental,NA,NA,drug,Azithromycin;Hydroxychloroquine,no
 tri05359,NCT04349592,experimental,NA,NA,drug,Hydroxychloroquine,no
 tri05359,NCT04349592,control,placebo,no,NA,NA,NA
-tri05627,NCT04468139,experimental,NA,NA,drug,Bromelain;Quercetin;Vitamin C;Zinc (Any) (Any) (Any),no
+tri05627,NCT04468139,experimental,NA,NA,drug,Bromelain;Quercetin;Vitamin C;Zinc (Any),no
 tri00656,NCT04320238,experimental,NA,NA,biologics,Interferon Alpha (Any) (Any),no
 tri00656,NCT04320238,experimental,NA,NA,biologics,Interferon Alpha (Any) (Any);Thymosin Alpha,no
 tri00473,NCT04264533,experimental,NA,NA,drug,Vitamin C,no
@@ -2859,7 +2873,7 @@ tri00896,NCT04276688,control,defined_soc,NA,NA,NA,NA
 tri00900,NCT04315896,experimental,NA,NA,drug,Hydroxychloroquine,no
 tri00900,NCT04315896,control,placebo,no,NA,NA,NA
 tri05672,NCT04472585,experimental,NA,NA,drug,Ivermectin,undefined_soc
-tri05672,NCT04472585,experimental,NA,NA,drug,Ivermectin;Zinc (Any) (Any),undefined_soc
+tri05672,NCT04472585,experimental,NA,NA,drug,Ivermectin;Zinc (Any),undefined_soc
 tri05672,NCT04472585,experimental,NA,NA,drug,Zinc (Any),undefined_soc
 tri05672,NCT04472585,control,placebo,undefined_soc,NA,NA,NA
 tri05442,NCT04449718,experimental,NA,NA,drug,Vitamin D (Any),undefined_soc
@@ -2939,7 +2953,7 @@ tri02037,NCT04371952,control,placebo,no,NA,NA,NA
 tri06910,NCT04643561,experimental,NA,NA,nutritional_supplement,Travelan,no
 tri03277,NCT04308668,experimental,NA,NA,drug,Hydroxychloroquine,no
 tri03277,NCT04308668,control,placebo,NA,NA,NA,NA
-tri00160,ChiCTR2000030006,experimental,NA,NA,drug,Ozone-based Therapy-based Therapy,no
+tri00160,ChiCTR2000030006,experimental,NA,NA,drug,Ozone-based Therapy,no
 tri00160,ChiCTR2000030006,control,undefined_soc,NA,NA,NA,NA
 tri01068,ISRCTN16912075,experimental,NA,NA,device,CPAP,no
 tri01068,ISRCTN16912075,experimental,NA,NA,device,High flow nasal cannula,no
@@ -3282,11 +3296,6 @@ tri06814,NCT04627233,experimental,NA,NA,drug,Human Ezrin Peptide 1 (HEP1),no
 tri06814,NCT04627233,control,placebo,no,NA,NA,NA
 tri06823,NCT04628143,experimental,NA,NA,drug,Nafamostat,undefined_soc
 tri06823,NCT04628143,control,undefined_soc,NA,NA,NA,NA
-tri06834,NCT04629989,experimental,NA,NA,other,Low flow nasal cannula,no
-tri06834,NCT04629989,experimental,NA,NA,multiple,Double-Trunk Mask;Low flow nasal cannula,no
-tri06834,NCT04629989,experimental,NA,NA,multiple,Low flow nasal cannula;Mask (PPE) (PPE),no
-tri06836,NCT04630054,experimental,NA,NA,multiple,Mask (PPE) (PPE);Awareness Campaign,no
-tri06836,NCT04630054,control,no_treatment,NA,NA,NA,NA
 tri06839,NCT04631380,experimental,NA,NA,other,Prayer,undefined_soc
 tri06839,NCT04631380,control,undefined_soc,NA,NA,NA,NA
 tri06856,NCT04633772,experimental,NA,NA,drug,Angiotensin 1-7,no
@@ -3301,8 +3310,6 @@ tri06890,NCT04640181,experimental,NA,NA,drug,Heparin (LMWH or Unfractionated),no
 tri06890,NCT04640181,experimental,NA,NA,drug,Rivaroxaban,no
 tri06906,NCT04643054,experimental,NA,NA,nutritional_supplement,Ovotransferrin,undefined_soc
 tri06906,NCT04643054,control,undefined_soc,NA,NA,NA,NA
-tri06938,NCT04647305,experimental,NA,NA,other,Face Shield;Mask (PPE) (PPE),no
-tri06938,NCT04647305,experimental,NA,NA,other,Mask (PPE) (PPE),no
 tri06954,NCT04463602,experimental,NA,NA,drug,Desidustat,undefined_soc
 tri06954,NCT04463602,control,undefined_soc,NA,NA,NA,NA
 tri07126,NCT04655586,experimental,NA,NA,biologics,Recombinant Nematode Anticoagulant Protein c2,no
@@ -3310,7 +3317,7 @@ tri07126,NCT04655586,experimental,NA,NA,biologics,Recombinant Nematode Anticoagu
 tri07126,NCT04655586,control,defined_soc,NA,NA,NA,NA
 tri07141,NCT04657497,experimental,NA,NA,drug,Camostat Mesilate,no
 tri07141,NCT04657497,control,placebo,no,NA,NA,NA
-tri06325,NCT04551339,experimental,NA,NA,drug,Beta carotene;Copper;Vitamin C;Zinc (Any) (Any) (Any),no
+tri06325,NCT04551339,experimental,NA,NA,drug,Beta carotene;Copper;Vitamin C;Zinc (Any),no
 tri06325,NCT04551339,experimental,NA,NA,nutritional_supplement,Multivitamin,no
 tri07222,NCT04667286,experimental,NA,NA,multiple,Prone Positioning,defined_soc
 tri07156,NCT04659460,experimental,NA,NA,procedure,Remote Ischemic Conditioning,no
@@ -3475,8 +3482,6 @@ tri03228,NCT04402957,experimental,NA,NA,drug,LSALT peptide,no
 tri03228,NCT04402957,control,placebo,no,NA,NA,NA
 tri03248,NCT04429555,experimental,NA,NA,drug,Ibudilast,no
 tri03248,NCT04429555,control,placebo,no,NA,NA,NA
-tri05664,NCT04471766,experimental,NA,NA,other,Mask (PPE) (PPE),defined_soc
-tri05664,NCT04471766,control,defined_soc,NA,NA,NA,NA
 tri05665,NCT04471831,experimental,NA,NA,procedure,Physiotherapy,no
 tri05665,NCT04471831,control,other_unknown,NA,NA,NA,NA
 tri05669,NCT04472494,experimental,NA,NA,drug,Abatacept,undefined_soc
@@ -3716,8 +3721,6 @@ tri01481,NCT04375202,control,undefined_soc,NA,NA,NA,NA
 tri00613,NCT04323514,experimental,NA,NA,nutritional_supplement,Vitamin C,undefined_soc
 tri00663,NCT04326075,experimental,NA,NA,procedure,CPAP,undefined_soc
 tri00663,NCT04326075,control,undefined_soc,NA,NA,NA,NA
-tri00692,ACTRN12620000454976,experimental,NA,NA,nutritional_supplement,Zinc (Any) Chloride,no
-tri00692,ACTRN12620000454976,control,placebo,no,NA,NA,NA
 tri00705,ChiCTR2000031735,experimental,NA,NA,biologics,NK cells,no
 tri00705,ChiCTR2000031735,control,placebo,no,NA,NA,NA
 tri00728,EUCTR2020-001307-16,experimental,NA,NA,drug,Methylprednisolone,no
@@ -3800,8 +3803,6 @@ tri00267,NCT04282902,experimental,NA,NA,drug,Pirfenidone,no
 tri00267,NCT04282902,control,undefined_soc,NA,NA,NA,NA
 tri00399,ChiCTR2000030759,experimental,NA,NA,traditional_medicine,Traditional Medicine,undefined_soc
 tri00399,ChiCTR2000030759,control,undefined_soc,NA,NA,NA,NA
-tri00317,ChiCTR2000029993,experimental,NA,NA,multiple,Traditional Medicine;Umifenovir (Arbidol) (Arbidol),undefined_soc
-tri00317,ChiCTR2000029993,control,undefined_soc,NA,NA,NA,NA
 tri00254,ChiCTR2000029899,experimental,NA,NA,drug,Hydroxychloroquine,no
 tri00254,ChiCTR2000029899,experimental,NA,NA,drug,Chloroquine,no
 tri00113,ChiCTR2000030170,experimental,NA,NA,drug,Jaktinib hydrochloride,undefined_soc
@@ -3818,14 +3819,6 @@ tri02273,NCT04397497,experimental,NA,NA,biologics,Mavrilimumab,undefined_soc
 tri02273,NCT04397497,control,placebo,undefined_soc,NA,NA,NA
 tri05570,NCT04461340,experimental,NA,NA,drug,Sirolimus,undefined_soc
 tri05570,NCT04461340,control,undefined_soc,NA,NA,NA,NA
-tri06780,NCT04621149,control,placebo,no,NA,NA,NA
-tri06780,NCT04621149,experimental,NA,NA,drug,Chlorine dioxide,no
-tri06780,NCT04621149,experimental,NA,NA,drug,Famotidine;Lactoferrin;Zinc (Any) (Any),no
-tri06780,NCT04621149,experimental,NA,NA,drug,Zinc (Any),no
-tri06780,NCT04621149,experimental,NA,NA,drug,Zinc (Any);chlorine dioxid,no
-tri06780,NCT04621149,experimental,NA,NA,drug,Famotidine;Lactoferrin,no
-tri06780,NCT04621149,experimental,NA,NA,drug,Famotidine;Lactoferrin;Chlorine dioxide,no
-tri06780,NCT04621149,experimental,NA,NA,drug,Famotidine;Lactoferrin;Zinc (Any) (Any);Chlorine dioxide,no
 tri04068,ISRCTN57085639,experimental,NA,NA,drug,Bemcentinib,undefined_soc
 tri04068,ISRCTN57085639,experimental,NA,NA,biologics,Tozorakimab (MEDI3506),undefined_soc
 tri04068,ISRCTN57085639,experimental,NA,NA,drug,Acalabrutinib,undefined_soc
@@ -3841,7 +3834,7 @@ tri02266,NCT04390594,experimental,NA,NA,drug,Nafamostat,defined_soc
 tri02266,NCT04390594,control,defined_soc,NA,NA,NA,NA
 tri05807,NCT04486313,experimental,NA,NA,drug,Nitazoxanide,no
 tri05807,NCT04486313,control,placebo,no,NA,NA,NA
-tri06279,NCT04542993,experimental,NA,NA,drug,Resveratrol;Zinc (Any) Picolinate,no
+tri06279,NCT04542993,experimental,NA,NA,drug,Resveratrol;Zinc (Any),no
 tri06279,NCT04542993,control,placebo,no,NA,NA,NA
 tri07290,ACTRN12620001371987,experimental,NA,NA,drug,SPL7013,no
 tri07290,ACTRN12620001371987,control,placebo,no,NA,NA,NA
@@ -3854,8 +3847,6 @@ tri04598,CTRI/2020/06/025530,experimental,NA,NA,traditional_medicine,Traditional
 tri04213,EUCTR2020-002472-12,experimental,NA,NA,biologics,Lanadelumab,no
 tri04213,EUCTR2020-002472-12,control,other_unknown,NA,NA,NA,NA
 tri05946,NCT04501458,control,no_treatment,NA,NA,NA,NA
-tri04895,CTRI/2020/08/027120,NA,NA,NA,NA,NA,NA
-tri04895,CTRI/2020/08/027120,NA,NA,NA,NA,NA,NA
 tri00650,EUCTR2020-001236-10,experimental,NA,NA,drug,imatinib,no
 tri00650,EUCTR2020-001236-10,control,placebo,no,NA,NA,NA
 tri00791,NCT04341207,experimental,NA,NA,drug,Hydroxychloroquine,no
@@ -3871,7 +3862,7 @@ tri01986,EUCTR2020-001684-89,experimental,NA,NA,biologics,Namilumab,undefined_so
 tri01986,EUCTR2020-001684-89,experimental,NA,NA,biologics,Infliximab,undefined_soc
 tri01986,EUCTR2020-001684-89,experimental,NA,NA,multiple,Gemtuzumab;Ozogamicin,undefined_soc
 tri01986,EUCTR2020-001684-89,control,undefined_soc,NA,NA,NA,NA
-tri02450,NCT04323228,experimental,NA,NA,drug,Selenium;Vitamin A;Vitamin C;Vitamin E;Zinc,no
+tri02450,NCT04323228,experimental,NA,NA,drug,Selenium;Vitamin A;Vitamin C;Vitamin E;Zinc (Any),no
 tri02450,NCT04323228,control,placebo,no,NA,NA,NA
 tri02577,NCT04355936,experimental,NA,NA,drug,Telmisartan,undefined_soc
 tri02577,NCT04355936,control,undefined_soc,NA,NA,NA,NA

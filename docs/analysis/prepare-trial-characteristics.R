@@ -1,3 +1,5 @@
+# TODO: add common interventions
+
 # Prepare cross-registrations ---------------------------------------------
 
 cross_registrations <-

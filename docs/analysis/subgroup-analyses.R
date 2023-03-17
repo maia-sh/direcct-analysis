@@ -103,3 +103,39 @@ km_min_standards <-
   semi_join(km_main, ., by = "id")
 
 readr::write_csv(km_min_standards, fs::path(dir_sub, "kaplan-meier-minimum-standards.csv"))
+
+
+# common interventions ----------------------------------------------------
+
+# most common interventions assessed in registered COVID-19 trials similarly fitting cumulative incidence curves for the top X most common interventions extracted per the methods above
+
+# TODO: some funkiness to flag to ND
+# arms missing or control but with intervention
+arms |>
+  filter(
+    (type == "control" & !is.na(intervention)) |
+    (is.na(type) & is.na(intervention)) |
+      stringr::str_detect(intervention, "Ozone-based Therapy|Arbidol|Zinc|Mask|PPE|[cC]aptopril") # Interferon Alpha
+  ) |>
+  arrange(type) |>
+  readr::write_csv(here::here("data", "inspect", "intervention_oddness.csv"))
+
+arms_screened <-
+  arms |>
+  semi_join(trials, by = "id")
+
+# TODO: move to trial characteristics?
+# most common arms
+arms_screened |>
+  filter(type == "experimental") |>
+  count(intervention) |>
+  arrange(desc(n))
+
+# most common interventions used in any arm
+arms_screened |>
+  filter(type == "experimental") |>
+  tidyr::separate_rows(intervention, sep = ";") |>
+  distinct(id, intervention) |>
+  count(intervention) |>
+  arrange(desc(n)) |>
+  readr::write_csv(here::here("data", "inspect", "intervention_common.csv"))
