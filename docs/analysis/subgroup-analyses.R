@@ -180,3 +180,19 @@ km_common_interventions <-
   left_join(km_main, by = "id")
 
 readr::write_csv(km_common_interventions, fs::path(dir_sub, "kaplan-meier-common-interventions.csv"))
+
+
+# registries --------------------------------------------------------------
+reporting_rates_registry <-
+  cross_registrations |>
+  left_join(trials_w_results, by = "id") |>
+  mutate(has_full_result = tidyr::replace_na(has_full_result, FALSE)) |>
+  add_count(registry, name = "n_trials") |>
+  add_count(registry, has_full_result, name = "n_trials_w_results") |>
+  filter(has_full_result) |>
+  mutate(p_trials_w_results = n_trials_w_results/n_trials) |>
+  distinct(registry, p_trials_w_results, n_trials_w_results, n_trials) |>
+  arrange(desc(n_trials)) |>
+  mutate(p_trials_w_results = scales::percent(p_trials_w_results)) |>
+  mutate(reporting_rate = glue::glue("{p_trials_w_results} ({n_trials_w_results}/{n_trials})")) |>
+  select(registry, reporting_rate)
