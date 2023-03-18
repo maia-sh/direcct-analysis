@@ -109,33 +109,74 @@ readr::write_csv(km_min_standards, fs::path(dir_sub, "kaplan-meier-minimum-stand
 
 # most common interventions assessed in registered COVID-19 trials similarly fitting cumulative incidence curves for the top X most common interventions extracted per the methods above
 
-# TODO: some funkiness to flag to ND
-# arms missing or control but with intervention
+# TODO: flag to ND some interventions may need further tidying
+# Mask (PPE); Mask (PPE) (PPE); Masks (PPE); Personal protective equipment (PPE)
+# Umifenovir (Arbidol); Umifenovir (Arbidol) (Arbidol)
+# Interferon Alpha (Any); Interferon Alpha (Any) (Any); Interferon Alpha (Any) (Any) Gamma; Interferon Beta (Any) (Any); Interferon Beta (Any)
+# Pulse oximeter {and with leading space}
+# Lipoic acid; Lipoic acid acid
+# Pyronaridine; Pyronaridinee
 arms |>
   filter(
-    (type == "control" & !is.na(intervention)) |
-    (is.na(type) & is.na(intervention)) |
-      stringr::str_detect(intervention, "Ozone-based Therapy|Arbidol|Zinc|Mask|PPE|[cC]aptopril") # Interferon Alpha
+      stringr::str_detect(intervention, "Mask|PPE|Interferon|Pulse oximeter|Lipoic acid|Pyronaridine")
   ) |>
-  arrange(type) |>
+  # tidyr::separate_rows(intervention, sep = ";") |>
+  # distinct(id, intervention) |>
+  # count(intervention) |>
+  # arrange(desc(n)) |>
+  # arrange(intervention) |>
   readr::write_csv(here::here("data", "inspect", "intervention_oddness.csv"))
 
 arms_screened <-
   arms |>
   semi_join(trials, by = "id")
 
-# TODO: move to trial characteristics?
 # most common arms
-arms_screened |>
+arms_counts <-
+  arms_screened |>
   filter(type == "experimental") |>
   count(intervention) |>
   arrange(desc(n))
 
+# TODO: move to trial characteristics?
 # most common interventions used in any arm
-arms_screened |>
+intervention_counts <-
+  arms_screened |>
   filter(type == "experimental") |>
   tidyr::separate_rows(intervention, sep = ";") |>
   distinct(id, intervention) |>
-  count(intervention) |>
-  arrange(desc(n)) |>
-  readr::write_csv(here::here("data", "inspect", "intervention_common.csv"))
+  count(intervention, name = "n_trials") |>
+  arrange(desc(n_trials))
+
+# readr::write_csv(intervention_counts, here::here("data", "inspect", "intervention_common.csv"))
+
+trials_intervention_counts <-
+  intervention_counts |>
+  count(n_trials, name = "n_intervention")
+
+# Get trials with common interventions (with 1 row per common intervention)
+trials_common_interventions <-
+  arms_screened |>
+
+  # Get each intervention
+  tidyr::separate_rows(intervention, sep = ";") |>
+
+  # Limit to common interventions
+  semi_join(slice_head(intervention_counts, n = 10), by = "intervention") |>
+  distinct(id, intervention) %>%
+
+  # NOTE: There are many trials with >1 top intervention
+  # janitor::get_dupes(id)
+
+  # Add all common interventions, i.e., >1 row per trial for some
+  full_join(trials, ., by = "id") |>
+
+  # Limit to trials with common interventions
+  tidyr::drop_na(intervention)
+
+km_common_interventions <-
+  trials_common_interventions |>
+  select(id, intervention) |>
+  left_join(km_main, by = "id")
+
+readr::write_csv(km_common_interventions, fs::path(dir_sub, "kaplan-meier-common-interventions.csv"))
