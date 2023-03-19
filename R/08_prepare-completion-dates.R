@@ -208,8 +208,7 @@ reg_22_trials_pass_auto <-
   left_join(select(registries_22, -registry), by = "trn")
 
 # Some trials (n = 108) have registry data from July 21 but not April 22; of these, some no longer resolve
-# TODO: consider checking April 22 registrations for those missing
-# TODO: consider excluding registrations that no longer resolve (for this or all analyses)
+# NOTE: ND manually checked April 22 historical versions of these 108 registrations and only 2 (NCT04685603 & EUCTR2020-005588-29) had completion dates which were the same as in July 21 scrapes (and also ONLY trials of these 108 with dates in July 21 scrapes) --> hence use July 21 scrapes for these missing scrapes as same data
 registries_21_only <-
   anti_join(registries, registries_22, by = "trn") |>
   select(trn, registry) |>

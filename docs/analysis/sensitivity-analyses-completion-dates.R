@@ -80,10 +80,10 @@ trials_screening_22_main <-
     cd_22_earlier = date_completion_22 < date_completion_main
   )
 
-n_cd_22_only <- nrow(filter(trials_screening_22_main, is_pass_screening_auto, cd_22_only))
-n_cd_21_only <- nrow(filter(trials_screening_22_main, is_pass_screening_auto, cd_21_only))
-n_cd_22_later <- nrow(filter(trials_screening_22_main, is_pass_screening_auto, cd_22_later))
-n_cd_22_earlier <- nrow(filter(trials_screening_22_main, is_pass_screening_auto, cd_22_earlier))
+n_cd_22_only <- nrow(filter(trials_screening_22_main, is_pass_screening_manual, cd_22_only))
+n_cd_21_only <- nrow(filter(trials_screening_22_main, is_pass_screening_manual, cd_21_only))
+n_cd_22_later <- nrow(filter(trials_screening_22_main, is_pass_screening_manual, cd_22_later))
+n_cd_22_earlier <- nrow(filter(trials_screening_22_main, is_pass_screening_manual, cd_22_earlier))
 n_cd_22_changed <- n_cd_22_only + n_cd_21_only + n_cd_22_later + n_cd_22_earlier
 
 # Look into trials with removed cds
@@ -91,7 +91,7 @@ filter(trials_screening_22_main, is_pass_screening_auto, cd_21_only)
 
 # Sanity check number of changed trials
 if (!trials_screening_22_main |>
-    filter(is_pass_screening_auto,
+    filter(is_pass_screening_manual,
            cd_22_only |
            cd_21_only |
            cd_22_later |
