@@ -299,7 +299,35 @@ screening_trials <-
     is_pass_screening_manual = if_else(
       is_pass_screening_manual_ignore_cd & is_any_rcd_cutoff_3,
       TRUE, FALSE, missing = FALSE)
-  )
+  ) |>
+
+  # Add priority trn in ictrp based on prespecified study priorities
+  mutate(trn_ictrp_priority = case_when(
+
+    # If single or no ictrp registration, use that
+    stringr::str_detect(trn_ictrp, ";", negate = TRUE)|is.na(trn_ictrp) ~ trn_ictrp,
+
+    # If multiple ictrp registrations...
+    # Prioritize ctgov
+    # If multiple ctgov, visually/manually select one (prefer lastest registry update pre-cutoff with rcd)
+    id == "tri01906" ~ "NCT04444700",
+    id == "tri02944" ~ "NCT04348656",
+    id == "tri01243" ~ "NCT04330690",
+    id == "tri03086" ~ "NCT04399980",
+    id == "tri00985" ~ "NCT04325906",
+    stringr::str_detect(trn_ictrp, "NCT\\d{8}") ~ stringr::str_extract(trn_ictrp, "NCT\\d{8}"),
+
+    # Else prioritize euctr (no multiple euctr after removing country dupes)
+    stringr::str_detect(trn_ictrp, "EUCTR20\\d{2}-\\d{6}-\\d{2}") ~ stringr::str_extract(trn_ictrp, "EUCTR20\\d{2}-\\d{6}-\\d{2}"),
+
+    # Else manually select (prefer lastest registry update pre-cutoff with rcd)
+    # tri08138: ChiCTR2100041705 & ChiCTR2100041706 same data so arbitrarily select
+    id == "tri08138" ~ "ChiCTR2100041705",
+
+    # Else throw error
+    TRUE ~ "ERROR"
+  ), .after = "n_ictrp") |>
+  assertr::assert(assertr::in_set("ERROR", allow.na = FALSE, inverse = TRUE), trn_ictrp_priority)
 
 # All trials that pass auto-screening should be extracted
 screening_trials |>

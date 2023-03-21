@@ -151,49 +151,8 @@ rcd_latest <-
 # 5) rcd per ictrp + priorities -------------------------------------------
 # 5) rcd based on registration in ICTRP in July 2021, and if multiple, based on study priorities (CTgov, etc.)
 
-trials_pass_auto_ictrp_trn <-
-  trials_pass_auto |>
-  # select(id, trn_ictrp) |>
-  mutate(trn_ictrp_priority = case_when(
-
-    # If single ictrp registration, use that
-    stringr::str_detect(trn_ictrp, ";", negate = TRUE) ~ trn_ictrp,
-
-    # If multiple ictrp registrations (n = 257)...
-    # Prioritize ctgov (n = 242)
-    # If multiple ctgov, visually/manually select one (prefer lastest registry update pre-cutoff with rcd)
-    id == "tri01906" ~ "NCT04444700",
-    id == "tri02944" ~ "NCT04348656",
-    id == "tri01243" ~ "NCT04330690",
-    id == "tri03086" ~ "NCT04399980",
-    id == "tri00985" ~ "NCT04325906",
-    stringr::str_detect(trn_ictrp, "NCT\\d{8}") ~ stringr::str_extract(trn_ictrp, "NCT\\d{8}"),
-
-    # Else prioritize euctr (no multiple euctr after removing country dupes)
-    stringr::str_detect(trn_ictrp, "EUCTR20\\d{2}-\\d{6}-\\d{2}") ~ stringr::str_extract(trn_ictrp, "EUCTR20\\d{2}-\\d{6}-\\d{2}"),
-
-    # Else manually select (prefer lastest registry update pre-cutoff with rcd)
-    # tri08138: ChiCTR2100041705 & ChiCTR2100041706 same data so arbitrarily select
-    id == "tri08138" ~ "ChiCTR2100041705",
-
-    # Else throw error
-    TRUE ~ "ERROR"
-  )) |>
-  assertr::assert(assertr::in_set("ERROR", inverse = TRUE), trn_ictrp_priority)
-
-# Check how many trials that pass screening aside from cd (or extracted) have no rcd
-# NOTE: some trials have ictrp priority trn that does not have rcd
-# Could switch to different ictrp priority trn but would be data-informed
-# Most such trials fail other screening
-# NOTE:tri04046 has nct not in ictrp, but euctr from 2015 and not in scraping so could use other trn (ISRCTN67000769) with last_updated, but data-informed and anyways screened out, so disregard
-# trials_pass_auto_ictrp_trn |>
-#   filter(is_pass_screening_ignore_cd) |>
-#   # filter(is_extracted) |>
-#   anti_join(reg_trials_pass_auto_have_rcd, by = c("trn_ictrp_priority" = "trn")) %>%
-#   semi_join(reg_trials_pass_auto_have_rcd, ., by = "id")
-
 rcd_ictrp <-
-  trials_pass_auto_ictrp_trn |>
+  trials_pass_auto |>
   select(id, trn_ictrp_priority) |>
   left_join(select(reg_trials_pass_auto_have_rcd, id, trn, date_completion = rcd, last_updated), by = c("id", "trn_ictrp_priority" = "trn"))
 
@@ -460,6 +419,7 @@ completion_dates <-
 
   left_join(
     select(rcd_ictrp, id,
+           trn_ictrp_priority,
            date_completion_ictrp = date_completion)
   ) |>
   left_join(
