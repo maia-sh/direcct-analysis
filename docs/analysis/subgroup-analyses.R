@@ -94,10 +94,10 @@ time_preprint_article_semester_3 <- filter(time_preprint_article_semester, semes
 km_min_standards <-
 
   # Get trials that meet minimum standards
-  tbl_trial_characteristics |>
+  trial_characteristics |>
   filter(
     stringr::str_detect(phase, "2|3|4"),
-    target_enrollment_max >= 100
+    target_enrollment >= 100
     #TODO: add randomized
   ) %>%
   semi_join(km_main, ., by = "id")
