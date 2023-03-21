@@ -22,10 +22,7 @@ tbl_crossreg <-
 
   # Collapse registries per trial
   group_by(id) |>
-  summarise(cross_registry = stringr::str_c(registry, collapse = ", ")) |>
-  # Recode cross-registrations
-  mutate(cross_registry = if_else(stringr::str_detect(cross_registry, ", "), "Cross-registered", cross_registry))
-
+  summarise(cross_registry = stringr::str_c(registry, collapse = ","))
 
 # Prepare ICTRP -----------------------------------------------------------
 
@@ -43,39 +40,21 @@ trial_characteristics <-
   slice_head(n = 1) |>
   ungroup() |>
 
-  # Prepare countries
-  # TODO: could check for "No country given" and remove
-  # Collapse multinational (i.e., with comma)
   mutate(
-    countries =
-      if_else(stringr::str_detect(countries, ","), "Multinational", countries)
-  ) |>
 
-  # Prepare phases
-  mutate(
-    phase = if_else(phase == "Phase 1-2", "Phase 1/Phase 2", phase)
-  ) |>
+    # Tidy phases
+    phase = if_else(phase == "Phase 1-2", "Phase 1/Phase 2", phase),
 
-  # Prepare enrollment
-  mutate(
+    # Tidy enrollment
     target_enrollment = na_if(target_enrollment, "Not Available"),
-    target_enrollment = as.numeric(target_enrollment)
-  ) |>
+    target_enrollment = as.numeric(target_enrollment),
 
-  # Add results flag
-  mutate(
+    # Add results flag
     has_result = if_else(id %in% unique(results$id), "With Results", "Without Results")
   ) |>
 
   # Add registries
  left_join(tbl_crossreg, by = "id")
-
-# Lump infrequent (<5 trials) countries
-# countries =
-#   fct_lump_min(countries, 5, other_level = "Countries with <5 trials")
-# Lump infrequent (<3 trials) registries
-# cross_registry =
-#   fct_lump_min(cross_registry, 3, other_level = "Registries with <3 trials")
 
 
 # Prepare table 1 ---------------------------------------------------------
@@ -86,10 +65,20 @@ library(gtsummary)
 tbl_trials <-
   trial_characteristics |>
 
-  select(has_result, cross_registry, countries, target_enrollment, phase#,study_type,recruitment_status, retrospective_registration, date_registration #for pandemic phase? or based on cd...then cd? and if so which
+  select(has_result, cross_registry, countries, target_enrollment, phase
+         #,study_type,recruitment_status, retrospective_registration, date_registration #or date_completion used in main analysis? or pandemic "semester"?
   ) |>
 
+
+  # Prepare characteristics for summary table
   mutate(
+
+    # Recode cross-registrations
+    cross_registry = if_else(stringr::str_detect(cross_registry, ","), "Cross-registered", cross_registry),
+
+    # Recode multinational
+    countries =
+      if_else(stringr::str_detect(countries, ","), "Multinational", countries),
 
     # Lump infrequent registries
     # cross_registry =
@@ -145,7 +134,7 @@ tbl_trials <-
   modify_spanning_header(all_stat_cols() ~ "**Results Disseminated**") %>%
   modify_caption("**Trial Characteristics** (N = {N})")
 
-gt_tbl_trials <- as_gt(tbl_trials)
-gt::gtsave(gt_tbl_trials, here::here("docs", "figures", "tbl-trials.png"))
-writeLines(gt::as_rtf(gt_tbl_trials), here::here("docs", "figures", "tbl-trials.rtf"))
+# gt_tbl_trials <- as_gt(tbl_trials)
+# gt::gtsave(gt_tbl_trials, here::here("docs", "figures", "tbl-trials.png"))
+# writeLines(gt::as_rtf(gt_tbl_trials), here::here("docs", "figures", "tbl-trials.rtf"))
 

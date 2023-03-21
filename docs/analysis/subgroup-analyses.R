@@ -127,21 +127,11 @@ arms |>
   # arrange(intervention) |>
   readr::write_csv(here::here("data", "inspect", "intervention_oddness.csv"))
 
-arms_screened <-
-  arms |>
-  semi_join(trials, by = "id")
-
-# most common arms
-arms_counts <-
-  arms_screened |>
-  filter(type == "experimental") |>
-  count(intervention) |>
-  arrange(desc(n))
-
 # TODO: move to trial characteristics?
 # most common interventions used in any arm
 intervention_counts <-
-  arms_screened |>
+  arms |>
+  semi_join(trials, by = "id") |>
   filter(type == "experimental") |>
   tidyr::separate_rows(intervention, sep = ";") |>
   distinct(id, intervention) |>
