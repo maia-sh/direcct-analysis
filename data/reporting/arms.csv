@@ -280,7 +280,7 @@ tri01625,IRCT20200328046886N1,experimental,NA,NA,drug,Daclatasvir;Ribavirin;Sofo
 tri01625,IRCT20200328046886N1,control,undefined_soc,NA,NA,NA,NA
 tri01442,NCT04370288,experimental,NA,NA,drug,Methylene Blue;N-acetyl cysteine;Vitamin C,no
 tri01442,NCT04370288,control,undefined_soc,NA,NA,NA,NA
-tri03075,NCT04386850,experimental,NA,NA,drug,Vitamin D (Any)3 (Calcitriol),no
+tri03075,NCT04386850,experimental,NA,NA,drug,Vitamin D (Any),no
 tri03075,NCT04386850,control,placebo,no,NA,NA,NA
 tri02381,NCT04405310,experimental,NA,NA,biologics,Convalescent Plasma,defined_soc
 tri02381,NCT04405310,control,placebo,defined_soc,NA,NA,NA
@@ -322,7 +322,7 @@ tri06127,NCT04526821,experimental,NA,NA,drug,Lactoferrin,undefined_soc
 tri06127,NCT04526821,control,placebo,undefined_soc,NA,NA,NA
 tri05378,NCT04367168,experimental,NA,NA,drug,Colchicine,no
 tri05378,NCT04367168,control,placebo,no,NA,NA,NA
-tri04659,CTRI/2020/06/025957,experimental,NA,NA,drug,Favipiravir;Umifenovir (Arbidol) (Arbidol),no
+tri04659,CTRI/2020/06/025957,experimental,NA,NA,drug,Favipiravir;Umifenovir (Arbidol),no
 tri04659,CTRI/2020/06/025957,experimental,NA,NA,drug,Favipiravir,no
 tri04829,CTRI/2020/07/026835,control,defined_soc,NA,NA,NA,NA
 tri04829,CTRI/2020/07/026835,experimental,NA,NA,device,High flow nasal cannula,no
@@ -600,6 +600,7 @@ tri02073,NCT04392141,experimental,NA,NA,multiple,Colchicine;herbal phenolic mono
 tri02073,NCT04392141,control,undefined_soc,NA,NA,NA,NA
 tri04394,IRCT20201012049010N1,control,undefined_soc,NA,NA,NA,NA
 tri04394,IRCT20201012049010N1,experimental,NA,NA,procedure,Balloon blowing,undefined_soc
+tri05601,NCT04465695,experimental,NA,NA,drug,Interferon Beta (Any),undefined_soc
 tri00546,NCT04304313,experimental,NA,NA,drug,Sildenafil,no
 tri02934,NCT04316377,experimental,NA,NA,drug,Hydroxychloroquine,undefined_soc
 tri02934,NCT04316377,control,undefined_soc,NA,NA,NA,NA
@@ -708,6 +709,37 @@ tri07079,NCT04647695,experimental,NA,NA,drug,Interferon Beta (Any),defined_soc
 tri07079,NCT04647695,control,defined_soc,NA,NA,NA,NA
 tri06373,NCT04558476,experimental,NA,NA,biologics,Convalescent Plasma,no
 tri06373,NCT04558476,control,undefined_soc,NA,NA,NA,NA
+tri05601,NCT04465695,experimental,NA,NA,drug,Clofazimine;Interferon Beta (Any),undefined_soc
+tri05601,NCT04465695,control,undefined_soc,NA,NA,NA,NA
+tri05959,NCT04502667,experimental,NA,NA,drug,Vitamin D (Any),no
+tri05959,NCT04502667,control,no_treatment,NA,NA,NA,NA
+tri06211,NCT04535791,experimental,NA,NA,drug,Vitamin D (Any),no
+tri06211,NCT04535791,control,placebo,no,NA,NA,NA
+tri02189,NCT04399746,experimental,NA,NA,drug,Azithromycin;Ivermectin;Vitamin D (Any),no
+tri02189,NCT04399746,control,no_treatment,NA,NA,NA,NA
+tri06507,NCT04579640,experimental,NA,NA,drug,Vitamin D (Any),no
+tri06507,NCT04579640,experimental,NA,NA,drug,Vitamin D (Any),no
+tri06507,NCT04579640,control,defined_soc,NA,NA,NA,NA
+tri09159,NCT04883203,experimental,NA,NA,drug,Vitamin D (Any),no
+tri09159,NCT04883203,control,placebo,no,NA,NA,NA
+tri06976,NCT04501952,experimental,NA,NA,drug,Remdesivir,no
+tri06976,NCT04501952,control,placebo,no,NA,NA,NA
+tri01222,NCT04363840,experimental,NA,NA,drug,Aspirin;Vitamin D (Any),no
+tri01222,NCT04363840,experimental,NA,NA,drug,Aspirin,no
+tri01222,NCT04363840,control,no_treatment,NA,NA,NA,NA
+tri06337,NCT04552951,experimental,NA,NA,drug,Vitamin D (Any),no
+tri06337,NCT04552951,control,no_treatment,NA,NA,NA,NA
+tri05535,NCT04459247,experimental,NA,NA,drug,Vitamin D (Any),no
+tri05535,NCT04459247,control,no_treatment,NA,NA,NA,NA
+tri01497,NCT04344041,experimental,NA,NA,drug,Vitamin D (Any),no
+tri01497,NCT04344041,control,defined_soc,NA,NA,NA,NA
+tri02401,NCT04407286,experimental,NA,NA,drug,Vitamin D (Any),no
+tri02612,NCT04411446,experimental,NA,NA,drug,Vitamin D (Any),no
+tri02612,NCT04411446,control,placebo,no,NA,NA,NA
+tri07662,NCT04733625,experimental,NA,NA,drug,Vitamin D (Any),no
+tri07662,NCT04733625,control,placebo,no,NA,NA,NA
+tri02595,NCT04385940,experimental,NA,NA,drug,Vitamin D (Any),no
+tri02595,NCT04385940,control,defined_soc,NA,NA,NA,NA
 tri00037,ChiCTR2000029790,experimental,NA,NA,traditional_medicine,Traditional Medicine,undefined_soc
 tri00037,ChiCTR2000029790,control,undefined_soc,NA,NA,NA,NA
 tri00030,ChiCTR2000029814,experimental,NA,NA,traditional_medicine,Traditional Medicine,undefined_soc
@@ -816,8 +848,6 @@ tri03304,NCT04343976,control,placebo,no,NA,NA,NA
 tri03172,ISRCTN40302986,experimental,NA,NA,drug,Ivermectin,no
 tri03172,ISRCTN40302986,experimental,NA,NA,drug,Ivermectin,no
 tri03172,ISRCTN40302986,control,placebo,no,NA,NA,NA
-tri02612,NCT04411446,experimental,NA,NA,nutritional_supplement,Vitamin D (Any) (Cholecalciferol),no
-tri02612,NCT04411446,control,placebo,no,NA,NA,NA
 tri01887,NCT04340349,experimental,NA,NA,drug,Bromhexine;Hydroxychloroquine,no
 tri01887,NCT04340349,control,placebo,no,NA,NA,NA
 tri02323,NCT04317040,experimental,NA,NA,biologics,CD24Fc,no
@@ -890,7 +920,6 @@ tri02244,NCT04321278,control,defined_soc,NA,NA,NA,NA
 tri07018,NCT04565197,experimental,NA,NA,biologics,Convalescent Plasma,no
 tri03437,NCT04410354,experimental,NA,NA,drug,Merimepodib;Remdesivir,NA
 tri03437,NCT04410354,control,placebo,defined_soc,NA,NA,NA
-tri02401,NCT04407286,experimental,NA,NA,nutritional_supplement,Vitamin D (Any) (Cholecalciferol),no
 tri06103,NCT04523831,experimental,NA,NA,drug,Doxycycline;Ivermectin,defined_soc
 tri06103,NCT04523831,control,placebo,defined_soc,NA,NA,NA
 tri06002,NCT04510233,experimental,NA,NA,drug,Ivermectin,no
@@ -964,8 +993,6 @@ tri02346,NCT04374526,experimental,NA,NA,biologics,Convalescent Plasma,undefined_
 tri02346,NCT04374526,control,undefined_soc,NA,NA,NA,NA
 tri03293,NCT04331899,experimental,NA,NA,drug,Interferon Lambda (Any),undefined_soc
 tri03293,NCT04331899,control,placebo,undefined_soc,NA,NA,NA
-tri01497,NCT04344041,experimental,NA,NA,drug,Vitamin D (Any) (Cholecalciferol),no
-tri01497,NCT04344041,experimental,NA,NA,drug,Vitamin D (Any) (Cholecalciferol),no
 tri03287,NCT04324463,experimental,NA,NA,drug,Colchicine,no
 tri03287,NCT04324463,experimental,NA,NA,drug,Interferon Beta (Any),no
 tri03287,NCT04324463,experimental,NA,NA,drug,Aspirin,no
@@ -976,8 +1003,6 @@ tri03332,NCT04358068,control,placebo,no,NA,NA,NA
 tri02448,NCT04322123,experimental,NA,NA,drug,Hydroxychloroquine,undefined_soc
 tri02448,NCT04322123,experimental,NA,NA,drug,Azithromycin;Hydroxychloroquine,undefined_soc
 tri02448,NCT04322123,control,undefined_soc,NA,NA,NA,NA
-tri05535,NCT04459247,experimental,NA,NA,drug,Vitamin D (Any) (Cholecalciferol),no
-tri05535,NCT04459247,control,no_treatment,NA,NA,NA,NA
 tri03163,NCT04429854,experimental,NA,NA,biologics,Convalescent Plasma,undefined_soc
 tri03163,NCT04429854,control,undefined_soc,NA,NA,NA,NA
 tri00249,ChiCTR2000030013,experimental,NA,NA,biologics,Interferon Alpha (Any),no
@@ -1012,8 +1037,6 @@ tri01909,NCT04364009,experimental,NA,NA,drug,Anakinra,undefined_soc
 tri01909,NCT04364009,control,undefined_soc,NA,NA,NA,NA
 tri06786,NCT04622826,experimental,NA,NA,biologics,Convalescent Plasma,no
 tri06716,NCT04610541,experimental,NA,NA,drug,Remdesivir,no
-tri06337,NCT04552951,experimental,NA,NA,drug,Vitamin D (Any) (Cholecalciferol),no
-tri06337,NCT04552951,control,no_treatment,NA,NA,NA,NA
 tri06329,NCT04551755,experimental,NA,NA,drug,Doxycycline;Ivermectin,defined_soc
 tri06329,NCT04551755,control,placebo,defined_soc,NA,NA,NA
 tri06132,NCT04527211,experimental,NA,NA,drug,Ivermectin,no
@@ -1037,9 +1060,6 @@ tri01468,NCT04373824,experimental,NA,NA,drug,Ivermectin,undefined_soc
 tri01468,NCT04373824,control,undefined_soc,NA,NA,NA,NA
 tri01365,NCT04369365,experimental,NA,NA,drug,Azithromycin,no
 tri01365,NCT04369365,control,placebo,no,NA,NA,NA
-tri01222,NCT04363840,experimental,NA,NA,drug,Aspirin;Vitamin D (Any) (Cholecalciferol),no
-tri01222,NCT04363840,experimental,NA,NA,drug,Aspirin,NA
-tri01222,NCT04363840,control,no_treatment,NA,NA,NA,NA
 tri01435,NCT04361032,experimental,NA,NA,drug,Tocilizumab,undefined_soc
 tri01435,NCT04361032,experimental,NA,NA,drug,Deferoxamine,undefined_soc
 tri01428,NCT04354597,experimental,NA,NA,drug,Azithromycin;Hydroxychloroquine,no
@@ -1176,10 +1196,6 @@ tri07063,NCT04634409,control,placebo,no,NA,NA,NA
 tri07063,NCT04634409,experimental,NA,NA,biologics,Bamlanivimab;Sotrovimab,no
 tri07063,NCT04634409,experimental,NA,NA,biologics,LY3853113,no
 tri07063,NCT04634409,experimental,NA,NA,biologics,Bamlanivimab;Etesevimab;LY3853113,no
-tri06976,NCT04501952,experimental,NA,NA,drug,Remdesivir,no
-tri06976,NCT04501952,control,placebo,no,NA,NA,NA
-tri02595,NCT04385940,experimental,NA,NA,drug,Vitamin D (Any)3 (Cholecalciferol),no
-tri02595,NCT04385940,experimental,NA,NA,drug,Vitamin D (Any)3 (Cholecalciferol),no
 tri03481,NCT04432298,experimental,NA,NA,biologics,Pamrevlumab,no
 tri03481,NCT04432298,control,placebo,no,NA,NA,NA
 tri01882,NCT04334148,experimental,NA,NA,drug,Hydroxychloroquine,no
@@ -1284,8 +1300,6 @@ tri02028,NCT04358783,experimental,NA,NA,biologics,Convalescent Plasma,undefined_
 tri02028,NCT04358783,control,undefined_soc,NA,NA,NA,NA
 tri04419,PACTR202006760881890,experimental,NA,NA,biologics,Convalescent Plasma,no
 tri04419,PACTR202006760881890,control,placebo,no,NA,NA,NA
-tri09159,NCT04883203,experimental,NA,NA,drug,Vitamin D (Any)3 (Cholecalciferol),no
-tri09159,NCT04883203,control,placebo,NA,NA,NA,NA
 tri09190,NCT04894721,experimental,NA,NA,drug,Ivermectin,no
 tri09190,NCT04894721,control,placebo,NA,NA,NA,NA
 tri03235,NCT04421404,experimental,NA,NA,biologics,Convalescent Plasma,no
@@ -1312,9 +1326,6 @@ tri07043,NCT04602507,experimental,NA,NA,drug,Ivermectin,undefined_soc
 tri07043,NCT04602507,control,placebo,undefined_soc,NA,NA,NA
 tri07005,NCT04552379,experimental,NA,NA,biologics,Interferon Beta (Any),no
 tri07005,NCT04552379,control,undefined_soc,NA,NA,NA,NA
-tri05601,NCT04465695,experimental,NA,NA,multiple,Clofazimine;Interferon Beta (Any) (Any),undefined_soc
-tri05601,NCT04465695,experimental,NA,NA,drug,Clofazimine,undefined_soc
-tri05601,NCT04465695,control,undefined_soc,NA,NA,NA,NA
 tri05534,NCT04458948,experimental,NA,NA,drug,Azithromycin;Hydroxychloroquine,no
 tri05475,NCT04452812,experimental,NA,NA,biologics,Convalescent Plasma,undefined_soc
 tri05475,NCT04452812,control,placebo,undefined_soc,NA,NA,NA
@@ -2056,9 +2067,6 @@ tri06107,NCT04524507,experimental,NA,NA,biologics,Convalescent Plasma,no
 tri03396,NCT04389710,experimental,NA,NA,biologics,Convalescent Plasma,no
 tri05788,NCT04483635,experimental,NA,NA,nutritional_supplement,Vitamin D (Any),no
 tri05788,NCT04483635,control,placebo,no,NA,NA,NA
-tri06507,NCT04579640,experimental,NA,NA,nutritional_supplement,Vitamin D (Any)3 (Cholecalciferol),no
-tri06507,NCT04579640,experimental,NA,NA,drug,Vitamin D (Any)3 (Cholecalciferol),no
-tri06507,NCT04579640,control,undefined_soc,NA,NA,NA,NA
 tri02473,NCT04373044,experimental,NA,NA,drug,Baricitinib,defined_soc
 tri02473,NCT04373044,control,placebo,defined_soc,NA,NA,NA
 tri03347,NCT04364737,experimental,NA,NA,biologics,Convalescent Plasma,no
@@ -2184,8 +2192,6 @@ tri03085,NCT04395170,control,defined_soc,NA,NA,NA,NA
 tri02188,NCT04398303,experimental,NA,NA,biologics,Stem Cells (Mesenchymal),undefined_soc
 tri02188,NCT04398303,experimental,NA,NA,biologics,Stem Cells (Mesenchymal),undefined_soc
 tri02188,NCT04398303,control,placebo,undefined_soc,NA,NA,NA
-tri02189,NCT04399746,experimental,NA,NA,drug,Azithromycin;Ivermectin;Vitamin D (Any)3 (Cholecalciferol),no
-tri02189,NCT04399746,control,no_treatment,NA,NA,NA,NA
 tri02282,NCT04399798,experimental,NA,NA,drug,Baricitinib,undefined_soc
 tri02316,NCT04403477,experimental,NA,NA,biologics,Convalescent Plasma,defined_soc
 tri02316,NCT04403477,experimental,NA,NA,biologics,Convalescent Plasma,defined_soc
@@ -2553,8 +2559,6 @@ tri07074,NCT04643678,experimental,NA,NA,drug,Anakinra,undefined_soc
 tri07074,NCT04643678,control,undefined_soc,NA,NA,NA,NA
 tri05536,NCT04459286,experimental,NA,NA,drug,Atazanavir;Nitazoxanide;Ritonavir,undefined_soc
 tri05536,NCT04459286,control,undefined_soc,NA,NA,NA,NA
-tri07662,NCT04733625,experimental,NA,NA,nutritional_supplement,Vitamin D (Any)3 (Cholecalciferol),no
-tri07662,NCT04733625,control,placebo,no,NA,NA,NA
 tri07656,NCT04730323,experimental,NA,NA,biologics,Tocilizumab,no
 tri07654,NCT04729491,experimental,NA,NA,drug,Dutasteride,defined_soc
 tri07654,NCT04729491,control,placebo,defined_soc,NA,NA,NA
@@ -2586,14 +2590,10 @@ tri01108,NCT04339712,experimental,NA,NA,drug,Anakinra,no
 tri01108,NCT04339712,experimental,NA,NA,biologics,Tocilizumab,no
 tri06421,NCT04567173,experimental,NA,NA,biologics,Convalescent Plasma,undefined_soc
 tri06421,NCT04567173,control,undefined_soc,NA,NA,NA,NA
-tri06211,NCT04535791,experimental,NA,NA,nutritional_supplement,Vitamin D (Any)3 (Cholecalciferol),no
-tri06211,NCT04535791,control,placebo,no,NA,NA,NA
 tri06084,NCT04521036,experimental,NA,NA,biologics,Convalescent Plasma,no
 tri06084,NCT04521036,control,placebo,no,NA,NA,NA
 tri06023,NCT04513184,experimental,NA,NA,drug,Dexamethasone,no
 tri06023,NCT04513184,control,undefined_soc,NA,NA,NA,NA
-tri05959,NCT04502667,experimental,NA,NA,nutritional_supplement,Vitamin D (Any)3 (Cholecalciferol),no
-tri05959,NCT04502667,control,no_treatment,NA,NA,NA,NA
 tri05608,NCT04466540,experimental,NA,NA,drug,Hydroxychloroquine,no
 tri05608,NCT04466540,control,placebo,no,NA,NA,NA
 tri02138,NCT04391101,experimental,NA,NA,biologics,Convalescent Plasma,undefined_soc
@@ -2864,8 +2864,8 @@ tri05359,NCT04349592,experimental,NA,NA,drug,Azithromycin;Hydroxychloroquine,no
 tri05359,NCT04349592,experimental,NA,NA,drug,Hydroxychloroquine,no
 tri05359,NCT04349592,control,placebo,no,NA,NA,NA
 tri05627,NCT04468139,experimental,NA,NA,drug,Bromelain;Quercetin;Vitamin C;Zinc (Any),no
-tri00656,NCT04320238,experimental,NA,NA,biologics,Interferon Alpha (Any) (Any),no
-tri00656,NCT04320238,experimental,NA,NA,biologics,Interferon Alpha (Any) (Any);Thymosin Alpha,no
+tri00656,NCT04320238,experimental,NA,NA,biologics,Interferon Alpha (Any),no
+tri00656,NCT04320238,experimental,NA,NA,biologics,Interferon Alpha (Any);Thymosin Alpha,no
 tri00473,NCT04264533,experimental,NA,NA,drug,Vitamin C,no
 tri00473,NCT04264533,control,placebo,no,NA,NA,NA
 tri00896,NCT04276688,experimental,NA,NA,multiple,Interferon Beta (Any);Ribavirin,defined_soc
@@ -2887,8 +2887,8 @@ tri00171,ChiCTR2000029990,experimental,NA,NA,biologics,Stem Cells (Mesenchymal),
 tri00171,ChiCTR2000029990,control,placebo,no,NA,NA,NA
 tri00373,ChiCTR2000030810,experimental,NA,NA,traditional_medicine,Traditional Medicine,no
 tri00373,ChiCTR2000030810,control,defined_soc,NA,NA,NA,NA
-tri02908,RPCEC00000307,experimental,NA,NA,biologics,Interferon Alpha (Any) (Any),undefined_soc
-tri02908,RPCEC00000307,experimental,NA,NA,biologics,Interferon Alpha (Any) (Any) Gamma,undefined_soc
+tri02908,RPCEC00000307,experimental,NA,NA,biologics,Interferon Alpha (Any);Interferon Gamma (Any),undefined_soc
+tri02908,RPCEC00000307,experimental,NA,NA,biologics,Interferon Alpha (Any),undefined_soc
 tri04482,JPRN-UMIN000041421,experimental,NA,NA,device,Fitbit,no
 tri00654,NCT04275414,experimental,NA,NA,biologics,Bevacizumab,undefined_soc
 tri02465,NCT04357340,experimental,NA,NA,other,Physiotherapy,no

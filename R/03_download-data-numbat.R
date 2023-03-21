@@ -90,10 +90,10 @@ numbat_urls <- c(
 "https://numbat.bgcarlisle.com/direcct/export/2023-03-16_172904-sub_result-refset_31-sub-final.tsv",
 
   # Phase 2/3 Interventions
-"https://numbat.bgcarlisle.com/direcct/export/2023-03-16_172914-form_7-refset_34-extractions.tsv",
-"https://numbat.bgcarlisle.com/direcct/export/2023-03-16_172921-sub_arm-refset_34-sub-extraction.tsv",
-"https://numbat.bgcarlisle.com/direcct/export/2023-03-16_172928-form_7-refset_34-final.tsv",
-"https://numbat.bgcarlisle.com/direcct/export/2023-03-16_172937-sub_arm-refset_34-sub-final.tsv"
+"https://numbat.bgcarlisle.com/direcct/export/2023-03-21_014308-form_7-refset_34-extractions.tsv",
+"https://numbat.bgcarlisle.com/direcct/export/2023-03-21_014317-sub_arm-refset_34-sub-extraction.tsv",
+"https://numbat.bgcarlisle.com/direcct/export/2023-03-21_014326-form_7-refset_34-final.tsv",
+"https://numbat.bgcarlisle.com/direcct/export/2023-03-21_014334-sub_arm-refset_34-sub-final.tsv"
 )
 
 purrr::walk(numbat_urls, export_numbat, dir = dir)
