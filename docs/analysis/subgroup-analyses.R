@@ -7,20 +7,9 @@ dir_sub <- fs::dir_create(here::here("data", "reporting", "subgroup-analyses"))
 # Prepare km dataset with semesters
 km_semester <-
   km_main |>
-  mutate(
-    month_completion =
-      lubridate::floor_date(date_completion, "month"),
 
-    semester = case_when(
-      month_completion < as.Date("2020-07-01") ~ 1,
-      month_completion < as.Date("2021-01-01") ~ 2,
-      month_completion < as.Date("2021-07-01") ~ 3,
-    ),
-
-    semester_fct = ordered(semester,
-      labels = c("Jan 2020-Jun 2020", "July 2020-Dec 2020", "Jan 2021-Jun 2021")
-    )
-  )
+  # `pandemic_semester` created in `prepare-trial-characteristics.R`
+  left_join(pandemic_semester, by = c("id", "date_completion"))
 
 readr::write_csv(km_semester, fs::path(dir_sub, "kaplan-meier-semester.csv"))
 
@@ -94,6 +83,7 @@ time_preprint_article_semester_3 <- filter(time_preprint_article_semester, semes
 km_min_standards <-
 
   # Get trials that meet minimum standards
+  # `trial_characteristics` created in `prepare-trial-characteristics.R`
   trial_characteristics |>
   filter(
     stringr::str_detect(phase, "2|3|4"),
@@ -106,76 +96,9 @@ readr::write_csv(km_min_standards, fs::path(dir_sub, "kaplan-meier-minimum-stand
 
 
 # common interventions ----------------------------------------------------
+# most common interventions assessed in registered COVID-19 trials
 
-# most common interventions assessed in registered COVID-19 trials similarly fitting cumulative incidence curves for the top X most common interventions extracted per the methods above
-
-# TODO: flag to ND some interventions may need further tidying
-# Mask (PPE); Mask (PPE) (PPE); Masks (PPE); Personal protective equipment (PPE)
-# Umifenovir (Arbidol); Umifenovir (Arbidol) (Arbidol)
-# Interferon Alpha (Any); Interferon Alpha (Any) (Any); Interferon Alpha (Any) (Any) Gamma; Interferon Beta (Any) (Any); Interferon Beta (Any)
-# Pulse oximeter {and with leading space}
-# Lipoic acid; Lipoic acid acid
-# Pyronaridine; Pyronaridinee
-# arms |>
-#   filter(
-#       stringr::str_detect(intervention, "Mask|PPE|Interferon|Pulse oximeter|Lipoic acid|Pyronaridine")
-#   ) |>
-#  # tidyr::separate_rows(intervention, sep = ";") |>
-#  # distinct(id, intervention) |>
-#  # count(intervention) |>
-#  # arrange(desc(n)) |>
-#  # arrange(intervention) |>
-  # readr::write_csv(here::here("data", "inspect", "intervention_oddness.csv"))
-
-# Get arms of included trials
-# arms_screened <-
-#   arms |>
-#   semi_join(trials, by = "id")
-
-# Get trials with row per unique intervention
-# NOTE: There are trials in multiple rows but not same intervention in multiple rows (even if used in multiple arms)
-trials_interventions <-
-
-  # Get arms of included trials
-  arms |>
-  semi_join(trials, by = "id") |>
-
-  # Limit to experimental
-  filter(type == "experimental") |>
-
-  # Get row per intervention (i.e., trials may be in multiple rows)
-  tidyr::separate_rows(intervention, sep = ";") |>
-
-  # Limit to 1 row per intervention in a trial (since some interventions in more that one arm)
-  distinct(id, intervention, .keep_all = TRUE)
-
-# TODO: move to trial characteristics?
-# How many trials per intervention?
-intervention_counts <-
-  trials_interventions |>
-  count(intervention, name = "n_trials") |>
-  arrange(desc(n_trials))
-
-# How many trials investigating how many interventions?
-trials_intervention_counts <-
-  intervention_counts |>
-  count(n_trials, name = "n_intervention")
-
-# Top 5 interventions
-# NOTE: "traditional medicine" collapses many interventions and hence not a true intervention
-top_5_interventions <-
-  intervention_counts |>
-  filter(intervention != "Traditional Medicine") |>
-  slice_head(n = 5)
-
-# Get trials with common interventions (with 1 row per common intervention)
-trials_common_interventions <-
-
-  trials_interventions |>
-
-  # Limit to common interventions
-  filter(intervention %in% top_5_interventions$intervention)
-
+# `trials_common_interventions` created in `prepare-trial-characteristics.R`
 km_common_interventions <-
   trials_common_interventions |>
   select(id, intervention) |>
@@ -186,7 +109,9 @@ readr::write_csv(km_common_interventions, fs::path(dir_sub, "kaplan-meier-common
 
 # registries --------------------------------------------------------------
 reporting_rates_registry <-
-  cross_registrations |>
+
+  # `trials_all_registries` created in `prepare-trial-characteristics.R`
+  trials_all_registries |>
   left_join(trials_w_results, by = "id") |>
   mutate(has_full_result = tidyr::replace_na(has_full_result, FALSE)) |>
   add_count(registry, name = "n_trials") |>
@@ -198,3 +123,4 @@ reporting_rates_registry <-
   mutate(p_trials_w_results = scales::percent(p_trials_w_results)) |>
   mutate(reporting_rate = glue::glue("{p_trials_w_results} ({n_trials_w_results}/{n_trials})")) |>
   select(registry, reporting_rate)
+
