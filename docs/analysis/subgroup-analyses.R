@@ -116,53 +116,65 @@ readr::write_csv(km_min_standards, fs::path(dir_sub, "kaplan-meier-minimum-stand
 # Pulse oximeter {and with leading space}
 # Lipoic acid; Lipoic acid acid
 # Pyronaridine; Pyronaridinee
-arms |>
-  filter(
-      stringr::str_detect(intervention, "Mask|PPE|Interferon|Pulse oximeter|Lipoic acid|Pyronaridine")
-  ) |>
-  # tidyr::separate_rows(intervention, sep = ";") |>
-  # distinct(id, intervention) |>
-  # count(intervention) |>
-  # arrange(desc(n)) |>
-  # arrange(intervention) |>
-  readr::write_csv(here::here("data", "inspect", "intervention_oddness.csv"))
+# arms |>
+#   filter(
+#       stringr::str_detect(intervention, "Mask|PPE|Interferon|Pulse oximeter|Lipoic acid|Pyronaridine")
+#   ) |>
+#  # tidyr::separate_rows(intervention, sep = ";") |>
+#  # distinct(id, intervention) |>
+#  # count(intervention) |>
+#  # arrange(desc(n)) |>
+#  # arrange(intervention) |>
+  # readr::write_csv(here::here("data", "inspect", "intervention_oddness.csv"))
 
-# TODO: move to trial characteristics?
-# most common interventions used in any arm
-intervention_counts <-
+# Get arms of included trials
+# arms_screened <-
+#   arms |>
+#   semi_join(trials, by = "id")
+
+# Get trials with row per unique intervention
+# NOTE: There are trials in multiple rows but not same intervention in multiple rows (even if used in multiple arms)
+trials_interventions <-
+
+  # Get arms of included trials
   arms |>
   semi_join(trials, by = "id") |>
+
+  # Limit to experimental
   filter(type == "experimental") |>
+
+  # Get row per intervention (i.e., trials may be in multiple rows)
   tidyr::separate_rows(intervention, sep = ";") |>
-  distinct(id, intervention) |>
+
+  # Limit to 1 row per intervention in a trial (since some interventions in more that one arm)
+  distinct(id, intervention, .keep_all = TRUE)
+
+# TODO: move to trial characteristics?
+# How many trials per intervention?
+intervention_counts <-
+  trials_interventions |>
   count(intervention, name = "n_trials") |>
   arrange(desc(n_trials))
 
-# readr::write_csv(intervention_counts, here::here("data", "inspect", "intervention_common.csv"))
-
+# How many trials investigating how many interventions?
 trials_intervention_counts <-
   intervention_counts |>
   count(n_trials, name = "n_intervention")
 
+# Top 5 interventions
+# NOTE: "traditional medicine" collapses many interventions and hence not a true intervention
+top_5_interventions <-
+  intervention_counts |>
+  filter(intervention != "Traditional Medicine") |>
+  slice_head(n = 5)
+
 # Get trials with common interventions (with 1 row per common intervention)
 trials_common_interventions <-
-  arms_screened |>
 
-  # Get each intervention
-  tidyr::separate_rows(intervention, sep = ";") |>
+  trials_interventions |>
 
   # Limit to common interventions
-  semi_join(slice_head(intervention_counts, n = 10), by = "intervention") |>
-  distinct(id, intervention) %>%
-
-  # NOTE: There are many trials with >1 top intervention
-  # janitor::get_dupes(id)
-
-  # Add all common interventions, i.e., >1 row per trial for some
-  full_join(trials, ., by = "id") |>
-
-  # Limit to trials with common interventions
-  tidyr::drop_na(intervention)
+  filter(intervention %in% top_5_interventions$intervention)
 
 km_common_interventions <-
   trials_common_interventions |>
