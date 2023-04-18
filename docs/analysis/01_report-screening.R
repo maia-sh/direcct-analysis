@@ -123,7 +123,7 @@ label_incomplete <- glue('Any completion > 30 June 2021\n(n = {n_incomplete})')
 label_nonct <- glue('Not a Clinical Trial\n(n = {n_nonct})')
 label_noncovid <- glue('Not on Treatment/Prevention\n(n = {n_noncovid})')
 label_withdrawn_manual <- glue('Withdrawn on Manual Review\n(n = {n_withdrawn_manual})')
-label_cd_analysis_exclude <- glue('Last updated completion\n> 30 June 2021\n(n = {n_cd_analysis_exclude})')
+label_cd_analysis_exclude <- glue('Last updated completion\n< 30 June 2021\n(n = {n_cd_analysis_exclude})')
 
 
 # Prepare flowchart
