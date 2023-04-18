@@ -50,10 +50,33 @@ readr::write_csv(km_scd, fs::path(dir_sens, "kaplan-meier-time-to-pub_scd.csv"))
 
 
 # 6) rcd from april 2022 --------------------------------------------------
-# Some registrations not captured in 2022 so use 2021
+# Note: Some registrations not captured in 2022 so use 2021
+
+# Get registrations with withdrawn status in april 2022
+reg_22_withdrawn <-
+  registries_22 |>
+  filter(trial_status == "Withdrawn") |>
+  select(trn, registry) |>
+  left_join(select(registrations, trn, id), by = "trn") |>
+  assertr::assert(assertr::is_uniq, id) |>
+  pull(id)
 
 trials_screening_22 <- add_trials_screening_cd_sens("date_completion_22_21_last_updated_prefer_euctr")
-trials_22 <- screen_trials_cd_sens(trials_screening_22)
+
+trials_22_cd_only <-
+  screen_trials_cd_sens(trials_screening_22) |>
+
+  # Add withdrawn status
+  mutate(is_not_withdrawn_registry_22 = if_else(id %in% reg_22_withdrawn, FALSE, TRUE))
+
+trials_22 <-
+  trials_22_cd_only |>
+  filter(is_not_withdrawn_registry_22)
+
+sens_22_n_withdrawn <-
+  trials_22_cd_only |>
+  filter(!is_not_withdrawn_registry_22) |>
+  nrow()
 
 sens_22_n_trials <- nrow(trials_22)
 sens_22_n_trials_w_results <- nrow(filter(trials_22, has_full_result))
