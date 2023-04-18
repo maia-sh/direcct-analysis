@@ -11,6 +11,8 @@ data/*
 data/reporting/metadata/*
 !data/reporting/metadata/datamodel.png
 !data/reporting/metadata/flow-trials.png
+#data/reporting/sensitivity-analyses/*
+#data/reporting/subgroup-analyses/*
 
 docs/*
 !docs/analysis/
