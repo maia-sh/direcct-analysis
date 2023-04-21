@@ -124,3 +124,12 @@ reporting_rates_registry <-
   mutate(reporting_rate = glue::glue("{p_trials_w_results} ({n_trials_w_results}/{n_trials})")) |>
   select(registry, reporting_rate)
 
+upset_registries <-
+  trials_all_registries |>
+  group_by(id) |>
+  summarise(registries = list(registry)) |>
+  ggplot(aes(registries)) +
+  geom_bar() +
+  ylab("Number of Trials") +
+  xlab("Registries") +
+  ggupset::scale_x_upset()
