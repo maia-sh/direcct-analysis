@@ -87,8 +87,8 @@ km_min_standards <-
   trial_characteristics |>
   filter(
     stringr::str_detect(phase, "2|3|4"),
-    target_enrollment >= 100
-    #TODO: add randomized
+    target_enrollment >= 100,
+    is_randomized
   ) %>%
   semi_join(km_main, ., by = "id")
 
