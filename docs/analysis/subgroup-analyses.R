@@ -86,7 +86,8 @@ km_min_standards <-
   # `trial_characteristics` created in `prepare-trial-characteristics.R`
   trial_characteristics |>
   filter(
-    stringr::str_detect(phase, "2|3|4"),
+    stringr::str_detect(phase, "2|3|4"), # Phase 2 +
+    stringr::str_detect(phase, "1", negate = TRUE), # Exclude Phase 1/2
     target_enrollment >= 100,
     is_randomized
   ) %>%
