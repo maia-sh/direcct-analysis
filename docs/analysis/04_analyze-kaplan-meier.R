@@ -11,6 +11,14 @@ follow_up_unreported <-
   filter(!publication_any) |>
   pull(time_publication_any)
 
+# Get follow-up times for all trials
+follow_up_all <-
+  km_main |>
+  select(date_completion, date_cutoff) |>
+  mutate(time_follow_up = date_cutoff - date_completion) |>
+  pull(time_follow_up) |>
+  as.numeric()
+
 km_main_long <-
   km_main |>
   tidyr::pivot_longer(
