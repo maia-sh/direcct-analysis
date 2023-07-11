@@ -94,6 +94,13 @@ n_trials_multi_preprint_article_type <-
 
 n_results_preprint_article <- nrow(preprint_article_groups)
 
+# Number of preprints that convert into articles
+# NOTE: this includes multiple preprints for same trial/article
+n_results_preprint_to_article <-
+  preprint_article_groups |>
+  filter(pub_type =="full_results_preprint") |>
+  nrow()
+
 km_preprint_article <-
   preprint_article_pairs |>
 
