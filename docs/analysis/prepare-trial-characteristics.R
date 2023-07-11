@@ -165,23 +165,29 @@ trials_interventions <-
   # Limit to 1 row per intervention in a trial (since some interventions in more that one arm)
   distinct(id, intervention, .keep_all = TRUE)
 
-# How many trials per intervention?
-intervention_counts <-
+# Number of trials investigating each intervention
+trials_per_intervention <-
   trials_interventions |>
   count(intervention, name = "n_trials") |>
   arrange(desc(n_trials))
 
-# How many trials investigating how many interventions?
-trials_intervention_counts <-
-  intervention_counts |>
-  count(n_trials, name = "n_intervention")
+# Number of interventions investigated in a trial
+interventions_per_trial <-
+  trials_interventions |>
+  count(id, name = "n_interventions") |>
+  count(n_interventions, name = "n_trials")
+
+# How many interventions were investigated in how many trials?
+# E.g., 2 interventions (azythromyacin and ivermectin) were investigated in 46 trials
+# trials_per_intervention |>
+#   count(n_trials, name = "n_intervention")
 
 N_TOP_INTERVENTIONS <- 5
 
 # Top interventions
 # NOTE: "traditional medicine" collapses many interventions and hence not a true intervention
 top_interventions <-
-  intervention_counts |>
+  trials_per_intervention |>
   filter(intervention != "Traditional Medicine") |>
   slice_head(n = N_TOP_INTERVENTIONS)
 
@@ -271,6 +277,9 @@ tbl_trials <-
 tbl_characteristics <-
   tbl_stack(list(tbl_trials, tbl_interventions_top))
 
+tbl_characteristics |>
+  as_gt() |>
+  gt::gtsave(here::here("docs", "figures", "tbl-trials.docx"))
 # gt_tbl_trials <- as_gt(tbl_characteristics)
 # gt::gtsave(gt_tbl_trials, here::here("docs", "figures", "tbl-trials.png"))
 # writeLines(gt::as_rtf(gt_tbl_trials), here::here("docs", "figures", "tbl-trials.rtf"))
