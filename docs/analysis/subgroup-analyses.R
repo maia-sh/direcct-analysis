@@ -58,18 +58,10 @@ preprint_to_article_rates_semester_2 <- filter(preprint_to_article_rates_semeste
 preprint_to_article_rates_semester_3 <- filter(preprint_to_article_rates_semester, semester == 3)
 
 # Prepare median time preprint-to-article by semester
-time_preprint_article_semester <-
-  km_preprint_article_semester |>
-  filter(publication_preprint & publication_article) |>
-  group_by(semester) |>
-  summarise(
-    median = median(time_preprint_article),
-    iqr = IQR(time_preprint_article)
-  )
-time_preprint_article_semester_1 <- filter(time_preprint_article_semester, semester == 1)
-time_preprint_article_semester_2 <- filter(time_preprint_article_semester, semester == 2)
-time_preprint_article_semester_3 <- filter(time_preprint_article_semester, semester == 3)
-
+preprint_article_semester <-
+  km_preprint_article |>
+  left_join(select(pandemic_semester, id, semester), by = "id") |>
+  select(id, semester, time_preprint_article)
 
 # minimum standard of design ----------------------------------------------
 # minimum standard of design and enrollment standards as a proxy for those most likely to influence clinical practice. We defined these as randomized trials designated as Phase 2 or higher and conducted in at least 100 participants
