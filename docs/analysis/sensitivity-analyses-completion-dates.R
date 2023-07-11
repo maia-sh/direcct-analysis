@@ -236,11 +236,27 @@ trials_screening_cd_results_main |>
   assertr::verify(nrow(.) == 0)
 
 # How many trials change date?
+# trials_cd_results_main_change <-
+#   trials_screening_cd_results_main |>
+#   filter(!is.na(is_cd_cutoff_3_results)) |>
+#   filter(date_completion_results != date_completion_main) |>
+#   count(cd_results_later = date_completion_results > date_completion_main)
+
+# How do trials change date?
 trials_cd_results_main_change <-
   trials_screening_cd_results_main |>
   filter(!is.na(is_cd_cutoff_3_results)) |>
-  filter(date_completion_results != date_completion_main) |>
-  count(cd_results_later = date_completion_results > date_completion_main)
+  select(id, date_completion_results, date_completion_main) |>
+  mutate(
+    days_change = as.numeric(date_completion_results - date_completion_main),
+    days_change_abs = abs(days_change),
+    date_later = case_when(
+      date_completion_main > date_completion_results ~ "registry",
+      date_completion_results > date_completion_main ~ "publication",
+      date_completion_main == date_completion_results ~ "same"
+    )
+  )
+
 
 trials_cd_results <- screen_trials_cd_sens(trials_screening_cd_results_main)
 
