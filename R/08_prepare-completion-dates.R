@@ -87,7 +87,7 @@ reg_last_updated_exclude_missing_update_date <-
   group_by(id) |>
   mutate(
     last_updated_latest = max(last_updated, na.rm = TRUE),
-    last_updated_latest = na_if(last_updated_latest, -Inf)
+    last_updated_latest = na_if(last_updated_latest, as.Date(-Inf))
   ) |>
   ungroup() |>
 
@@ -117,7 +117,7 @@ rcd_last_updated_prefer_euctr <-
   # Get euctr rcd
   filter(registry == "EudraCT") |>
 
-  select(id, last_updated_latest = last_updated, date_completion = rcd, , status_complete) %>%
+  select(id, last_updated_latest = last_updated, date_completion = rcd, status_complete) %>%
 
   rows_update(rcd_last_updated_exclude_missing_update_date, ., by = "id")
 
@@ -204,7 +204,7 @@ rcd_22_21_last_updated_exclude_missing_update_date <-
   group_by(id) |>
   mutate(
     last_updated_latest = max(last_updated, na.rm = TRUE),
-    last_updated_latest = na_if(last_updated_latest, -Inf)
+    last_updated_latest = na_if(last_updated_latest, as.Date(-Inf))
   ) |>
   ungroup() |>
 
