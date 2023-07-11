@@ -103,6 +103,22 @@ ictrp_design <-
   mutate(is_randomized = if_else(randomisation == "Yes", TRUE, FALSE))
 
 
+# Prepare completion status -----------------------------------------------
+# Encode as complete, terminated, other
+
+completion_status <-
+  completion_dates |>
+  select(
+    id,
+    trial_status = trial_status_last_updated_prefer_euctr,
+    status_complete = status_complete_last_updated_prefer_euctr
+  ) |>
+  mutate(completion_status = case_when(
+    stringr::str_detect(trial_status, "Terminated|Prematurely Ended|Stopped early") ~ "Terminated",
+    status_complete ~ "Completed",
+    !status_complete | is.na(status_complete) ~ "Other"
+  ))
+
 # Prepare ICTRP -----------------------------------------------------------
 
 # Get ictrp data for priority trns
@@ -143,7 +159,10 @@ trial_characteristics <-
 
   # Add randomization
   left_join(select(ictrp_design, trn, is_randomized), by = "trn") |>
-  assertr::assert(assertr::not_na, is_randomized)
+  assertr::assert(assertr::not_na, is_randomized) |>
+
+  # Add completion_status
+  left_join(select(completion_status, id, completion_status), by = "id")
 
 
 # Prepare top interventions -----------------------------------------------
@@ -226,7 +245,7 @@ tbl_interventions_top <-
 tbl_trials <-
   trial_characteristics |>
 
-  select(has_result,target_enrollment, crossreg, multinational, is_randomized, phase, semester_fct
+  select(has_result,target_enrollment, crossreg, multinational, is_randomized, completion_status, phase, semester_fct
          #,study_type,recruitment_status, retrospective_registration, date_registration #or date_completion used in main analysis? or pandemic "semester"?
   ) |>
 
@@ -250,8 +269,9 @@ tbl_trials <-
       crossreg ~ "Cross-registered",
       multinational ~ "Multinational",
       is_randomized ~ "Randomized",
+      completion_status ~ "Trial Status",
       phase ~ "Trial Phase",
-      semester_fct ~ "Pandemic phase"
+      semester_fct ~ "Pandemic Phase"
     ),
     # value = list(crossreg ~ c("TRUE", "FALSE")),
     # sort = list(
