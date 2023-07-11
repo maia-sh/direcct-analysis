@@ -79,7 +79,7 @@ reg_last_updated_exclude_missing_update_date <-
   # Registrations with rcd
   reg_trials_pass_auto_have_rcd |>
 
-  select(id, trn, registry, rcd, scd, pcd, last_updated, status_complete) |>
+  select(id, trn, registry, rcd, scd, pcd, last_updated, trial_status, status_complete) |>
 
   # Get latest last_updated date
   # NOTE: Disregard registrations missing last_updated
@@ -105,7 +105,7 @@ rcd_last_updated_exclude_missing_update_date <-
   mutate(date_completion = max(rcd)) |>
   ungroup() |>
 
-  distinct(id, date_completion, last_updated_latest, status_complete)
+  distinct(id, date_completion, last_updated_latest, trial_status, status_complete) |> distinct(id, date_completion, last_updated_latest, status_complete, .keep_all = TRUE)
 
 
 # 1) latest registry update pre-cutoff + euctr ----------------------------
@@ -117,7 +117,7 @@ rcd_last_updated_prefer_euctr <-
   # Get euctr rcd
   filter(registry == "EudraCT") |>
 
-  select(id, last_updated_latest = last_updated, date_completion = rcd, status_complete) %>%
+  select(id, last_updated_latest = last_updated, date_completion = rcd, trial_status, status_complete) %>%
 
   rows_update(rcd_last_updated_exclude_missing_update_date, ., by = "id")
 
@@ -414,6 +414,7 @@ completion_dates <-
   left_join(
     select(rcd_last_updated_prefer_euctr, id,
            date_completion_last_updated_prefer_euctr = date_completion,
+           trial_status_last_updated_prefer_euctr = trial_status,
            status_complete_last_updated_prefer_euctr = status_complete)
   ) |>
 
