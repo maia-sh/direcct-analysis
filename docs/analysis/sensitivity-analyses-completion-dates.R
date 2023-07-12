@@ -229,7 +229,7 @@ trials_screening_cd_results_main <-
     )
 
 # How many trials change screening? None!
-# NOTE: Throw error if not
+# Note: Throw error if not
 trials_screening_cd_results_main |>
   filter(!is.na(is_cd_cutoff_3_results)) |>
   filter(is_cd_cutoff_3_results != is_cd_cutoff_3_main) %>%

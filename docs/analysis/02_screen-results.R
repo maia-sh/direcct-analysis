@@ -119,25 +119,6 @@ results_interim_any <-
     date_publication = min(date_publication)
   )
 
-# Get earliest publication by type including interim
-# results_interim_type <-
-#   results_interim |>
-#
-#   # TODO: decide whether interim-only OR either interim or full
-#   # Limit to interim preprint/article
-#   filter(stringr::str_detect(pub_type, "interim")) |>
-#   mutate(pub_type = case_when(
-#     pub_type == "interim_results_journal_article" ~ "interim_article",
-#     pub_type == "interim_results_preprint" ~ "interim_preprint"
-#   )) |>
-#
-#   # Get earliest publication by type and any
-#   group_by(id, pub_type) |>
-#   summarise(
-#     date_publication = min(date_publication),
-#     .groups = "drop"
-#   )
-
 # Combine earliest publications
 results_km_all <-
   bind_rows(
@@ -146,4 +127,3 @@ results_km_all <-
     results_interim_any
   ) |>
   mutate(publication = TRUE, .after = "pub_type")
-

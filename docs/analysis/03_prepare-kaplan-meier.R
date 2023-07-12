@@ -1,6 +1,4 @@
-# Create dataframe with info on each trial's earliest result per and across types
-
-# Prep kaplan meier dataframes --------------------------------------------
+# Function to create kaplan meier dataframe with info on each trial's earliest result per and across types
 
 prepare_km <- function(trials){
 

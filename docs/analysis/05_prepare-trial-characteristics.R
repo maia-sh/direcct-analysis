@@ -1,6 +1,5 @@
-# could include prospective reg, study type, primary_purpose, blinding, control_arm
-
 # Create table of trial characteristics for included trials using priority ictrp registration
+# Additional characteristics (but would need more processing): retrospective_registration, study_type, primary_purpose, blinding, control_arm
 
 # Prepare cross-registrations ---------------------------------------------
 
@@ -12,7 +11,7 @@ trials_all_registries <-
 
 
   # Limit to distinct registries per trial
-  # NOTE: some trials, e.g. tri00985, have >1 registration but in single registry, so count for registry and not cross-registration
+  # Note: some trials, e.g. tri00985, have >1 registration but in single registry, so count for registry and not cross-registration
   distinct(id, registry) |>
   arrange(registry)
 
@@ -43,6 +42,7 @@ pandemic_semester <-
 
 # Prepare completion status -----------------------------------------------
 # Encode as complete, terminated, other
+# Note: completion status categories determined by MSH and ND consensus
 
 completion_status <-
   completion_dates |>
@@ -105,7 +105,7 @@ trial_characteristics <-
 # Prepare top interventions -----------------------------------------------
 
 # Get trials with row per unique intervention
-# NOTE: There are trials in multiple rows but not same intervention in multiple rows (even if used in multiple arms)
+# Note: There are trials in multiple rows but not same intervention in multiple rows (even if used in multiple arms)
 trials_interventions <-
 
   # Get arms of included trials
@@ -141,7 +141,7 @@ interventions_per_trial <-
 N_TOP_INTERVENTIONS <- 5
 
 # Top interventions
-# NOTE: "traditional medicine" collapses many interventions and hence not a true intervention
+# Note: "traditional medicine" collapses many interventions and hence not a true intervention
 top_interventions <-
   trials_per_intervention |>
   filter(intervention != "Traditional Medicine") |>
@@ -182,61 +182,27 @@ tbl_interventions_top <-
 tbl_trials <-
   trial_characteristics |>
 
-  select(has_result,target_enrollment, crossreg, multinational, is_randomized, completion_status, phase, semester_fct
-         #,study_type,recruitment_status, retrospective_registration, date_registration #or date_completion used in main analysis? or pandemic "semester"?
-  ) |>
-
-  # Recode booleans to categorical
-  # NOTE: Could instead have single line for "cross-registered" and "multinational"
-  # mutate(
-  #   crossreg = if_else(crossreg, "Multi", "Single"),
-  #   multinational = if_else(multinational, "Multi", "Single")
-  # ) |>
+  select(has_result,target_enrollment, crossreg, multinational, is_randomized, completion_status, phase, semester_fct) |>
 
   gtsummary::tbl_summary(
     by = has_result,
-    # type = all_continuous() ~ "continuous2",
-    # statistic = all_continuous() ~ c("{N_nonmiss}",
-    #                                  "{median} ({p25}, {p75})",
-    #                                  "{min}, {max}"),
     missing = "no",
     label = list(
       target_enrollment ~ "Target enrollment",
-      # study_type ~ "Study type",
       crossreg ~ "Cross-registered",
       multinational ~ "Multinational",
       is_randomized ~ "Randomized",
       completion_status ~ "Trial Status",
       phase ~ "Trial Phase",
       semester_fct ~ "Pandemic Phase"
-    ),
-    # value = list(crossreg ~ c("TRUE", "FALSE")),
-    # sort = list(
-    # cross_registry ~ "frequency",
-    # countries ~ "frequency"
-    # ),
+    )
   )|>
 
   add_overall()|>
-
-  # add_difference(include = target_enrollment)|>
-
-  # modify_header(label = "**Publication Type**")|>
-
-  bold_labels() #|>
-  #modify_spanning_header(all_stat_cols() ~ "**Results Disseminated**") |>
-  # modify_caption("**Trial Characteristics** (N = {N})")
-
+  bold_labels()
 
 
 # Combine characteristics table -------------------------------------------
 
 tbl_characteristics <-
   tbl_stack(list(tbl_trials, tbl_interventions_top))
-
-tbl_characteristics |>
-  as_gt() |>
-  gt::gtsave(here::here("docs", "figures", "tbl-trials.docx"))
-# gt_tbl_trials <- as_gt(tbl_characteristics)
-# gt::gtsave(gt_tbl_trials, here::here("docs", "figures", "tbl-trials.png"))
-# writeLines(gt::as_rtf(gt_tbl_trials), here::here("docs", "figures", "tbl-trials.rtf"))

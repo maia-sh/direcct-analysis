@@ -56,12 +56,6 @@ trials_screened <-  count_filter(trials_screening_main, screening_criteria)
 
 trials <- trials_screened$data
 
-# NOTE: deprecated since added additional cd screening
-# Check that analysis pop screening matches
-# if (!nrow(filter(trials_screening, is_analysis_pop)) == nrow(trials)){
-#   stop("There is a discrepancy in the analysis pop screening!")
-# }
-
 # Tabularize trial screening counts ---------------------------------------
 
 screening_counts <-

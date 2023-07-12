@@ -1,5 +1,4 @@
 # Analysis for main kaplan meier
-# NOTE: if do additional km sensitivity analyses, then functionalize
 
 dir_main <- fs::dir_create(here::here("data", "reporting", "main-analyses"))
 
@@ -45,7 +44,6 @@ reporting_rates_pub_type <-
   mutate(p_results = n_results/n_trials)
 
 
-
 # Analyze preprint-to-article ---------------------------------------------
 
 # Trials with preprint only
@@ -76,7 +74,6 @@ preprint_article_groups <-
 
 # Limit groups to pairs, i.e., tri01886, tri02964, tri03275, tri05790 have two preprints preceeding articles
 # Use earliest date for each pub type in group (since we're interested in how much sooner preprints come out)
-# TODO: discuss with nd how to handle these. could do each preprint-article pair, just earliest, just latest
 preprint_article_pairs <-
   preprint_article_groups |>
   group_by(id, full_pub_group, pub_type) |>
@@ -103,7 +100,7 @@ n_trials_multi_preprint_article_type <-
 n_results_preprint_article <- nrow(preprint_article_groups)
 
 # Number of preprints that convert into articles
-# NOTE: this includes multiple preprints for same trial/article
+# Note: this includes multiple preprints for same trial/article
 n_results_preprint_to_article <-
   preprint_article_groups |>
   filter(pub_type =="full_results_preprint") |>
@@ -118,7 +115,7 @@ km_preprint_article <-
   )) |>
 
   # Pivot preprint/articles to row to calculate time to conversion
-  tidyr::pivot_wider(c(id, full_pub_group), names_from = pub_type, names_prefix = "date_publication_", values_from = date_publication) |>
+  tidyr::pivot_wider(id_cols = c(id, full_pub_group), names_from = pub_type, names_prefix = "date_publication_", values_from = date_publication) |>
 
   # Add completion date
   left_join(trials_cd, by = "id") |>
@@ -183,11 +180,7 @@ km_article_no_matched_preprint <-
   results |>
 
   # Get results of trials the don't have matching preprint/article
-  anti_join(
-    # TODO: Decide whether to include tri02914
-    filter(km_preprint_article, id != "tri02914"),
-    by = "id"
-  ) |>
+  anti_join(filter(km_preprint_article, id != "tri02914"), by = "id") |>
 
   # Limit to article
   filter(stringr::str_detect(pub_type, "article")) |>
