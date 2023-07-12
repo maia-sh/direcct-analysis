@@ -8,13 +8,20 @@ download_file <- function(file_url, file_name, dir = "raw"){
 
 # ICTRP -------------------------------------------------------------------
 
-# ICTRP 3
+# ICTRP 3 (cleaned version)
 download_file(
   "https://github.com/ebmdatalab/direcct-phase2-python/blob/phase_3_testing/data/cleaned_ictrp_1jul2021.csv?raw=true",
   "2021-07-01_ictrp.csv"
 )
 
-# ICTRP 2
+# ICTRP 3 (raw web-version)
+# Note: ICTRP study design and scientific title used to infer randomization. However, not included in cleaned ictrp so get from raw web data.
+download_file(
+  "https://github.com/ebmdatalab/direcct-phase2-python/blob/phase_3_testing/data/ictrp_data/COVID19-web_16June2021.csv?raw=true",
+  "2021-07-01_ictrp_web.csv"
+)
+
+# ICTRP 2 (cleaned version)
 download_file(
   "https://github.com/ebmdatalab/direcct-phase2-python/blob/master/data/cleaned_ictrp_16Dec2020.csv?raw=true",
   "2020-12-16_ictrp.csv"
@@ -83,15 +90,15 @@ download_file(
 # OTHER -------------------------------------------------------------------
 
 # Metacovid
-download_file(
-  "https://raw.githubusercontent.com/maia-sh/metacovid/main/data/metacovid-trials.csv",
-  "metacovid-trials.csv"
-)
+# download_file(
+#   "https://raw.githubusercontent.com/maia-sh/metacovid/main/data/metacovid-trials.csv",
+#   "metacovid-trials.csv"
+# )
 
 # Qualtrics
-download_file(
-  "https://raw.githubusercontent.com/maia-sh/direcct/master/data/raw/qualtrics-results-search.csv",
-  "qualtrics-results-search.csv"
-)
+# download_file(
+#   "https://raw.githubusercontent.com/maia-sh/direcct/master/data/raw/qualtrics-results-search.csv",
+#   "qualtrics-results-search.csv"
+# )
 
 # ND checked registry data for crp/d-dimer regexes in https://github.com/ebmdatalab/direcct-phase2-python/blob/phase_3_testing/data/ictrp_data/COVID19-web_1July2021.csv?raw=true --> "2022-05-16_crp-dimer-check.csv"
