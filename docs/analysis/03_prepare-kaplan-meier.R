@@ -46,5 +46,3 @@ prepare_km <- function(trials){
     )
 
 }
-
-# readr::write_csv(km_data_wide, here::here("data", "reporting", "kaplan-meier-time-to-pub.csv"))

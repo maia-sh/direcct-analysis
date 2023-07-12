@@ -1,6 +1,14 @@
 # Analysis for main kaplan meier
 # NOTE: if do additional km sensitivity analyses, then functionalize
 
+dir_main <- fs::dir_create(here::here("data", "reporting", "main-analyses"))
+
+
+# Prepare main kaplan meier -----------------------------------------------
+
+km_main <- prepare_km(trials)
+readr::write_csv(km_main, fs::path(dir_main, "kaplan-meier-time-to-pub.csv"))
+
 trials_cd <- select(trials, id, date_completion)
 
 # Analyze kaplan meier ----------------------------------------------------
@@ -158,7 +166,7 @@ km_preprint_article_combined <-
   mutate(publication_preprint = TRUE, date_cutoff = RESULTS_CUTOFF) |>
   mutate(publication_article = tidyr::replace_na(publication_article, FALSE))
 
-readr::write_csv(km_preprint_article_combined, here::here("data", "reporting", "kaplan-meier-preprint-to-article.csv"))
+readr::write_csv(km_preprint_article_combined, fs::path(dir_main, "kaplan-meier-preprint-to-article.csv"))
 
 
 # Get trials with article only (NO preprint)
