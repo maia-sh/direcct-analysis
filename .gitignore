@@ -7,6 +7,7 @@
 # Ignore data, for now
 # All data can be downloaded/generated from scripts, aside from manual
 data/*
+!data/manual/
 !data/reporting/
 data/reporting/metadata/*
 !data/reporting/metadata/datamodel.png
@@ -16,6 +17,5 @@ data/reporting/metadata/*
 
 docs/*
 !docs/analysis/
-!docs/manual/
 
 R/ignore/

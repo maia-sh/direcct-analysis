@@ -1,0 +1,106 @@
+trn,registry,trial_status,pcd,scd,rcd,reg_results_status,other_results_1,other_results_2,last_updated,web_address,tabular_results,potential_other_results,registry_scrape_date,resolved
+NCT04333420,ClinicalTrials.gov,Recruiting,2021-09-30,2021-12-31,2021-09-30,NA,NA,NA,2021-06-24,https://clinicaltrials.gov/ct2/show/NCT04333420,FALSE,NA,2021-07,NA
+NCT04369469,ClinicalTrials.gov,"Active, not recruiting",2021-05-01,2021-07-01,2021-05-01,NA,NA,NA,2021-04-29,https://clinicaltrials.gov/ct2/show/NCT04369469,FALSE,NA,2021-07,NA
+NCT04400838,ClinicalTrials.gov,"Active, not recruiting",2021-09-01,2021-09-01,2021-09-01,NA,NA,NA,2021-06-18,https://clinicaltrials.gov/ct2/show/NCT04400838,FALSE,NA,2021-07,NA
+NCT04583995,ClinicalTrials.gov,Recruiting,2021-01-01,2022-01-14,2021-01-01,NA,NA,NA,2020-11-13,https://clinicaltrials.gov/ct2/show/NCT04583995,FALSE,NA,2021-07,NA
+NCT04356495,ClinicalTrials.gov,Recruiting,2021-08-15,2021-08-31,2021-08-15,NA,NA,NA,2021-01-19,https://clinicaltrials.gov/ct2/show/NCT04356495,FALSE,NA,2021-07,NA
+NCT04376684,ClinicalTrials.gov,"Active, not recruiting",2021-07-15,2021-08-17,2021-07-15,NA,NA,NA,2021-04-22,https://clinicaltrials.gov/ct2/show/NCT04376684,FALSE,NA,2021-07,NA
+NCT04401579,ClinicalTrials.gov,Completed,2020-07-31,2020-07-31,2020-07-31,NA,NA,NA,2021-04-22,https://clinicaltrials.gov/ct2/show/NCT04401579,TRUE,NA,2021-07,NA
+NCT04425031,ClinicalTrials.gov,Recruiting,2022-12-01,2024-03-01,2022-12-01,NA,NA,NA,2020-09-11,https://clinicaltrials.gov/ct2/show/NCT04425031,FALSE,NA,2021-07,NA
+NCT04381936,ClinicalTrials.gov,Recruiting,2021-12-01,2031-12-01,2021-12-01,NA,NA,NA,2021-04-29,https://clinicaltrials.gov/ct2/show/NCT04381936,FALSE,NA,2021-07,NA
+NCT02735707,ClinicalTrials.gov,Recruiting,2021-12-01,2023-12-01,2021-12-01,NA,NA,NA,2020-10-08,https://clinicaltrials.gov/ct2/show/NCT02735707,FALSE,NA,2021-07,NA
+NCT04516746,ClinicalTrials.gov,"Active, not recruiting",2021-03-05,2023-02-14,2021-03-05,NA,NA,NA,2021-07-01,https://clinicaltrials.gov/ct2/show/NCT04516746,FALSE,NA,2021-07,NA
+NCT04575584,ClinicalTrials.gov,"Active, not recruiting",2021-08-10,2021-08-10,2021-08-10,NA,NA,NA,2021-05-06,https://clinicaltrials.gov/ct2/show/NCT04575584,FALSE,NA,2021-07,NA
+NCT04614948,ClinicalTrials.gov,"Active, not recruiting",2022-05-10,2023-05-31,2022-05-10,NA,NA,NA,2021-07-06,https://clinicaltrials.gov/ct2/show/NCT04614948,FALSE,NA,2021-07,NA
+NCT04509973,ClinicalTrials.gov,"Active, not recruiting",2021-06-17,2021-11-17,2021-06-17,NA,NA,NA,2021-05-27,https://clinicaltrials.gov/ct2/show/NCT04509973,FALSE,NA,2021-07,NA
+NCT04685603,ClinicalTrials.gov,Recruiting,2021-01-31,2022-01-31,2021-01-31,NA,NA,NA,2020-12-24,https://clinicaltrials.gov/ct2/show/NCT04685603,FALSE,NA,2021-07,NA
+NCT04366986,ClinicalTrials.gov,Recruiting,2024-04-30,2024-04-30,2024-04-30,NA,NA,NA,2020-06-23,https://clinicaltrials.gov/ct2/show/NCT04366986,FALSE,NA,2021-07,NA
+NCT04741386,ClinicalTrials.gov,"Active, not recruiting",2022-04-05,2022-12-31,2022-04-05,NA,NA,NA,2021-03-22,https://clinicaltrials.gov/ct2/show/NCT04741386,FALSE,NA,2021-07,NA
+NCT04785157,ClinicalTrials.gov,Not yet recruiting,2022-08-01,2022-08-01,2022-08-01,NA,NA,NA,2021-05-28,https://clinicaltrials.gov/ct2/show/NCT04785157,FALSE,NA,2021-07,NA
+NCT04061382,ClinicalTrials.gov,"Active, not recruiting",2021-06-30,2021-06-30,2021-06-30,NA,NA,NA,2021-05-26,https://clinicaltrials.gov/ct2/show/NCT04061382,FALSE,NA,2021-07,NA
+CTRI/2020/11/029234,CTRI,Closed to Recruitment of Participants,NA,NA,NA,NA,NA,NA,2021-06-30,http://ctri.nic.in/Clinicaltrials/pmaindet2.php?trialid=49102,FALSE,NA,2021-07,NA
+EUCTR2020-001110-38,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001110-38,FALSE,NA,2021-07,NA
+EUCTR2017-000584-33,EudraCT,['GB - no longer in EU/EEA'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2017-000584-33,FALSE,NA,2021-07,NA
+EUCTR2020-001200-42,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001200-42,FALSE,NA,2021-07,NA
+EUCTR2020-001052-18,EudraCT,"['Ongoing', 'Completed', 'Completed', 'Completed', 'Completed']",NA,2020-09-10,2020-09-10,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001052-18,TRUE,NA,2021-07,NA
+EUCTR2020-001402-38,EudraCT,['GB - no longer in EU/EEA'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001402-38,FALSE,NA,2021-07,NA
+EUCTR2020-001616-18,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001616-18,FALSE,NA,2021-07,NA
+EUCTR2020-001684-85,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001684-85,FALSE,NA,2021-07,FALSE
+EUCTR2020-001354-22,EudraCT,['GB - no longer in EU/EEA'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001354-22,FALSE,NA,2021-07,NA
+EUCTR2020-001349-37,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001349-37,FALSE,NA,2021-07,NA
+EUCTR2020-001591-15,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001591-15,FALSE,NA,2021-07,NA
+EUCTR2020-001544-26,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001544-26,FALSE,NA,2021-07,NA
+EUCTR2020-002641-42,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-002641-42,FALSE,NA,2021-07,NA
+EUCTR2020-001453-49,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001453-49,FALSE,NA,2021-07,NA
+EUCTR2020-001483-28,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001483-28,FALSE,NA,2021-07,NA
+EUCTR2020-001872-13,EudraCT,"['Ongoing', 'Ongoing', 'Ongoing']",NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001872-13,FALSE,NA,2021-07,NA
+EUCTR2020-002248-22,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-002248-22,FALSE,NA,2021-07,FALSE
+EUCTR2020-001286-36,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001286-36,FALSE,NA,2021-07,FALSE
+EUCTR2020-001646-20,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001646-20,FALSE,NA,2021-07,FALSE
+EUCTR2020-001209-22,EudraCT,['GB - no longer in EU/EEA'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001209-22,FALSE,NA,2021-07,NA
+EUCTR2020-002040-22,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-002040-22,FALSE,NA,2021-07,FALSE
+EUCTR2020-003628-18,EudraCT,['GB - no longer in EU/EEA'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-003628-18,FALSE,NA,2021-07,NA
+EUCTR2018-004318-16,EudraCT,"['Prematurely Ended', 'Prematurely Ended', nan, 'Prematurely Ended']",NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2018-004318-16,FALSE,NA,2021-07,NA
+EUCTR2020-003125-39,EudraCT,"['Ongoing', 'GB - no longer in EU/EEA']",NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-003125-39,FALSE,NA,2021-07,NA
+EUCTR2020-002462-14,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-002462-14,FALSE,NA,2021-07,NA
+EUCTR2020-003278-37,EudraCT,"['Ongoing', 'GB - no longer in EU/EEA', 'Ongoing', 'Restarted']",NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-003278-37,FALSE,NA,2021-07,NA
+EUCTR2020-001887-27,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-001887-27,FALSE,NA,2021-07,FALSE
+EUCTR2020-003722-23,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-003722-23,FALSE,NA,2021-07,FALSE
+EUCTR2020-002518-42,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-002518-42,FALSE,NA,2021-07,NA
+EUCTR2020-003475-18,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-003475-18,FALSE,NA,2021-07,NA
+EUCTR2020-002871-36,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-002871-36,FALSE,NA,2021-07,NA
+EUCTR2020-003743-28,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-003743-28,FALSE,NA,2021-07,FALSE
+EUCTR2020-002733-15,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-002733-15,FALSE,NA,2021-07,NA
+EUCTR2020-005887-70,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005887-70,FALSE,NA,2021-07,NA
+EUCTR2020-005889-34,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005889-34,FALSE,NA,2021-07,FALSE
+EUCTR2020-005062-33,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005062-33,FALSE,NA,2021-07,FALSE
+EUCTR2020-005330-14,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005330-14,FALSE,NA,2021-07,NA
+EUCTR2021-001187-25,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-001187-25,FALSE,NA,2021-07,FALSE
+EUCTR2021-000569-33,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-000569-33,FALSE,NA,2021-07,FALSE
+EUCTR2020-003915-84,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-003915-84,FALSE,NA,2021-07,FALSE
+EUCTR2021-000890-10,EudraCT,"['Ongoing', 'Ongoing']",NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-000890-10,FALSE,NA,2021-07,NA
+EUCTR2020-005864-77,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005864-77,FALSE,NA,2021-07,FALSE
+EUCTR2020-005064-54,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005064-54,FALSE,NA,2021-07,FALSE
+EUCTR2020-005883-78,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005883-78,FALSE,NA,2021-07,FALSE
+EUCTR2021-002088-23,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-002088-23,FALSE,NA,2021-07,FALSE
+EUCTR2020-004365-39,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-004365-39,FALSE,NA,2021-07,FALSE
+EUCTR2021-001124-18,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-001124-18,FALSE,NA,2021-07,FALSE
+EUCTR2020-002229-27,EudraCT,['GB - no longer in EU/EEA'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-002229-27,FALSE,NA,2021-07,NA
+EUCTR2020-003370-41,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-003370-41,FALSE,NA,2021-07,NA
+EUCTR2020-005442-42,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005442-42,FALSE,NA,2021-07,NA
+EUCTR2021-000764-30,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-000764-30,FALSE,NA,2021-07,NA
+EUCTR2021-000269-34,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-000269-34,FALSE,NA,2021-07,FALSE
+EUCTR2021-001290-23,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-001290-23,FALSE,NA,2021-07,NA
+EUCTR2020-002078-29,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-002078-29,FALSE,NA,2021-07,FALSE
+EUCTR2021-000541-41,EudraCT,"['Ongoing', 'Ongoing', 'Ongoing']",NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-000541-41,FALSE,NA,2021-07,NA
+EUCTR2021-001374-30,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-001374-30,FALSE,NA,2021-07,FALSE
+EUCTR2020-005416-22,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005416-22,FALSE,NA,2021-07,NA
+EUCTR2021-000399-12,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-000399-12,FALSE,NA,2021-07,NA
+EUCTR2021-001663-24,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-001663-24,FALSE,NA,2021-07,NA
+EUCTR2021-000522-97,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-000522-97,FALSE,NA,2021-07,FALSE
+EUCTR2020-005765-13,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005765-13,FALSE,NA,2021-07,NA
+EUCTR2020-005544-34,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005544-34,FALSE,NA,2021-07,NA
+EUCTR2021-002506-27,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-002506-27,FALSE,NA,2021-07,FALSE
+EUCTR2020-005444-35,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005444-35,FALSE,NA,2021-07,NA
+EUCTR2020-005951-19,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005951-19,FALSE,NA,2021-07,NA
+EUCTR2020-005588-29,EudraCT,"['Prematurely Ended', 'Ongoing', 'Ongoing', 'Prematurely Ended', 'Ongoing', 'Prematurely Ended']",NA,2021-06-25,2021-06-25,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005588-29,FALSE,NA,2021-07,NA
+EUCTR2020-005469-15,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005469-15,FALSE,NA,2021-07,FALSE
+EUCTR2021-000344-21,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-000344-21,FALSE,NA,2021-07,NA
+EUCTR2021-000904-39,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-000904-39,FALSE,NA,2021-07,NA
+EUCTR2021-002175-19,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-002175-19,FALSE,NA,2021-07,FALSE
+EUCTR2021-001275-16,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2021-001275-16,FALSE,NA,2021-07,FALSE
+EUCTR2020-005085-33,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005085-33,FALSE,NA,2021-07,FALSE
+EUCTR2015-002340-14,EudraCT,"['Ongoing', 'Ongoing', 'Ongoing', 'Ongoing', 'Ongoing', 'Ongoing', 'Ongoing', 'Ongoing', 'Ongoing', 'GB - no longer in EU/EEA', 'Ongoing', 'Ongoing']",NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2015-002340-14,FALSE,NA,2021-07,NA
+EUCTR2020-002016-48,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-002016-48,FALSE,NA,2021-07,FALSE
+EUCTR2020-002188-72,EudraCT,NA,NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-002188-72,FALSE,NA,2021-07,FALSE
+EUCTR2020-005984-29,EudraCT,['Ongoing'],NA,NA,NA,NA,NA,NA,NA,https://www.clinicaltrialsregister.eu/ctr-search/search?query=2020-005984-29,FALSE,NA,2021-07,NA
+ISRCTN99916292,ISRCTN,Completed,NA,2022-01-11,2022-01-11,NA,NA,NA,2021-05-14,https://www.isrctn.com/ISRCTN99916292,FALSE,NA,2021-07,NA
+ISRCTN40580903,ISRCTN,Compelted,NA,2021-05-01,2021-05-01,NA,NA,NA,2021-06-11,https://www.isrctn.com/ISRCTN40580903,FALSE,NA,2021-07,NA
+ISRCTN30564012,ISRCTN,Compelted,NA,2021-02-28,2021-02-28,NA,NA,NA,2021-01-21,https://www.isrctn.com/ISRCTN30564012,FALSE,NA,2021-07,NA
+ISRCTN11952463,ISRCTN,Ongoing,NA,2021-08-30,2021-08-30,NA,NA,NA,2021-07-09,https://www.isrctn.com/ISRCTN11952463,FALSE,NA,2021-07,NA
+ISRCTN50189673,ISRCTN,Ongoing,NA,2031-12-31,2031-12-31,NA,NA,NA,2020-07-02,https://www.isrctn.com/ISRCTN50189673,FALSE,NA,2021-07,NA
+JPRN-jRCT2071200084,jRCT,Not Recruiting,NA,NA,NA,NA,NA,NA,2021-04-07,https://jrct.niph.go.jp/en-latest-detail/jRCT2071200084,FALSE,NA,2021-07,NA
+JPRN-jRCT2071200069,jRCT,Not Recruiting,NA,NA,NA,NA,NA,NA,2021-05-18,https://jrct.niph.go.jp/en-latest-detail/jRCT2071200069,FALSE,NA,2021-07,NA
+JPRN-jRCT2031210281,jRCT,Pending,NA,NA,NA,NA,NA,NA,NA,https://jrct.niph.go.jp/en-latest-detail/jRCT2031210281,FALSE,NA,2021-07,NA
+PER-081-20,REPEC,In enrollment,NA,NA,NA,NA,NA,NA,NA,NA,FALSE,NA,2021-07,NA
+PER-105-20,REPEC,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE,NA,2021-07,NA
