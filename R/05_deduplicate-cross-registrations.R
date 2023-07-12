@@ -7,6 +7,40 @@
 library(dplyr)
 
 
+# Set mode ----------------------------------------------------------------
+# Iterative process originally done in google sheets.
+# For reproducibility, google sheets saved locally in repo.
+# Here we specify whether to use "local" or "google" mode (default: local).
+
+dedupe_mode <-ifelse(
+  utils::menu(c("local", "google"), title = glue::glue("Select cross-registration deduplication mode\n(default = local)")) == 2,
+  "google", "local"
+)
+
+# If google mode, set up google identity
+# Note: Google identity must have access to specified sheets
+if (dedupe_mode == "google"){
+
+  # Use google identity (i.e., gmail) to access for google sheets
+  # Get google identity if locally stored as "google", if available
+  # Else ask user and store
+  google_id <-
+    ifelse(
+      nrow(keyring::key_list("google")) == 1,
+      keyring::key_get("google"),
+      keyring::key_set("google")
+    )
+
+  message("Accessing googlesheets via: ", google_id)
+
+  # If new google identity, prompt user in web browser to authenticate
+  googlesheets4::gs4_auth(google_id)
+
+} else if (dedupe_mode == "local") {
+  dir_manual <- here::here("data", "manual")
+}
+
+
 # Combine registrations from numbat and pre-numbat input ------------------
 
 reg_numbat <-
@@ -42,23 +76,11 @@ reg_input_numbat <-
 # Add cross-registrations found in 2022 -----------------------------------
 # After numbat extractions were complete, we checked (webscrape, manual) all registrations for any additional cross-registrations
 
-# Use google identity (i.e., gmail) to access for google sheets
-# Get google identity if locally stored as "google", if available
-# Else ask user and store
-google_id <-
-  ifelse(
-    nrow(keyring::key_list("google")) == 1,
-    keyring::key_get("google"),
-    keyring::key_set("google")
-  )
-
-message("Accessing googlesheets via: ", google_id)
-
-# If new google identity, prompt user in web browser to authenticate
-googlesheets4::gs4_auth(google_id)
-
-reg_2022_raw <-
+reg_2022_raw <- if (dedupe_mode == "google") {
   googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/16J5HBZm93CTp8Ydk-wetFtFxI5FfzqFU3tkg1JKavVw/edit#gid=1116415005", sheet = "cleaned")
+} else {
+  readr::read_csv(fs::path(dir_manual, "2022_cross-registrations.csv"))
+}
 
 reg_2022 <-
   reg_2022_raw |>
@@ -75,9 +97,9 @@ reg_2022 <-
   mutate(euctr_hidden = if_else(!stringr::str_detect(crossreg, "EUCTR"), NA, euctr_hidden)) |>
 
   # Add in tri ids for trn and crossreg and then deduplicate
-  left_join(select(reg_input_numbat, id, trn), by = c("trn")) |>
+  left_join(select(reg_input_numbat, id, trn), by = c("trn"), relationship = "many-to-many") |>
   rename(id_trial_id = id) |>
-  left_join(select(reg_input_numbat, id, trn), by = c("trn")) |>
+  left_join(select(reg_input_numbat, id, trn), by = c("trn"), relationship = "many-to-many") |>
   rename(id_crossreg = id)
 
 # Get all trn/id combinations, excluding empty and duplicates
@@ -93,7 +115,7 @@ reg_2022_trns_ids <-
   arrange(id) |>
 
   # Limit to new trn/id combinations, not in registrations
-  anti_join(select(reg_input_numbat, id, trn)) |>
+  anti_join(select(reg_input_numbat, id, trn), by = c("id", "trn")) |>
 
   # Add in registries
   mutate(registry = ctregistries::which_registries(trn))
@@ -148,13 +170,18 @@ prepare_db_dupes <- function(tbl_in) {
 # Get all trns associated with >1 db_id, for manual deduplication
 dedupe_to_code <- prepare_db_dupes(reg_input_numbat_2022)
 
-readr::write_csv(dedupe_to_code, here::here("data", "manual", "crossreg-dedupe.csv"))
+readr::write_csv(dedupe_to_code, here::here("data", "manual", "crossreg-dedupe_to-code.csv"))
 
+# Note: Manually uploaded to google sheets and deduplicated manually
 
-# Manually uploaded to google sheets and deduplicated manually
-dedupe_googlesheet <- "https://docs.google.com/spreadsheets/d/1HXG_4rQDG4Yt08XvnUwfzJIY5k2SXRu-Tfxa7goZoOE/edit#gid=1539112480"
+if (dedupe_mode == "google") {
+  dedupe_googlesheet <- "https://docs.google.com/spreadsheets/d/1HXG_4rQDG4Yt08XvnUwfzJIY5k2SXRu-Tfxa7goZoOE/edit#gid=1539112480"
 
-dedupe_coded <- googlesheets4::read_sheet(dedupe_googlesheet)
+  dedupe_coded <- googlesheets4::read_sheet(dedupe_googlesheet)
+
+} else {
+  dedupe_coded <- readr::read_csv(fs::path(dir_manual, "crossreg-dedupe_coded.csv"))
+}
 
 # Create lookup table of dedupe trns/ids
 dedupe_lookup <-
@@ -198,11 +225,13 @@ reg_deduped <-
   distinct(id = id_final, trn, registry, ids_old)
 
 # Deduplicated registrations should have only one row per trn
-# If not (i.e., >1 row per trn), get dupes and append to google sheets, and repeat from reading in `dedupe_googlesheet`
+# If not (i.e., >1 row per trn), get dupes and append to google sheets, and repeat from reading in `dedupe_googlesheet`, and if not google mode, error
 if (!(identical(n_distinct(reg_input_numbat_2022$trn), n_distinct(reg_deduped$trn)) & identical(n_distinct(reg_deduped$trn), nrow(reg_deduped)))) {
   message("There is >1 row per TRN! Additional deduplication needed.")
-  prepare_db_dupes(reg_deduped) |>
-    googlesheets4::sheet_append(dedupe_googlesheet, .)
+  if (dedupe_mode == "google"){
+    prepare_db_dupes(reg_deduped) |>
+      googlesheets4::sheet_append(dedupe_googlesheet, .)
+  } else {stop("Use 'google' mode for additional deduplication")}
 } else message("Trials successfully deduplicated!")
 
 
@@ -242,17 +271,28 @@ hidden_euctr <-
   arrange(crossreg) |>
   pull(crossreg)
 
+# Check unresolved trns
+if (dedupe_mode == "google") {
+  unresolved_googlesheet <-
+    "https://docs.google.com/spreadsheets/d/1LwEtItdmSAK9X9FzXtQDasMsgaoYsR1fUhfzC_d3Lwk/edit#gid=0"
 
-# Check unresolved trns in googlesheet
-unresolved_googlesheet <-
-  "https://docs.google.com/spreadsheets/d/1LwEtItdmSAK9X9FzXtQDasMsgaoYsR1fUhfzC_d3Lwk/edit#gid=0"
+  unresolved_checks <- googlesheets4::read_sheet(unresolved_googlesheet)
 
-unresolved_checks <- googlesheets4::read_sheet(unresolved_googlesheet)
+} else {
+  unresolved_checks <- readr::read_csv(fs::path(dir_manual, "unresolved-crossreg-checks.csv"))
+}
 
-# Add any additional unresolved trns to googlesheet for manual checks
-tibble(trn = unique(c(hidden_euctr, unresolved_registrations))) |>
-  anti_join(unresolved_checks) %>%
-  googlesheets4::sheet_append(unresolved_googlesheet, .)
+# If any additional unresolved trns, add to googlesheet for manual checks, if google mode, and if not google mode, error
+
+additional_unresolved_checks <-
+  tibble(trn = unique(c(hidden_euctr, unresolved_registrations))) |>
+  anti_join(unresolved_checks, by = "trn")
+
+if (nrow(additional_unresolved_checks) > 0){
+  if (dedupe_mode == "google") {
+    googlesheets4::sheet_append(unresolved_googlesheet, additional_unresolved_checks)
+  } else {stop("Use 'google' mode for additional unresolved checks")}
+}
 
 # Get date(s) of unresolved checks
 unresolved_checks_date <- unique(pull(unresolved_checks, date))
