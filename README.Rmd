@@ -17,8 +17,6 @@ knitr::opts_chunk$set(
 
 # DIRECCT
 
-# Data
-
 # Directory Structure
 
 The `data` directory has the below structure of subdirectories. Data pushed to remote is shown below and is limited to `reporting` and data files that are not code-generated.

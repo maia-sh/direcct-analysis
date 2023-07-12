@@ -114,19 +114,21 @@ label_ictrp <- glue('Registered COVID-19 Studies\non ICTRP in July 2021\n(n = {n
 label_auto_pass <- glue('Passed Automated Inclusion\n(n = {n_auto_pass})')
 label_manual_pass <- glue('Passed Manual Inclusion\n(n = {n_manual_pass})')
 label_analysis <- glue('Final Dataset\n(n = {n_analysis})')
-label_crossreg <- glue('Cross-Registrations\n(n = {n_crossreg})')
-label_pre2020 <- glue('Registered Prior to 2020\n(n = {n_pre2020})')
-label_nonintervention <- glue('Not interventional\n(n = {n_nonintervention})')
-label_withdrawn_auto <- glue('Withdrawn on ICTRP/registry\n(n = {n_withdrawn_auto})')
-label_exphase1 <- glue('Manually excluded in Phase 1\n(n = {n_exphase1})')
-label_incomplete <- glue('Any completion > 30 June 2021\n(n = {n_incomplete})')
-label_nonct <- glue('Not a Clinical Trial\n(n = {n_nonct})')
-label_noncovid <- glue('Not on Treatment/Prevention\n(n = {n_noncovid})')
-label_withdrawn_manual <- glue('Withdrawn on Manual Review\n(n = {n_withdrawn_manual})')
+label_auto_exclude <- glue(
+  'Cross-Registrations\t(n = {n_crossreg})
+  Registered Prior to 2020\t(n = {n_pre2020})
+  Not interventional\t(n = {n_nonintervention})
+  Withdrawn on ICTRP/registry\t(n = {n_withdrawn_auto})
+  Manually excluded in Phase 1\t(n = {n_exphase1})
+  Any completion > 30 June 2021\t(n = {n_incomplete})'
+)
+label_manual_exclude <- glue(
+  'Not a Clinical Trial\t(n = {n_nonct})
+  Not on Treatment/Prevention\t(n = {n_noncovid})
+  Withdrawn on Manual Review\t(n = {n_withdrawn_manual})'
+)
 label_cd_analysis_exclude <- glue('Last updated completion\n< 30 June 2021\n(n = {n_cd_analysis_exclude})')
 
-
-# Prepare flowchart
 flow_trials <- DiagrammeR::grViz("digraph trials {
 
 # GRAPH
@@ -149,55 +151,35 @@ node [label = '', width = 0.01, height = 0.01, style = invis]
 rank = same
 
 # EDGES INCLUSION
-edge [minlen = 5]
+edge [minlen = 2.5]
 ictrp -> auto_pass -> manual_pass -> analysis
 
 # EDGES BLANK
 edge [dir = none, style = invis]
 ictrp -> blank_1
-blank_1 -> blank_2
-blank_2 -> blank_3
-blank_3 -> blank_4
-blank_4 -> blank_5
-blank_5 -> blank_6
-blank_6 -> auto_pass
-auto_pass -> blank_7
-blank_7 -> blank_8
-blank_8 -> blank_9
-blank_9 -> manual_pass
-manual_pass -> blank_10
-blank_10 -> analysis
+blank_1 -> auto_pass
+auto_pass -> blank_2
+blank_2 -> manual_pass
+manual_pass -> blank_3
+blank_3 -> analysis
 }
 
 # EXCLUSION SUBGRAPH
 subgraph excluded {
 
-node [width = 2.4]
+node [width = 3.5]
 
 # NODES EXCLUSION
-crossreg [label = '@@5']
-pre2020 [label = '@@6']
-nonintervention [label = '@@7']
-withdrawn_auto [label = '@@8']
-exphase1 [label = '@@9']
-incomplete [label = '@@10']
-nonct [label = '@@11']
-noncovid [label = '@@12']
-withdrawn_manual [label = '@@13']
-cd_analysis_exclude [label = '@@14']
+auto_exclude [label = '@@5', height = 1.5]
+manual_exclude [label = '@@6']
+cd_analysis_exclude [label = '@@7']
+
 }
 
 # EDGES EXCLUSION
-blank_1 -> crossreg
-blank_2 -> pre2020
-blank_3 -> nonintervention
-blank_4 -> withdrawn_auto
-blank_5 -> exphase1
-blank_6 -> incomplete
-blank_7 -> nonct
-blank_8 -> noncovid
-blank_9 -> withdrawn_manual
-blank_10 -> cd_analysis_exclude
+blank_1 -> auto_exclude
+blank_2 -> manual_exclude
+blank_3 -> cd_analysis_exclude
 }
 
 # LABELS
@@ -205,16 +187,9 @@ blank_10 -> cd_analysis_exclude
 [2]: label_auto_pass
 [3]: label_manual_pass
 [4]: label_analysis
-[5]: label_crossreg
-[6]: label_pre2020
-[7]: label_nonintervention
-[8]: label_withdrawn_auto
-[9]: label_exphase1
-[10]: label_incomplete
-[11]: label_nonct
-[12]: label_noncovid
-[13]: label_withdrawn_manual
-[14]: label_cd_analysis_exclude
+[5]: label_auto_exclude
+[6]: label_manual_exclude
+[7]: label_cd_analysis_exclude
 ")
 
 # Export image
@@ -225,15 +200,15 @@ flow_trials |>
   charToRaw() |>
   rsvg::rsvg_pdf(fs::path(dir_reporting_metadata, "flow-trials.pdf"),
                  width = 150,
-                 height = 500
+                 height = 150
   )
 
 flow_trials |>
   DiagrammeRsvg::export_svg() |>
   charToRaw() |>
   rsvg::rsvg_png(fs::path(dir_reporting_metadata, "flow-trials.png"),
-                 width = 150*8,
-                 height = 500*8
+                 width = 150*10,
+                 height = 150*10
   )
 
 # Clean up
