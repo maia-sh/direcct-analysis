@@ -1,7 +1,6 @@
 library(dplyr)
 library(pointblank)
 
-
 dir <- fs::dir_create(here::here("data", "raw", "numbat"))
 dir_cleaned <- fs::dir_create(here::here("data", "cleaned"))
 
@@ -12,15 +11,14 @@ numbat_export_logs <- loggit::read_logs()
 
 latest_export_date <-
   numbat_export_logs |>
-  arrange(desc(timestamp)) |>
+  # Get date from url
+  mutate(export_date = stringr::str_extract(log_msg, "(?<=export/)202\\d-\\d{2}-\\d{2}")) |>
+  arrange(desc(export_date)) |>
   slice_head(n = 1) |>
-  pull(timestamp) |>
+  pull(export_date) |>
   as.Date.character()
 
 dir_raw <- fs::path(dir, latest_export_date)
-
-# Get trials with issues to be discussed by study team
-# problem_trials <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1mvBJjK2wQIPixK2oorizs-fFGSp4YwZ3uil_FsXSzwM/edit#gid=0")
 
 
 # Validate trials ---------------------------------------------------------
@@ -42,8 +40,7 @@ select_trial_vars <- function(tbl){
     non_english,
     comments,
     unclear_screening,
-    team_review#,
-    # is_reconciled
+    team_review
   )
 }
 
@@ -110,7 +107,7 @@ validate_trials <- function(tbl, tbl_name = NULL){
       label = "COVID trials missing withdrawn criterion"
     ) |>
 
-    #TODO! https://stackoverflow.com/questions/70114227/check-rowwise-assertion-in-r-pointblank
+    #TODO: https://stackoverflow.com/questions/70114227/check-rowwise-assertion-in-r-pointblank
     # Not all screening criteria should be NA
     # rows_complete(
     #   vars(is_clinical_trial_manual, is_covid_manual, is_not_withdrawn_manual),
@@ -164,12 +161,7 @@ reconciliation_trials_2 <-
 valiate_utf8(reconciliation_trials_2)
 
 agent_reconciliation_trials_2 <- validate_trials(reconciliation_trials_2, tbl_name = filename)
-# agent_reconciliation_trials_2
 
-# reconciliation_trials_2 |>
-#   filter(is.na(is_clinical_trial_manual) & is.na(is_covid_manual) & is.na(is_not_withdrawn_manual))
-
-# get_data_extracts(agent_reconciliation_trials_2, i = 14)
 
 # Trials 2 (extractions) --------------------------------------------------
 phase <- 2
@@ -194,10 +186,7 @@ extraction_trials_2 <-
 valiate_utf8(extraction_trials_2)
 
 agent_extraction_trials_2 <- validate_trials(extraction_trials_2, tbl_name = filename)
-# agent_extraction_trials_2
 
-# flagged_trials <- get_data_extracts(agent_extraction_trials_2, i = 13)
-# anti_join(flagged_trials, problem_trials, by = "id")
 
 # Trials 3 (reconciled) ---------------------------------------------------
 phase <- 3
@@ -212,9 +201,7 @@ reconciliation_trials_3 <-
 valiate_utf8(reconciliation_trials_3)
 
 agent_reconciliation_trials_3 <- validate_trials(reconciliation_trials_3, tbl_name = filename)
-# agent_reconciliation_trials_3
 
-# get_data_extracts(agent_reconciliation_trials_3, i = 13) |> mutate(issue = glue::glue("[3] {id}/{trn}")) |> pull(issue)
 
 # Trials 3 (extractions) --------------------------------------------------
 phase <- 3
@@ -238,10 +225,7 @@ extraction_trials_3 <-
 valiate_utf8(extraction_trials_3)
 
 agent_extraction_trials_3 <- validate_trials(extraction_trials_3, tbl_name = filename)
-# agent_extraction_trials_3
 
-# get_data_extracts(agent_extraction_trials_3, i = 14)
-# anti_join(flagged_trials, problem_trials, by = "id")
 
 # Combine trials ----------------------------------------------------------
 
@@ -249,11 +233,6 @@ multiagent_trials <-
   create_multiagent(
     agent_reconciliation_trials_2, agent_extraction_trials_2, agent_extraction_trials_3
   )
-# report_trials <-
-#   get_multiagent_report(
-#     multiagent_trials,
-#     title = ":tbl_name:"
-#   )
 
 trials <-
   bind_rows(reconciliation_trials_2, extraction_trials_2, reconciliation_trials_3, extraction_trials_3) |>
@@ -263,9 +242,6 @@ trials <-
 
   # Trials failing any manual screening criteria are excluded
   mutate(is_manual_excluded = if_else(!is_clinical_trial_manual | !is_covid_manual | !is_not_withdrawn_manual, TRUE, FALSE))
-
-trials |>
-filter(is.na(is_clinical_trial_manual) & is.na(is_covid_manual) & is.na(is_not_withdrawn_manual))
 
 
 # Prepare intervention arms -----------------------------------------------
@@ -305,6 +281,7 @@ extraction_interventions <-
   assertr::assert(assertr::is_uniq, id)
 
 interventions <- bind_rows(reconciliation_interventions, extraction_interventions)
+
 
 # Save trials (with standard of care) -------------------------------------
 
@@ -467,6 +444,7 @@ validate_results <- function(tbl, tbl_name = NULL){
     interrogate()
 }
 
+
 # Results 2 (reconciled) --------------------------------------------------
 
 phase <- 2
@@ -478,9 +456,7 @@ reconciliation_results_2 <-
   select_result_vars()
 
 agent_reconciliation_results_2 <- validate_results(reconciliation_results_2, tbl_name = filename)
-# agent_reconciliation_results_2
 
-# get_data_extracts(agent_reconciliation_results_2, i = 17)# |> mutate(issue = glue::glue("[2] {id}/{trn}")) |> pull(issue)
 
 # Results 2 (extractions) -------------------------------------------------
 
@@ -492,13 +468,10 @@ extraction_results_2 <-
   select_result_vars() |>
 
   # Limit to non-reconciled trials and most recent extraction
-  semi_join(extraction_trials_2, by = c("id", "username"))
-
+  semi_join(extraction_trials_2, by = c("id", "username")) |>
+  mutate(date_publication = as.Date(date_publication))
 
 agent_extraction_results_2 <- validate_results(extraction_results_2, tbl_name = filename)
-# agent_extraction_results_2
-# get_data_extracts(agent_extraction_results_2, i = 5) #|> anti_join(problem_trials, by = "id") |> mutate(issue = glue::glue("[2] {id}/{trn}")) |> pull(issue)
-# expect issues with 5 for tri02586 (maia-sh)
 
 # Results 3 (reconciled) --------------------------------------------------
 
@@ -511,8 +484,6 @@ reconciliation_results_3 <-
   select_result_vars()
 
 agent_reconciliation_results_3 <- validate_results(reconciliation_results_3, tbl_name = filename)
-# agent_reconciliation_results_3
-# get_data_extracts(agent_reconciliation_results_3, i = 15) #|> mutate(issue = glue::glue("[2] {id}/{trn}")) |> pull(issue)
 
 
 # Results 3 (extractions) -------------------------------------------------
@@ -528,23 +499,14 @@ extraction_results_3 <-
   # Note: This also removes ghost extractions for unassigned coders (tri00319 and tri00324). Numbat deletes main but not sub-extractions.
   semi_join(extraction_trials_3, by = c("id", "username"))
 
-
 agent_extraction_results_3 <- validate_results(extraction_results_3, tbl_name = filename)
-# agent_extraction_results_3
-# get_data_extracts(agent_extraction_results_3, i = 15) |>
-#   # anti_join(problem_trials, by = "id") |>
-#   mutate(issue = glue::glue("[phase 3] {username}: {id}/{trn}")) |>
-#   pull(issue)
-# results issues for tri00319 and tri00324 for many coders...but not showing up in extractions.. wrote to murph 2022-01-28 right now fixing by joining with trials TODO
-# ex_tr_3 %>% filter(id %in% c("tri00319", "tri00324"))
-# [phase 3] MollyPugh-Jones: tri01208/NCT04362111
+
 
 # Combine results ---------------------------------------------------------
 
-multiagent_results <-
-  create_multiagent(
-    agent_reconciliation_results_2, agent_extraction_results_2, agent_reconciliation_results_3, agent_extraction_results_3
-  )
+multiagent_results <- create_multiagent(
+  agent_reconciliation_results_2, agent_extraction_results_2, agent_reconciliation_results_3, agent_extraction_results_3
+)
 
 results <-
   bind_rows(reconciliation_results_2, extraction_results_2, reconciliation_results_3, extraction_results_3) |>
@@ -553,6 +515,7 @@ results <-
   mutate(doi = tolower(doi))
 
 readr::write_csv(results, here::here(dir_cleaned, "results.csv"))
+
 
 # Validate registrations --------------------------------------------------
 
@@ -616,9 +579,7 @@ reconciliation_registrations_2 <-
   prepare_registration_vars()
 
 agent_reconciliation_registrations_2 <- validate_registrations(reconciliation_registrations_2, tbl_name = filename)
-# agent_reconciliation_registrations_2
 
-# get_data_extracts(agent_reconciliation_registrations_2, i = 1)
 
 # Registrations 2 (extractions) -------------------------------------------
 
@@ -631,14 +592,10 @@ extraction_registrations_2 <-
 
   # Limit to non-reconciled trials and most recent extraction
   # NOTE: Limiting to non-reconciled means no extracted only
-  # TODO: alternatively could include all extractions...
   semi_join(extraction_trials_2, by = c("id", "username"))
 
-
 agent_extraction_registrations_2 <- validate_registrations(extraction_registrations_2, tbl_name = filename)
-# agent_extraction_registrations_2
 
-# get_data_extracts(agent_extraction_registrations_2, i = 1)
 
 # Registrations 3 (reconciliation) -------------------------------------------
 
@@ -651,9 +608,7 @@ reconciliation_registrations_3 <-
   prepare_registration_vars()
 
 agent_reconciliation_registrations_3 <- validate_registrations(reconciliation_registrations_3, tbl_name = filename)
-# agent_reconciliation_registrations_3
 
-# get_data_extracts(agent_reconciliation_registrations_3, i = 3)
 
 # Registrations 3 (extractions) -------------------------------------------
 
@@ -668,12 +623,6 @@ extraction_registrations_3 <-
   semi_join(extraction_trials_3, by = c("id", "username"))
 
 agent_extraction_registrations_3 <- validate_registrations(extraction_registrations_3, tbl_name = filename)
-# agent_extraction_registrations_3
-
-# get_data_extracts(agent_extraction_registrations_3, i = 3) #|>
-#   anti_join(problem_trials, by = "id") |>
-#   mutate(issue = glue::glue("[phase 3] {username}: {id}/{trialid}")) |>
-#   pull(issue)
 
 
 # Combine registrations ---------------------------------------------------
