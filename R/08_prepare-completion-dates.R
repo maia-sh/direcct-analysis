@@ -24,6 +24,7 @@ registries <- readr::read_csv(fs::path(dir_cleaned, "2021-07_registries.csv"))
 registries_22 <- readr::read_csv(fs::path(dir_cleaned, "2022-04_registries.csv"))
 
 # Add completion flag to registries
+# NOTE: Consensus by MSH and ND
 registries_status <-
   registries |>
     mutate(status_complete = case_when(
@@ -31,11 +32,6 @@ registries_status <-
       stringr::str_detect(trial_status, "(?i)complete|compelte|terminated|prematurely ended|stopped|Main results already published") ~ TRUE,
       TRUE ~ FALSE
     ))
-
-# registries_status |>
-#   distinct(trial_status, status_complete) |>
-#   arrange(desc(status_complete), trial_status) |>
-#   readr::write_csv(here::here("data", "inspect", "complete-trial-statuses.csv"))
 
 # Limit to trials that pass auto-screening
 trials_pass_auto <-
@@ -105,7 +101,8 @@ rcd_last_updated_exclude_missing_update_date <-
   mutate(date_completion = max(rcd)) |>
   ungroup() |>
 
-  distinct(id, date_completion, last_updated_latest, trial_status, status_complete) |> distinct(id, date_completion, last_updated_latest, status_complete, .keep_all = TRUE)
+  distinct(id, date_completion, last_updated_latest, trial_status, status_complete) |>
+  distinct(id, date_completion, last_updated_latest, status_complete, .keep_all = TRUE)
 
 
 # 1) latest registry update pre-cutoff + euctr ----------------------------
@@ -172,8 +169,6 @@ registries_21_only <-
   anti_join(registries, registries_22, by = "trn") |>
   select(trn, registry) |>
   left_join(select(registrations, trn, resolved), by = "trn")
-# count(registries_21_only, resolved, registry)
-# readr::write_csv(registries_21_only, here::here("data", "inspect", "2022-04_registries_missing.csv"))
 
 # For registrations missing 22 scrapes, use July 21 scrapes (available for 103 of 115)
 reg_22_21_trials_pass_auto <-
@@ -407,12 +402,12 @@ completion_dates <-
   left_join(rename(rcd_latest_pre_cutoff, date_completion_rcd_latest_pre_cutoff = date_completion)) |>
 
   left_join(
-    select(rcd_last_updated_exclude_missing_update_date, id,
+    distinct(rcd_last_updated_exclude_missing_update_date, id,
            date_completion_last_updated_exclude_missing_update_date = date_completion)
   ) |>
 
   left_join(
-    select(rcd_last_updated_prefer_euctr, id,
+    distinct(rcd_last_updated_prefer_euctr, id,
            date_completion_last_updated_prefer_euctr = date_completion,
            trial_status_last_updated_prefer_euctr = trial_status,
            status_complete_last_updated_prefer_euctr = status_complete)

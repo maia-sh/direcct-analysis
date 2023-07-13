@@ -1,7 +1,6 @@
 # Screen trials using ICTRP, registries, and manual extractions
 # Save intermediary screening dataframes for trial inclusion flow chart
 
-
 library(dplyr)
 
 
@@ -57,7 +56,7 @@ screening_registries <-
     is_rcd_cutoff_3 =
       if_else(
         rcd < PHASE_3_CUTOFF,
-        TRUE, FALSE#,missing = FALSE # NOTE: Exclude rcd=NA so could code as FALSE
+        TRUE, FALSE#,missing = FALSE # Note: Exclude rcd=NA so could code as FALSE
       )
   )
 
@@ -85,7 +84,7 @@ excluded_trials_missing_crossreg <-
   filter(!is_any_rcd_cutoff_3) |>
 
   # Get all trns associated with excluded trials
-  # NOTE: limit to registrations that resolve
+  # Note: limit to registrations that resolve
   left_join(
     filter(registrations, is.na(resolved)) |> select(id, trn),
     by = "id") |>
@@ -165,42 +164,11 @@ screening_ictrp <-
           # In ICTRP, withdrawn trials may be indicated as recruitment_status
           !recruitment_status %in% "Withdrawn",
         TRUE, FALSE
-      ),
-
-    # Eligible studies based on auto criteria and phase 1 screening
-    # is_eligible_study =
-    #   if_else(
-    #     is_intervention & is_reg_2020 & is_not_withdrawn & is.na(is_phase_1_manually_excluded),
-    #     TRUE, FALSE
-    #   ),
-    #
-    # is_rcd_cutoff_3 =
-    #   if_else(
-    #     rcd < PHASE_3_CUTOFF,
-    #     TRUE, FALSE#,missing = FALSE # NOTE: Exclude rcd=NA so could code as FALSE
-    #   )
+      )
   )
 
-
-# Summarize ictrp screening across cross-registrations to row per unique trial
-# Include if ANY intervention, registered
-# Exclude if ANY withdrawn
-# Exclude if ANY manually excluded in phase 1 (though NO cross-registered were excluded in phase 1)
-# screening_deduped_ictrp_with_euctr_dupes <-
-#   screening_ictrp |>
-#   group_by(id) |>
-#   summarize(
-#     trn_ictrp = paste(trn, collapse = ";"),
-#     n_ictrp = n(),
-#     is_intervention = any(is_intervention),
-#     is_reg_2020 = any(is_reg_2020),
-#     is_not_withdrawn_ictrp = all(is_not_withdrawn_ictrp),
-#     is_phase_1_manually_excluded = any(is_phase_1_manually_excluded)
-#   ) |>
-#   mutate(in_ictrp = TRUE, .after = id)
-
 # Get deduped trn in ictrp
-# NOTE: collapse multiple euctr registrations, also for count (i.e., mutliple euctr countries count as single registration)
+# Note: collapse multiple euctr registrations, also for count (i.e., mutliple euctr countries count as single registration)
 screening_deduped_ictrp_trn <-
   screening_ictrp |>
   distinct(id, trn) |>
@@ -226,25 +194,6 @@ screening_deduped_ictrp <-
 
 # Prepare screening: registries + ICTRP + phase 1 + manual ----------------
 # Create dataframe with one row per unique trial with data from all sources
-
-# from this, should be able to make flow chart...
-#
-# id
-# trn_all
-# in_ictrp_21
-# trn_ictrp
-# in_registries_21
-# trn_registries
-# is_intervention (ANY crossreg in ictrp)
-# is_reg_2020 (ANY crossreg in ictrp)
-# is_not_withdrawn (ALL crossreg in ictrp)
-# is_not_withdrawn_ictrp
-# is_not_withdrawn_registry
-# is_phase_1_manually_excluded (ANY crossreg in ictrp)
-# is_rcd
-# manual intervention
-# manual covid
-# manual not withdrawn
 
 screening_trials <-
 
