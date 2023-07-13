@@ -1,16 +1,47 @@
-# We match preprints and articles for full results, which we did not explicitly do in our extractions. We do this via automation when possible (i.e., single full result, full results of only a single type, single medrxiv match with no additional full results) and otherwise manually.
 # We use the medrxiv API to check for preprint-article matches, as well as to verify there are no missing articles in our extractions.
-# For trials with multiple publication groups, group number is set by
+# We match preprints and articles for full results, which we did not explicitly do in our extractions. We do this via automation when possible (i.e., single full result, full results of only a single type, single medrxiv match with no additional full results) and otherwise manually.
 
 library(dplyr)
 # install.packages("medrxivr")
 library(medrxivr)
 
+dir_manual <- here::here("data", "manual")
 dir_processed <- here::here("data", "processed")
 
 registrations <- readr::read_csv(fs::path(dir_processed, "deduped-registrations.csv"))
 trials <- readr::read_csv(fs::path(dir_processed, "deduped-trials.csv"))
 results <- readr::read_csv(fs::path(dir_processed, "deduped-results.csv"))
+
+# Set mode ----------------------------------------------------------------
+# Iterative process originally done in google sheets.
+# For reproducibility, google sheets saved locally in repo.
+# Here we specify whether to use "local" or "google" mode (default: local).
+
+match_mode <-ifelse(
+  utils::menu(c("local", "google"), title = glue::glue("Select publication matching mode\n(default = local)")) == 2,
+  "google", "local"
+)
+
+# If google mode, set up google identity
+# Note: Google identity must have access to specified sheets
+if (match_mode == "google"){
+
+  # Use google identity (i.e., gmail) to access for google sheets
+  # Get google identity if locally stored as "google", if available
+  # Else ask user and store
+  google_id <-
+    ifelse(
+      nrow(keyring::key_list("google")) == 1,
+      keyring::key_get("google"),
+      keyring::key_set("google")
+    )
+
+  message("Accessing googlesheets via: ", google_id)
+
+  # If new google identity, prompt user in web browser to authenticate
+  googlesheets4::gs4_auth(google_id)
+
+}
 
 # Check preprint/article domains ------------------------------------------
 
@@ -45,7 +76,7 @@ medrxiv_dois <-
 
 # Get a copy of the medrxiv database using API, if not already downloaded
 # Using the medrxiv API we checked for preprint-article matches on 17 September 2022. We added any missing articles to our database and noted the validated links.
-# Note: snapshot from 2022-07-06 01:09
+# TODO: Re-running API call produces different results since new publications added until `to_date`. For reproducibility, use stored snapshot.
 
 medrxiv_date <- "2022-09-17"
 medrxiv_path <- here::here("data", "raw", paste0(medrxiv_date, "_medrxiv-snapshot.csv"))
@@ -228,28 +259,19 @@ full_results_to_code <-
   ) |>
   mutate(notes = "")
 
-readr::write_csv(full_results_to_code, here::here("data", "manual", "full-results-to-code.csv"))
+readr::write_csv(full_results_to_code, fs::path(dir_manual, "full-results-matching_to-code.csv"))
 
-# Use google identity (i.e., gmail) to access for google sheets
-# Get google identity if locally stored as "google", if available
-# Else ask user and store
-google_id <-
-  ifelse(
-    nrow(keyring::key_list("google")) == 1,
-    keyring::key_get("google"),
-    keyring::key_set("google")
-  )
+# Note: Manually uploaded to google sheets and matched manually
 
-message("Accessing googlesheets via: ", google_id)
+# Get manual coded googlesheet, or local version
+if (match_mode == "google") {
+  full_results_googlesheet <- "https://docs.google.com/spreadsheets/d/1_DjRGs2chS3eO9xnCBzjM5fQAzA2Fb_JgtFIlCDzcqk/"
 
-# If new google identity, prompt user in web browser to authenticate
-googlesheets4::gs4_auth(google_id)
+  full_results_pub_group_manual <- googlesheets4::read_sheet(full_results_googlesheet)
 
-# Get manual coded googlesheet
-full_results_googlesheet <- "https://docs.google.com/spreadsheets/d/1_DjRGs2chS3eO9xnCBzjM5fQAzA2Fb_JgtFIlCDzcqk/"
-
-full_results_pub_group_manual <-
-  googlesheets4::read_sheet(full_results_googlesheet)
+} else {
+  full_results_pub_group_manual <- readr::read_csv(fs::path(dir_manual, "full-results-matching_coded.csv"))
+}
 
 # Check for any uncoded, using url (since all results)
 full_results_uncoded <-
@@ -258,10 +280,14 @@ full_results_uncoded <-
     by = c("id", "pub_type", "url")
   )
 
+# If additional results to match, append to append to google sheets, and repeat from reading in `full_results_googlesheet`, and if not google mode, error
 if (nrow(full_results_uncoded) > 0) {
   message("There are additional full results for preprint-article manual grouping!")
-  googlesheets4::sheet_append(full_results_googlesheet, full_results_uncoded)
+  if (match_mode == "google"){
+    googlesheets4::sheet_append(full_results_googlesheet, full_results_uncoded)
+  } else {stop("Use 'google' mode for additional  preprint-article manual grouping")}
 } else message("Preprint-article full results successfully manually grouped!")
+
 
 # Check for any extra coded, using url (since all results)
 full_results_extra_coded <-
@@ -313,7 +339,6 @@ results_pub_group_full <-
   results_pub_group |>
   filter(stringr::str_detect(pub_type, "full"))
 
-# TODO: Check with ND
 # There are some (n = 5) trials with 2 preprints for 1 article
 # In this case, we care only about the earliest preprint
 results_pub_group_full |>
@@ -335,11 +360,4 @@ full_pub_groups <-
 
 # Check for preprints following articles --> none!
 full_pub_groups |>
-  # add_row(
-  #   id = "tri00000",
-  #   full_pub_group = 1,
-  #   journal_article = as.Date("2020-06-16"),
-  #   preprint = as.Date("2020-10-09"),
-  #   .before = 1
-  # ) |>
   filter(preprint > journal_article)
