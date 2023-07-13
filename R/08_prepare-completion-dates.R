@@ -389,7 +389,6 @@ cd_results <-
     select(cd_reported, id, date_completion, estimated = estimated_cd, type, date_completion_type), .
   )
 
-# NOTE: used in analysis but not in `reported` data
 readr::write_csv(cd_results, fs::path(dir_processed, "completion-dates-results.csv"))
 
 # Combine completion dates ------------------------------------------------

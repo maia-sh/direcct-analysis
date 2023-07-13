@@ -268,7 +268,7 @@ km_cd_results <- prepare_km(trials_cd_results)
 readr::write_csv(km_cd_results, fs::path(dir_sens, "kaplan-meier-time-to-pub_cd_results.csv"))
 
 cd_results <-
-  readr::read_csv(here::here("data", "processed", "completion-dates-results.csv")) |>
+  readr::read_csv(here::here("data", "reporting", "completion-dates-results.csv")) |>
   filter(id %in% results$id) |>
   assertr::assert(assertr::in_set(trials$id), id)
 
