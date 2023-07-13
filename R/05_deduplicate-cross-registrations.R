@@ -6,6 +6,7 @@
 
 library(dplyr)
 
+dir_manual <- here::here("data", "manual")
 
 # Set mode ----------------------------------------------------------------
 # Iterative process originally done in google sheets.
@@ -36,8 +37,6 @@ if (dedupe_mode == "google"){
   # If new google identity, prompt user in web browser to authenticate
   googlesheets4::gs4_auth(google_id)
 
-} else if (dedupe_mode == "local") {
-  dir_manual <- here::here("data", "manual")
 }
 
 
@@ -170,7 +169,7 @@ prepare_db_dupes <- function(tbl_in) {
 # Get all trns associated with >1 db_id, for manual deduplication
 dedupe_to_code <- prepare_db_dupes(reg_input_numbat_2022)
 
-readr::write_csv(dedupe_to_code, here::here("data", "manual", "crossreg-dedupe_to-code.csv"))
+readr::write_csv(dedupe_to_code, fs::path(dir_manual, "crossreg-dedupe_to-code.csv"))
 
 # Note: Manually uploaded to google sheets and deduplicated manually
 
