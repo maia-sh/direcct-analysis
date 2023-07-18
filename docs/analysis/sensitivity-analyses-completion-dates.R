@@ -235,13 +235,6 @@ trials_screening_cd_results_main |>
   filter(is_cd_cutoff_3_results != is_cd_cutoff_3_main) %>%
   assertr::verify(nrow(.) == 0)
 
-# How many trials change date?
-# trials_cd_results_main_change <-
-#   trials_screening_cd_results_main |>
-#   filter(!is.na(is_cd_cutoff_3_results)) |>
-#   filter(date_completion_results != date_completion_main) |>
-#   count(cd_results_later = date_completion_results > date_completion_main)
-
 # How do trials change date?
 trials_cd_results_main_change <-
   trials_screening_cd_results_main |>
@@ -266,11 +259,3 @@ sens_cd_results_p_trials_w_results <- sens_cd_results_n_trials_w_results/sens_cd
 
 km_cd_results <- prepare_km(trials_cd_results)
 readr::write_csv(km_cd_results, fs::path(dir_sens, "kaplan-meier-time-to-pub_cd_results.csv"))
-
-cd_results <-
-  readr::read_csv(here::here("data", "reporting", "completion-dates-results.csv")) |>
-  filter(id %in% results$id) |>
-  assertr::assert(assertr::in_set(trials$id), id)
-
-cd_results_reported <- filter(cd_results, type == "reported")
-cd_results_calculated <- filter(cd_results, type == "calculated")
