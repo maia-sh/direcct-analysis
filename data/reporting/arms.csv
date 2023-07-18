@@ -130,7 +130,7 @@ tri02344,NCT04368988,experimental,NA,NA,vaccine_covid,NVX-CoV2373 (Nuvaxovid),no
 tri02344,NCT04368988,experimental,NA,NA,vaccine_covid,NVX-CoV2373 (Nuvaxovid),no
 tri02344,NCT04368988,experimental,NA,NA,vaccine_covid,NVX-CoV2373 (Nuvaxovid),no
 tri02344,NCT04368988,experimental,NA,NA,vaccine_covid,NVX-CoV2373 (Nuvaxovid),no
-tri02344,NCT04368988,experimental,NA,NA,vaccine_covid,NVX-CoV2373,no
+tri02344,NCT04368988,experimental,NA,NA,vaccine_covid,NVX-CoV2373 (Nuvaxovid),no
 tri06087,NCT04521322,experimental,NA,NA,drug,Iota-Carrageenan,no
 tri06087,NCT04521322,control,placebo,no,NA,NA,NA
 tri06519,NCT04581291,experimental,NA,NA,procedure,Aerobic Exercises,defined_soc
@@ -640,11 +640,11 @@ tri05664,NCT04471766,experimental,NA,NA,device,Mask (PPE),defined_soc
 tri05664,NCT04471766,control,defined_soc,NA,NA,NA,NA
 tri06938,NCT04647305,experimental,NA,NA,device,Face shield,defined_soc
 tri06938,NCT04647305,control,defined_soc,NA,NA,NA,NA
-tri06836,NCT04630054,experimental,NA,NA,multiple,Awareness campaign;Masks (PPE),NA
+tri06836,NCT04630054,experimental,NA,NA,multiple,Awareness campaign,NA
 tri06836,NCT04630054,control,no_treatment,NA,NA,NA,NA
 tri06834,NCT04629989,control,defined_soc,NA,NA,NA,NA
 tri06834,NCT04629989,experimental,NA,NA,device,Double-Trunk Mask,defined_soc
-tri06834,NCT04629989,experimental,NA,NA,multiple,Mask (PPE) (PPE),defined_soc
+tri06834,NCT04629989,experimental,NA,NA,multiple,Mask (PPE),defined_soc
 tri00534,NCT04254874,control,defined_soc,NA,NA,NA,NA
 tri00534,NCT04254874,experimental,NA,NA,drug,Interferon atomization,defined_soc
 tri00186,ChiCTR2000029803,experimental,NA,NA,drug,Hydroxychloroquine,no
@@ -740,6 +740,16 @@ tri07662,NCT04733625,experimental,NA,NA,drug,Vitamin D (Any),no
 tri07662,NCT04733625,control,placebo,no,NA,NA,NA
 tri02595,NCT04385940,experimental,NA,NA,drug,Vitamin D (Any),no
 tri02595,NCT04385940,control,defined_soc,NA,NA,NA,NA
+tri00076,ChiCTR2000029600,experimental,NA,NA,drug,Lopinavir;Ritonavir,defined_soc
+tri00076,ChiCTR2000029600,experimental,NA,NA,drug,Favipiravir,defined_soc
+tri00076,ChiCTR2000029600,control,defined_soc,NA,NA,NA,NA
+tri09521,NCT04902976,experimental,NA,NA,drug,Cetylpyridinium chloride (CPC),no
+tri09521,NCT04902976,experimental,NA,NA,drug,Cetylpyridinium chloride (CPC);Zinc (Any),no
+tri09521,NCT04902976,control,placebo,no,NA,NA,NA
+tri07080,NCT04647747,experimental,NA,NA,multiple,Physiotherapy;Pulse oximeter,no
+tri00185,ChiCTR2000029851,experimental,NA,NA,drug,Lipoic acid,undefined_soc
+tri00185,ChiCTR2000029851,control,placebo,undefined_soc,NA,NA,NA
+tri02532,NCT04410510,experimental,NA,NA,traditional_medicine,Traditional Medicine,defined_soc
 tri00037,ChiCTR2000029790,experimental,NA,NA,traditional_medicine,Traditional Medicine,undefined_soc
 tri00037,ChiCTR2000029790,control,undefined_soc,NA,NA,NA,NA
 tri00030,ChiCTR2000029814,experimental,NA,NA,traditional_medicine,Traditional Medicine,undefined_soc
@@ -2358,9 +2368,6 @@ tri00071,ChiCTR2000029609,experimental,NA,NA,drug,Chloroquine,no
 tri00071,ChiCTR2000029609,experimental,NA,NA,drug,Lopinavir;Ritonavir,no
 tri00073,ChiCTR2000029603,experimental,NA,NA,drug,ASC09;Ritonavir,undefined_soc
 tri00073,ChiCTR2000029603,experimental,NA,NA,drug,Lopinavir;Ritonavir,undefined_soc
-tri00076,ChiCTR2000029600,experimental,NA,NA,biologics,Interferon Alpha (Any),no
-tri00076,ChiCTR2000029600,experimental,NA,NA,multiple,Interferon Alpha (Any);Lopinavir;Ritonavir,no
-tri00076,ChiCTR2000029600,experimental,NA,NA,multiple,Favipiravir;Interferon Alpha (Any) (Any),no
 tri00085,ChiCTR2000029541,experimental,NA,NA,drug,Cobicistat;Darunavir,defined_soc
 tri00085,ChiCTR2000029541,experimental,NA,NA,drug,Lopinavir;Ritonavir,defined_soc
 tri00085,ChiCTR2000029541,control,defined_soc,NA,NA,NA,NA
@@ -2837,8 +2844,6 @@ tri00047,ChiCTR2000029765,experimental,NA,NA,biologics,Tocilizumab,undefined_soc
 tri00047,ChiCTR2000029765,control,undefined_soc,NA,NA,NA,NA
 tri00178,ChiCTR2000029972,experimental,NA,NA,procedure,Ultra Short Wave Electrotherapy,no
 tri00178,ChiCTR2000029972,control,undefined_soc,NA,NA,NA,NA
-tri00185,ChiCTR2000029851,experimental,NA,NA,nutritional_supplement,Lipoic acid acid,undefined_soc
-tri00185,ChiCTR2000029851,control,placebo,undefined_soc,NA,NA,NA
 tri00299,ChiCTR2000030481,experimental,NA,NA,drug,Corticosteroids (Unspecified),no
 tri00299,ChiCTR2000030481,experimental,NA,NA,drug,Corticosteroids (Unspecified),no
 tri00299,ChiCTR2000030481,control,no_treatment,NA,NA,NA,NA
@@ -3125,9 +3130,6 @@ tri09492,NCT04898127,experimental,NA,NA,other,COVID Testing,no
 tri09492,NCT04898127,control,no_treatment,NA,NA,NA,NA
 tri09502,NCT04900129,experimental,NA,NA,drug,Diclofenac sodium;Menthol;Methyl salicylate;N-acetyl cysteine,no
 tri09502,NCT04900129,control,placebo,undefined_soc,NA,NA,NA
-tri09521,NCT04902976,experimental,NA,NA,drug,Cetylpyridinium chloride (CPC);zinc lactate,no
-tri09521,NCT04902976,experimental,NA,NA,drug,Cetylpyridinium chloride (CPC),no
-tri09521,NCT04902976,control,placebo,no,NA,NA,NA
 tri09542,NCT04907877,experimental,NA,NA,nutritional_supplement,Probiotic (Unspecified),no
 tri09542,NCT04907877,control,placebo,no,NA,NA,NA
 tri09580,NCT04676867,experimental,NA,NA,drug,Dalcetrapib,no
@@ -3217,7 +3219,6 @@ tri06972,NCT04497649,experimental,NA,NA,drug,Daclatasvir;Sofosbuvir,undefined_so
 tri06972,NCT04497649,control,undefined_soc,NA,NA,NA,NA
 tri07046,NCT04604184,experimental,NA,NA,drug,BI 764198,no
 tri07046,NCT04604184,control,placebo,no,NA,NA,NA
-tri07080,NCT04647747,experimental,NA,NA,multiple,Physiotherapy; Pulse oximeter,no
 tri06047,NCT04516759,experimental,NA,NA,drug,AZD1656,undefined_soc
 tri06047,NCT04516759,control,placebo,undefined_soc,NA,NA,NA
 tri06097,NCT04522830,experimental,NA,NA,drug,Thimerosal,no
@@ -3329,7 +3330,7 @@ tri06266,NCT04542408,experimental,NA,NA,drug,Edoxaban;Heparin (LMWH or Unfractio
 tri06266,NCT04542408,control,placebo,defined_soc,NA,NA,NA
 tri06187,NCT04532931,control,defined_soc,NA,NA,NA,NA
 tri06187,NCT04532931,experimental,NA,NA,drug,Amodiaquine;Artesunate,defined_soc
-tri06187,NCT04532931,experimental,NA,NA,drug,Artesunate;Pyronaridinee,defined_soc
+tri06187,NCT04532931,experimental,NA,NA,drug,Artesunate;Pyronaridine,defined_soc
 tri06187,NCT04532931,experimental,NA,NA,drug,Favipiravir;Nitazoxanide,defined_soc
 tri06187,NCT04532931,experimental,NA,NA,drug,Daclatasvir;Sofosbuvir,defined_soc
 tri04417,PACTR202007606032743,experimental,NA,NA,drug,Nebulized Heparin,undefined_soc
