@@ -83,12 +83,32 @@ dm_img |>
                  height = 463*6
   )
 
+
+# Tables ------------------------------------------------------------------
+# Create tables overview
+
+dm_tables <- names(dm_direcct)
+
+tables_elements <-
+  tibble(
+    table = dm_tables,
+    n_col = purrr::map_int(1:length(dm_tables), \(n_tbl) ncol(dm_direcct[[n_tbl]])),
+    n_row = purrr::map_int(1:length(dm_tables), \(n_tbl) nrow(dm_direcct[[n_tbl]]))
+  )
+
+tables_description <-
+  tibble(table = dm_tables, description = "")
+
+tables <-
+  tables_elements |>
+  left_join(tables_description, by = "table")
+
+readr::write_csv(tables, fs::path(dir_reporting_metadata, "tables.csv"))
+
+
 # Codebook ----------------------------------------------------------------
 
-# TODO: add screening-trials
-# TODO: change to function with metaprogramming
-
-codebook <- bind_rows(
+codebook_elements <- bind_rows(
   tibble(
     table = "registrations",
     variable = colnames(registrations),
@@ -161,227 +181,26 @@ codebook <- bind_rows(
   # Arrange by tables, with `id` and then other variables across tables first
   arrange(variable != "id", desc(stringr::str_detect(table, ";")), table)
 
-description <- tribble(
-  ~variable, ~description,
-  "web_address",
-  "",
-
-  "registry",
-  "",
-
-  "trn",
-  "",
-
-  "id",
-  "",
-
-  "countries",
-  "",
-
-  "date_enrollement",
-  "",
-
-  "date_registration",
-  "",
-
-  "euctr_country",
-  "",
-
-  "phase",
-  "",
-
-  "public_title",
-  "",
-
-  "recruitment_status",
-  "",
-
-  "retrospective_registration",
-  "",
-
-  "study_type",
-  "",
-
-  "target_enrollment",
-  "",
-
-  "comments",
-  "",
-
-  "dual_coded",
-  "",
-
-  "incidental_screening",
-  "",
-
-  "incidental_screening_changes",
-  "",
-
-  "incidental_screening_comment",
-  "",
-
-  "soc",
-  "",
-
-  "dual_coded_intervention",
-  "",
-
-  "timestamp_finished",
-  "",
-
-  "trn_extracted",
-  "",
-
-  "ids_old",
-  "",
-
-  "resolved",
-  "",
-
-  "last_updated",
-  "",
-
-  "other_results_1",
-  "",
-
-  "other_results_2",
-  "",
-
-  "pcd",
-  "",
-
-  "potential_other_results",
-  "",
-
-  "rcd",
-  "",
-
-  "reg_results_status",
-  "",
-
-  "registry_scrape_date",
-  "",
-
-  "scd",
-  "",
-
-  "tabular_results",
-  "",
-
-  "trial_status",
-  "",
-
-  "date_completion",
-  "",
-
-  "date_completion_reported",
-  "",
-
-  "date_final_enrollment",
-  "",
-
-  "date_publication",
-  "",
-
-  "doi",
-  "",
-
-  "estimated_cd_enrollment",
-  "",
-
-  "followup_primary",
-  "",
-
-  "followup_secondary",
-  "",
-
-  "full_pub_group",
-  "",
-
-  "pmid",
-  "",
-
-  "pub_type",
-  "",
-
-  "search_engine",
-  "",
-
-  "search_type",
-  "",
-
-  "url",
-  "",
-
-  "type",
-  "",
-
-  "control_type",
-  "",
-
-  "placebo_plus_soc",
-  "",
-
-  "category",
-  "",
-
-  "intervention",
-  "",
-
-  "intervention_plus_soc",
-  "",
-
-  "date_completion_rcd_latest",
-  "",
-
-  "date_completion_rcd_latest_pre_cutoff",
-  "",
-
-  "date_completion_last_updated_exclude_missing_update_date",
-  "",
-
-  "date_completion_last_updated_prefer_euctr",
-  "",
-
-  "status_complete_last_updated_prefer_euctr",
-  "",
-
-  "date_completion_ictrp",
-  "",
-
-  "date_completion_22_21_last_updated_prefer_euctr",
-  "",
-
-  "date_completion_study_last_updated_prefer_euctr",
-  "",
-
-  "date_completion_results",
-  ""
-)
+# All tables in datamodel should be in codebook
+# Note: "2021-07_registries" and "2022-04_registries" collapsed into "registries" in codebook since same variables
+
+codebook_tables <-
+  codebook_elements |>
+  distinct(table) |>
+  filter(!stringr::str_detect(table, ";")) |>
+  pull()
+
+if (!setequal(
+  stringr::str_subset(dm_tables, "registries", negate = TRUE),
+  setdiff(codebook_tables, "registries")
+)) {stop("There is a mismatch between tables in datamodel and codebook!")}
 
 
 codebook_description <-
-  codebook |>
-  left_join(description, by = "variable")
+  tibble(distinct(codebook_elements, variable), description = "")
 
-readr::write_csv(codebook_description, fs::path(dir_reporting_metadata, "codebook.csv"))
+codebook <-
+  codebook_elements |>
+  left_join(codebook_description, by = "variable")
 
-# Create tables overview
-# TODO: add n rows, (n rows per study?), description, (domain?)
-tibble(
-  table = c(
-    "2021-07-01_ictrp",
-    "2021-07_registries",
-    "2022-04_registries",
-    "arms",
-    "completion-dates",
-    "extraction-info",
-    "registrations",
-    "results",
-    "screening-trials"
-  )
-)
-
-# codebook |>
-#   distinct(table) |>
-#   filter(!stringr::str_detect(table, ";"))
+readr::write_csv(codebook, fs::path(dir_reporting_metadata, "codebook.csv"))
