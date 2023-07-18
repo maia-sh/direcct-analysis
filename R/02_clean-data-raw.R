@@ -84,23 +84,6 @@ ictrp <-
     public_title
   )) |>
 
-  # TODO: delete
-  # Add date_registration for REBEC interventional trials
-  # REPEC "PER-002-21" seems to no longer exist so no date found
-  # rows_update(
-  #   tibble::tribble(
-  #     ~trn, ~date_registration,
-  #     "RBR-62936mf", as.Date("2020-12-28"),
-  #     "RBR-7rgqkhf", as.Date("2021-01-15"),
-  #     "RBR-8z7v5wc", as.Date("2021-02-05"),
-  #     "RBR-2tdj6vs", as.Date("2021-03-30"),
-  #     "RBR-108fyykd", as.Date("2021-04-14"),
-  #     "RBR-95wmphn", as.Date("2021-05-02"),
-  #     "RBR-2ps876h", as.Date("2021-05-14"),
-  #     "RBR-6gdmb8c", as.Date("2021-05-21")
-  #   ), by = "trn"
-  # ) |>
-
   # Check that all trials have title
   assertr::assert(assertr::not_na, public_title) |>
 

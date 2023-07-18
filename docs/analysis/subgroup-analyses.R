@@ -63,14 +63,11 @@ preprint_article_semester <-
   left_join(select(pandemic_semester, id, semester), by = "id") |>
   select(id, semester, time_preprint_article)
 
+
 # minimum standard of design ----------------------------------------------
 # minimum standard of design and enrollment standards as a proxy for those most likely to influence clinical practice. We defined these as randomized trials designated as Phase 2 or higher and conducted in at least 100 participants
 
-# For trials with multiple registrations in registries and/or ictrp, we include trials designated as [(1) randomized TODO: need variable from ND] and (2) Phase 2 or higher in ANY registration and (3) conducted in at least 100 participants per the max of ANY registration
-
-# remember: multiple reg/ictrp for some trials! use any?
-# ictrp:target_enrollment, phase
-# don't have randomized, asking nd
+# For trials with multiple registrations in registries and/or ictrp, we include trials designated as (1) randomized AND (2) Phase 2 or higher in ANY registration AND (3) conducted in at least 100 participants per the max of ANY registration
 
 km_min_standards <-
 

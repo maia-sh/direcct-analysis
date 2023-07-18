@@ -392,7 +392,6 @@ cd_results <-
 readr::write_csv(cd_results, fs::path(dir_processed, "completion-dates-results.csv"))
 
 # Combine completion dates ------------------------------------------------
-#TODO: include trn used for each date option? so rcd, last update, trn?
 completion_dates <-
   trials_pass_auto |>
   select(id) |>

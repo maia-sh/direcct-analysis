@@ -283,7 +283,7 @@ screening_trials |>
   filter(
     is_pass_screening_auto,
     is_any_rcd_cutoff_3
-  ) |> #filter(!is_extracted) TODO: extract tri07331: ISRCTN14037053;NCT04685603
+  ) |>
   assertr::assert(assertr::in_set(TRUE), is_extracted)
 
 readr::write_csv(screening_trials, here::here("data", "processed", "screening-trials.csv"))
