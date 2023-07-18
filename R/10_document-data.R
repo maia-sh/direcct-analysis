@@ -134,6 +134,12 @@ codebook <- bind_rows(
     table = "completion-dates",
     variable = colnames(`completion-dates`),
     type = tolower(purrr::map_chr(`completion-dates`, class))
+  ),
+
+  tibble(
+    table = "screening-trials",
+    variable = colnames(`screening-trials`),
+    type = tolower(purrr::map_chr(`screening-trials`, class))
   )
 ) |>
 
@@ -146,13 +152,14 @@ codebook <- bind_rows(
   mutate(table = stringr::str_remove(table, "202[12]-0[47]_(?=registries)")) |>
   distinct() |>
 
-  # Collapse variables across tables
+  # Collapse variables across tables, in alphabetical order
+  arrange(table) |>
   group_by(variable, type) |>
   summarize(table = stringr::str_c(table, collapse = ";"), .groups = "drop") |>
   relocate(table, .before = 1) |>
 
-  # Arrange by tables, with variables across tables first
-  arrange(desc(stringr::str_detect(table, ";")), table)
+  # Arrange by tables, with `id` and then other variables across tables first
+  arrange(variable != "id", desc(stringr::str_detect(table, ";")), table)
 
 description <- tribble(
   ~variable, ~description,
@@ -366,11 +373,15 @@ tibble(
     "2021-07-01_ictrp",
     "2021-07_registries",
     "2022-04_registries",
+    "arms",
+    "completion-dates",
     "extraction-info",
     "registrations",
     "results",
-    "arms",
-    "screening-trials",
-    "completion-dates"
+    "screening-trials"
   )
 )
+
+# codebook |>
+#   distinct(table) |>
+#   filter(!stringr::str_detect(table, ";"))
