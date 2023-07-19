@@ -130,7 +130,11 @@ ictrp <-
   ), by = "trn") |>
 
   # Change to randomization boolean
-  mutate(is_randomized = if_else(randomisation == "Yes", TRUE, FALSE)) |>
+  mutate(is_randomized = case_when(
+    randomisation == "Yes" ~ TRUE,
+    randomisation == "No" ~ FALSE,
+    TRUE ~ NA
+  )) |>
   select(-randomisation)
 
 # There should be dupes only for different EUCTR country codes

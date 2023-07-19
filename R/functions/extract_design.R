@@ -110,7 +110,8 @@ drks <-
     mutate(
       randomisation = case_when(
         grepl("Allocation: Randomized", study_design) ~ "Yes",
-        TRUE ~ "No" #TODO: check with ND
+        !is.na(study_design) ~ "No",
+        TRUE ~ NA_character_
       )
     )
 
@@ -274,9 +275,8 @@ drks <-
     filter(registry %in% reg_ntr) |>
     mutate(
       randomisation = case_when(
-        grepl("Randomized: Yes",
-              study_design) ~ "Yes",
-        grepl("<br>", study_design) ~ NA_character_ #TODO: ND check
+        grepl("Randomized: Yes", study_design) ~ "Yes",
+        !grepl("Randomized: Yes", study_design) ~ "No"
       )
     )
 
@@ -288,26 +288,22 @@ drks <-
     filter(registry %in% reg_pactr) |>
     mutate(
       randomisation = case_when(
-        grepl("[rR]andomi[sz]ed",
-              study_design) ~ "Yes",
-        TRUE ~ NA_character_ #TODO: ND check
+        grepl("Randomi[sz]ed", study_design) ~ "Yes",
+        !grepl("Randomi[sz]ed", study_design) ~ "No"
       )
     )
 
 
   # repec -------------------------------------------------------------------
-  # Not in JS or ND code
+  # https://github.com/ebmdatalab/direcct-phase2-python/blob/phase_3_testing/notebooks/diffable_python/Randomisation.py#L142-L143
 
   repec <-
     data |>
     filter(registry %in% reg_repec) |>
     mutate(
       randomisation = case_when(
-        grepl("no[nt][ -]*[rR]andomi[sz]ed",
-              study_design) ~ "No",
-        grepl("[rR]andomi[sz]ed",
-              study_design) ~ "Yes",
-        TRUE ~ NA_character_ #TODO: ND check
+        grepl("(?i)\brandomi[sz]ed|Randomization", study_design) ~ "Yes",
+        TRUE ~ NA_character_
       )
     )
 
