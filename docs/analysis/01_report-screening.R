@@ -113,7 +113,7 @@ label_auto_exclude <- glue(
   Registered Prior to 2020\t(n = {n_pre2020})
   Not interventional\t(n = {n_nonintervention})
   Withdrawn on ICTRP/registry\t(n = {n_withdrawn_auto})
-  Manually excluded in Phase 1\t(n = {n_exphase1})
+  Excluded in Phase 1\t(n = {n_exphase1})
   Any completion > 30 June 2021\t(n = {n_incomplete})'
 )
 label_manual_exclude <- glue(
@@ -121,7 +121,7 @@ label_manual_exclude <- glue(
   Not on Treatment/Prevention\t(n = {n_noncovid})
   Withdrawn on Manual Review\t(n = {n_withdrawn_manual})'
 )
-label_cd_analysis_exclude <- glue('Last updated completion\n< 30 June 2021\n(n = {n_cd_analysis_exclude})')
+label_cd_analysis_exclude <- glue('Completion Date > 30 June 2021\non Another Registration\n(n = {n_cd_analysis_exclude})')
 
 flow_trials <- DiagrammeR::grViz("digraph trials {
 
